@@ -1,0 +1,51 @@
+﻿@model IEnumerable<NationalParksHiking.Models.Trail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TrailName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrailDifficulty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrailLat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrailLng)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrailName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrailDifficulty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrailLat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrailLng)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TrailId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TrailId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TrailId })
+        </td>
+    </tr>
+}
+
+</table>

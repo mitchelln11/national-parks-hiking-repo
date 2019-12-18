@@ -1,0 +1,50 @@
+﻿@model NationalParksHiking.Models.Trail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Trail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TrailName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrailName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrailDifficulty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrailDifficulty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrailLat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrailLat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrailLng)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrailLng)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TrailId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
