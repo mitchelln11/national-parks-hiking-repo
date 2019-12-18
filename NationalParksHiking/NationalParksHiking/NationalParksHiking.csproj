@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HikerParkWishlistsController.cs" />
     <Compile Include="Controllers\HikersController.cs" />
+    <Compile Include="Controllers\HikerTrailRatingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ParksController.cs" />
@@ -181,10 +182,15 @@
     <Compile Include="Migrations\201912182114192_HikerParkTrailsModelsControllersViewsCreated.Designer.cs">
       <DependentUpon>201912182114192_HikerParkTrailsModelsControllersViewsCreated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912182148040_JunctionTablesCreated.cs" />
+    <Compile Include="Migrations\201912182148040_JunctionTablesCreated.Designer.cs">
+      <DependentUpon>201912182148040_JunctionTablesCreated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Hiker.cs" />
     <Compile Include="Models\HikerParkWishlist.cs" />
+    <Compile Include="Models\HikerTrailRating.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Park.cs" />
@@ -268,6 +274,11 @@
     <Content Include="Views\HikerParkWishlists\Details.cshtml" />
     <Content Include="Views\HikerParkWishlists\Edit.cshtml" />
     <Content Include="Views\HikerParkWishlists\Index.cshtml" />
+    <Content Include="Views\HikerTrailRatings\Create.cshtml" />
+    <Content Include="Views\HikerTrailRatings\Delete.cshtml" />
+    <Content Include="Views\HikerTrailRatings\Details.cshtml" />
+    <Content Include="Views\HikerTrailRatings\Edit.cshtml" />
+    <Content Include="Views\HikerTrailRatings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -288,6 +299,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201912182114192_HikerParkTrailsModelsControllersViewsCreated.resx">
       <DependentUpon>201912182114192_HikerParkTrailsModelsControllersViewsCreated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912182148040_JunctionTablesCreated.resx">
+      <DependentUpon>201912182148040_JunctionTablesCreated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,42 @@
+﻿@model NationalParksHiking.Models.HikerTrailRating
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HikerTrailRating</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Hiker.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hiker.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trail.TrailName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trail.TrailName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RatingAmt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatingAmt)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HikerTrailRatingId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
