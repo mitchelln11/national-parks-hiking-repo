@@ -23,6 +23,7 @@ namespace NationalParksHiking.Models
         public DbSet<Hiker> Hikers { get; set; }
         public DbSet<Park> Parks { get; set; }
         public DbSet<Trail> Trails { get; set; }
+        public DbSet<HikerParkWishlist> HikerParkWishlists { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

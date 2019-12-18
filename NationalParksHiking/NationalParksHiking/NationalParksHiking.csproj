@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HikerParkWishlistsController.cs" />
     <Compile Include="Controllers\HikersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Hiker.cs" />
+    <Compile Include="Models\HikerParkWishlist.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Park.cs" />
@@ -261,6 +263,11 @@
     <Content Include="Views\Trails\Details.cshtml" />
     <Content Include="Views\Trails\Edit.cshtml" />
     <Content Include="Views\Trails\Index.cshtml" />
+    <Content Include="Views\HikerParkWishlists\Create.cshtml" />
+    <Content Include="Views\HikerParkWishlists\Delete.cshtml" />
+    <Content Include="Views\HikerParkWishlists\Details.cshtml" />
+    <Content Include="Views\HikerParkWishlists\Edit.cshtml" />
+    <Content Include="Views\HikerParkWishlists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

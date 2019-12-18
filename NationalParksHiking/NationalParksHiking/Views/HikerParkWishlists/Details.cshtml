@@ -1,0 +1,34 @@
+﻿@model NationalParksHiking.Models.HikerParkWishlist
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HikerParkWishlist</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Hiker.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hiker.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Park.ParkName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Park.ParkName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HikerParkWishlistId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
