@@ -26,12 +26,13 @@ namespace NationalParksHiking.Controllers
         // GET: Parks/Details/5
         public async Task<ActionResult> Details(int? id)
         {
-            await GetLatLong();
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
+            await GetLatLong(park);
             if (park == null)
             {
                 return HttpNotFound();
@@ -55,6 +56,7 @@ namespace NationalParksHiking.Controllers
             if (ModelState.IsValid)
             {
                 db.Parks.Add(park);
+                await GetLatLong(park);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -70,6 +72,7 @@ namespace NationalParksHiking.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
+            await GetLatLong(park);
             if (park == null)
             {
                 return HttpNotFound();
@@ -128,7 +131,7 @@ namespace NationalParksHiking.Controllers
             base.Dispose(disposing);
         }
 
-        public async Task GetLatLong()
+        public async Task GetLatLong(Park park)
         {
             ApiKeys apiKeys = new ApiKeys(); // Instantiate, so this file knows what file to look at
             var parkKey = apiKeys.NpsKey;
@@ -140,10 +143,13 @@ namespace NationalParksHiking.Controllers
             {
                 NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult);
                 var comboLatLong = npsJsonInfo.data[0].latLong; // Grabs entire lat long string.
-                var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma
-                var latitude = latLongArray[0].TrimEnd(',');
-                var longtitude = latLongArray[1].TrimEnd(',');
-                return;
+                var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma, set to an array
+                var isolatedLatitude = latLongArray[0].TrimEnd(','); // New lat variable for the 0 index, trim trailing comma
+                var isolatedLongtitude = latLongArray[1].TrimEnd(','); // New lng variable for the 1 index trim trailing comma
+                var latitude = isolatedLatitude.Substring(4, isolatedLatitude.Length - 4); // Remove beginning lat: text
+                var longitude = isolatedLongtitude.Substring(5, isolatedLongtitude.Length - 5); // Remove beginning lng: text
+                park.ParkLat = latitude;
+                park.ParkLng = longitude;
             }
         }
     }
