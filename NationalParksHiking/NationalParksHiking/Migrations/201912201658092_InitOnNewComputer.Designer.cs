@@ -7,13 +7,13 @@ namespace NationalParksHiking.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class JunctionTablesCreated : IMigrationMetadata
+    public sealed partial class InitOnNewComputer : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(JunctionTablesCreated));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitOnNewComputer));
         
         string IMigrationMetadata.Id
         {
-            get { return "201912182148040_JunctionTablesCreated"; }
+            get { return "201912201658092_InitOnNewComputer"; }
         }
         
         string IMigrationMetadata.Source

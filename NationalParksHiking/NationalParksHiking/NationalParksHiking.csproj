@@ -162,6 +162,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiKeys.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -178,13 +179,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912182114192_HikerParkTrailsModelsControllersViewsCreated.cs" />
-    <Compile Include="Migrations\201912182114192_HikerParkTrailsModelsControllersViewsCreated.Designer.cs">
-      <DependentUpon>201912182114192_HikerParkTrailsModelsControllersViewsCreated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912182148040_JunctionTablesCreated.cs" />
-    <Compile Include="Migrations\201912182148040_JunctionTablesCreated.Designer.cs">
-      <DependentUpon>201912182148040_JunctionTablesCreated.cs</DependentUpon>
+    <Compile Include="Migrations\201912201658092_InitOnNewComputer.cs" />
+    <Compile Include="Migrations\201912201658092_InitOnNewComputer.Designer.cs">
+      <DependentUpon>201912201658092_InitOnNewComputer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -193,6 +190,7 @@
     <Compile Include="Models\HikerTrailRating.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NpsParksJsonInfo.cs" />
     <Compile Include="Models\Park.cs" />
     <Compile Include="Models\Trail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -297,11 +295,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912182114192_HikerParkTrailsModelsControllersViewsCreated.resx">
-      <DependentUpon>201912182114192_HikerParkTrailsModelsControllersViewsCreated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912182148040_JunctionTablesCreated.resx">
-      <DependentUpon>201912182148040_JunctionTablesCreated.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912201658092_InitOnNewComputer.resx">
+      <DependentUpon>201912201658092_InitOnNewComputer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

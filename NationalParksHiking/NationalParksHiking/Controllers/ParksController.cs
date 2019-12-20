@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using NationalParksHiking.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace NationalParksHiking.Controllers
 {
@@ -24,6 +26,7 @@ namespace NationalParksHiking.Controllers
         // GET: Parks/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            await GetLatLong();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -123,6 +126,25 @@ namespace NationalParksHiking.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public async Task GetLatLong()
+        {
+            ApiKeys apiKeys = new ApiKeys(); // Instantiate, so this file knows what file to look at
+            var parkKey = apiKeys.NpsKey;
+            string url = $"https://developer.nps.gov/api/v1/parks?api_key={parkKey}";
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
+            string jsonresult = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult);
+                var comboLatLong = npsJsonInfo.data[0].latLong; // Grabs entire lat long string.
+                var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma
+                var latitude = latLongArray[0].TrimEnd(',');
+                var longtitude = latLongArray[1].TrimEnd(',');
+                return;
+            }
         }
     }
 }
