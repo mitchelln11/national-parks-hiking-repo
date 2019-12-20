@@ -24,7 +24,7 @@ namespace NationalParksHiking.Controllers
         }
 
         // GET: Parks/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int? id, ApiKeys apiKeys)
         {
             
             if (id == null)
@@ -32,7 +32,7 @@ namespace NationalParksHiking.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
-            await RunJsonClient(park);
+            await RunJsonClient(park, apiKeys);
             if (park == null)
             {
                 return HttpNotFound();
@@ -51,12 +51,12 @@ namespace NationalParksHiking.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ParkId,ParkName,StreetAddress,ParkCity,ParkState,ParkLat,ParkLng")] Park park)
+        public async Task<ActionResult> Create([Bind(Include = "ParkId,ParkName,StreetAddress,ParkCity,ParkState,ParkLat,ParkLng")] Park park, ApiKeys apiKeys)
         {
             if (ModelState.IsValid)
             {
                 db.Parks.Add(park);
-                await RunJsonClient(park);
+                await RunJsonClient(park, apiKeys);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -65,14 +65,14 @@ namespace NationalParksHiking.Controllers
         }
 
         // GET: Parks/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int? id, ApiKeys apiKeys)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
-            await RunJsonClient(park);
+            await RunJsonClient(park, apiKeys);
             if (park == null)
             {
                 return HttpNotFound();
@@ -163,9 +163,8 @@ namespace NationalParksHiking.Controllers
         }
 
         // ------------------ Run single httpclient and response call -----------------------------
-        public async Task RunJsonClient(Park park)
+        public async Task RunJsonClient(Park park, ApiKeys apiKeys)
         {
-            ApiKeys apiKeys = new ApiKeys();
             string parkKey = apiKeys.NpsKey;
             string url = $"https://developer.nps.gov/api/v1/parks?api_key={parkKey}";
             HttpClient client = new HttpClient();

@@ -16,9 +16,9 @@ namespace NationalParksHiking.Models
         public int HikerId { get; set; }
         public Hiker Hiker { get; set; }
 
-        [ForeignKey("Trail")]
+        [ForeignKey("HikingTrail")]
         public int TrailId { get; set; }
-        public Trail Trail { get; set; }
+        public HikingTrail HikingTrail { get; set; }
 
         [Display(Name = "Amount of Ratings")]
         public int RatingAmt { get; set; }

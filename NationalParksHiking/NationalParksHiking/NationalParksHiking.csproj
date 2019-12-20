@@ -179,23 +179,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912201658092_InitOnNewComputer.cs" />
-    <Compile Include="Migrations\201912201658092_InitOnNewComputer.Designer.cs">
-      <DependentUpon>201912201658092_InitOnNewComputer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912201940013_HidingAddressNotNeeded.cs" />
-    <Compile Include="Migrations\201912201940013_HidingAddressNotNeeded.Designer.cs">
-      <DependentUpon>201912201940013_HidingAddressNotNeeded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912201951345_RemovedAddressFieldsFromModel.cs" />
-    <Compile Include="Migrations\201912201951345_RemovedAddressFieldsFromModel.Designer.cs">
-      <DependentUpon>201912201951345_RemovedAddressFieldsFromModel.cs</DependentUpon>
+    <Compile Include="Migrations\201912202239100_UppercaseHikingTrailObject.cs" />
+    <Compile Include="Migrations\201912202239100_UppercaseHikingTrailObject.Designer.cs">
+      <DependentUpon>201912202239100_UppercaseHikingTrailObject.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Hiker.cs" />
     <Compile Include="Models\HikerParkWishlist.cs" />
     <Compile Include="Models\HikerTrailRating.cs" />
+    <Compile Include="Models\HikingJsonInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NpsParksJsonInfo.cs" />
@@ -303,14 +296,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912201658092_InitOnNewComputer.resx">
-      <DependentUpon>201912201658092_InitOnNewComputer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912201940013_HidingAddressNotNeeded.resx">
-      <DependentUpon>201912201940013_HidingAddressNotNeeded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912201951345_RemovedAddressFieldsFromModel.resx">
-      <DependentUpon>201912201951345_RemovedAddressFieldsFromModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912202239100_UppercaseHikingTrailObject.resx">
+      <DependentUpon>201912202239100_UppercaseHikingTrailObject.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

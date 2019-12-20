@@ -22,7 +22,7 @@ namespace NationalParksHiking.Models
     {
         public DbSet<Hiker> Hikers { get; set; }
         public DbSet<Park> Parks { get; set; }
-        public DbSet<Trail> Trails { get; set; }
+        public DbSet<HikingTrail> HikingTrails { get; set; }
         public DbSet<HikerParkWishlist> HikerParkWishlists { get; set; }
         public DbSet<HikerTrailRating> HikerTrailRatings { get; set; }
 

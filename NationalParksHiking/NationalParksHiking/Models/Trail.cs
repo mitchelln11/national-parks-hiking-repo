@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace NationalParksHiking.Models
 {
-    public class Trail
+    public class HikingTrail
     {
         [Key]
         public int TrailId { get; set; }
@@ -18,12 +18,6 @@ namespace NationalParksHiking.Models
 
         [Display(Name = "Difficulty")]
         public string TrailDifficulty { get; set; }
-
-        [Display(Name = "Latitude")]
-        public string TrailLat { get; set; }
-
-        [Display(Name = "Longitude")]
-        public string TrailLng { get; set; }
 
         [ForeignKey("Park")]
         public int ParkId { get; set; }

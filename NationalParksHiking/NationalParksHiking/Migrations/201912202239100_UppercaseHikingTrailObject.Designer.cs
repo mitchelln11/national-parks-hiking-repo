@@ -7,13 +7,13 @@ namespace NationalParksHiking.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class RemovedAddressFieldsFromModel : IMigrationMetadata
+    public sealed partial class UppercaseHikingTrailObject : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RemovedAddressFieldsFromModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UppercaseHikingTrailObject));
         
         string IMigrationMetadata.Id
         {
-            get { return "201912201951345_RemovedAddressFieldsFromModel"; }
+            get { return "201912202239100_UppercaseHikingTrailObject"; }
         }
         
         string IMigrationMetadata.Source

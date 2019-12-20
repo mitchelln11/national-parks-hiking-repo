@@ -17,7 +17,7 @@ namespace NationalParksHiking.Controllers
         // GET: HikerTrailRatings
         public ActionResult Index()
         {
-            var hikerTrailRatings = db.HikerTrailRatings.Include(h => h.Hiker).Include(h => h.Trail);
+            var hikerTrailRatings = db.HikerTrailRatings.Include(h => h.Hiker).Include(h => h.HikingTrail);
             return View(hikerTrailRatings.ToList());
         }
 
@@ -40,7 +40,7 @@ namespace NationalParksHiking.Controllers
         public ActionResult Create()
         {
             ViewBag.HikerId = new SelectList(db.Hikers, "HikerId", "FirstName");
-            ViewBag.TrailId = new SelectList(db.Trails, "TrailId", "TrailName");
+            ViewBag.TrailId = new SelectList(db.HikingTrails, "TrailId", "TrailName");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace NationalParksHiking.Controllers
             }
 
             ViewBag.HikerId = new SelectList(db.Hikers, "HikerId", "FirstName", hikerTrailRating.HikerId);
-            ViewBag.TrailId = new SelectList(db.Trails, "TrailId", "TrailName", hikerTrailRating.TrailId);
+            ViewBag.TrailId = new SelectList(db.HikingTrails, "TrailId", "TrailName", hikerTrailRating.TrailId);
             return View(hikerTrailRating);
         }
 
@@ -76,7 +76,7 @@ namespace NationalParksHiking.Controllers
                 return HttpNotFound();
             }
             ViewBag.HikerId = new SelectList(db.Hikers, "HikerId", "FirstName", hikerTrailRating.HikerId);
-            ViewBag.TrailId = new SelectList(db.Trails, "TrailId", "TrailName", hikerTrailRating.TrailId);
+            ViewBag.TrailId = new SelectList(db.HikingTrails, "TrailId", "TrailName", hikerTrailRating.TrailId);
             return View(hikerTrailRating);
         }
 
@@ -94,7 +94,7 @@ namespace NationalParksHiking.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.HikerId = new SelectList(db.Hikers, "HikerId", "FirstName", hikerTrailRating.HikerId);
-            ViewBag.TrailId = new SelectList(db.Trails, "TrailId", "TrailName", hikerTrailRating.TrailId);
+            ViewBag.TrailId = new SelectList(db.HikingTrails, "TrailId", "TrailName", hikerTrailRating.TrailId);
             return View(hikerTrailRating);
         }
 

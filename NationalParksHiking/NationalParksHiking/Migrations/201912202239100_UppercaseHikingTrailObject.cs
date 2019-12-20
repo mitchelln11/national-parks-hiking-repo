@@ -3,7 +3,7 @@ namespace NationalParksHiking.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitOnNewComputer : DbMigration
+    public partial class UppercaseHikingTrailObject : DbMigration
     {
         public override void Up()
         {
@@ -42,8 +42,6 @@ namespace NationalParksHiking.Migrations
                     {
                         ParkId = c.Int(nullable: false, identity: true),
                         ParkName = c.String(),
-                        StreetAddress = c.String(),
-                        ParkCity = c.String(),
                         ParkState = c.String(),
                         ParkLat = c.String(),
                         ParkLng = c.String(),
@@ -61,19 +59,17 @@ namespace NationalParksHiking.Migrations
                     })
                 .PrimaryKey(t => t.HikerTrailRatingId)
                 .ForeignKey("dbo.Hikers", t => t.HikerId, cascadeDelete: true)
-                .ForeignKey("dbo.Trails", t => t.TrailId, cascadeDelete: true)
+                .ForeignKey("dbo.HikingTrails", t => t.TrailId, cascadeDelete: true)
                 .Index(t => t.HikerId)
                 .Index(t => t.TrailId);
             
             CreateTable(
-                "dbo.Trails",
+                "dbo.HikingTrails",
                 c => new
                     {
                         TrailId = c.Int(nullable: false, identity: true),
                         TrailName = c.String(),
                         TrailDifficulty = c.String(),
-                        TrailLat = c.String(),
-                        TrailLng = c.String(),
                         ParkId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.TrailId)
@@ -156,8 +152,8 @@ namespace NationalParksHiking.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.HikerTrailRatings", "TrailId", "dbo.Trails");
-            DropForeignKey("dbo.Trails", "ParkId", "dbo.Parks");
+            DropForeignKey("dbo.HikerTrailRatings", "TrailId", "dbo.HikingTrails");
+            DropForeignKey("dbo.HikingTrails", "ParkId", "dbo.Parks");
             DropForeignKey("dbo.HikerTrailRatings", "HikerId", "dbo.Hikers");
             DropForeignKey("dbo.HikerParkWishlists", "ParkId", "dbo.Parks");
             DropForeignKey("dbo.HikerParkWishlists", "HikerId", "dbo.Hikers");
@@ -167,7 +163,7 @@ namespace NationalParksHiking.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Trails", new[] { "ParkId" });
+            DropIndex("dbo.HikingTrails", new[] { "ParkId" });
             DropIndex("dbo.HikerTrailRatings", new[] { "TrailId" });
             DropIndex("dbo.HikerTrailRatings", new[] { "HikerId" });
             DropIndex("dbo.HikerParkWishlists", new[] { "ParkId" });
@@ -177,7 +173,7 @@ namespace NationalParksHiking.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Trails");
+            DropTable("dbo.HikingTrails");
             DropTable("dbo.HikerTrailRatings");
             DropTable("dbo.Parks");
             DropTable("dbo.Hikers");

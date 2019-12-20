@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using NationalParksHiking.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace NationalParksHiking.Controllers
 {
@@ -18,7 +20,7 @@ namespace NationalParksHiking.Controllers
         // GET: Trails
         public async Task<ActionResult> Index()
         {
-            return View(await db.Trails.ToListAsync());
+            return View(await db.HikingTrails.ToListAsync());
         }
 
         // GET: Trails/Details/5
@@ -28,7 +30,7 @@ namespace NationalParksHiking.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Trail trail = await db.Trails.FindAsync(id);
+            var trail = await db.HikingTrails.FindAsync(id);
             if (trail == null)
             {
                 return HttpNotFound();
@@ -47,11 +49,11 @@ namespace NationalParksHiking.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "TrailId,TrailName,TrailDifficulty,TrailLat,TrailLng")] Trail trail)
+        public async Task<ActionResult> Create([Bind(Include = "TrailId,TrailName,TrailDifficulty,TrailLat,TrailLng")] HikingTrail trail)
         {
             if (ModelState.IsValid)
             {
-                db.Trails.Add(trail);
+                db.HikingTrails.Add(trail);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -66,7 +68,7 @@ namespace NationalParksHiking.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Trail trail = await db.Trails.FindAsync(id);
+            var trail = await db.HikingTrails.FindAsync(id);
             if (trail == null)
             {
                 return HttpNotFound();
@@ -97,7 +99,7 @@ namespace NationalParksHiking.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Trail trail = await db.Trails.FindAsync(id);
+            var trail = await db.HikingTrails.FindAsync(id);
             if (trail == null)
             {
                 return HttpNotFound();
@@ -110,8 +112,8 @@ namespace NationalParksHiking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Trail trail = await db.Trails.FindAsync(id);
-            db.Trails.Remove(trail);
+            var trail = await db.HikingTrails.FindAsync(id);
+            db.HikingTrails.Remove(trail);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -123,6 +125,31 @@ namespace NationalParksHiking.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+
+
+
+
+
+        // ------------------ Run single httpclient and response call -----------------------------
+        public async Task GetTrailDifficulty(Trail trail, Park park, ApiKeys apiKeys)
+        {
+            string trailKey = apiKeys.HikingProjectKey;
+            string parkLat = park.ParkLat;
+            string parkLng = park.ParkLng;
+            string url = $"https://www.hikingproject.com/data/get-trails?lat={parkLat}&lon={parkLng}&key={trailKey}";
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
+            string jsonresult = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+
+                HikingJsonInfo hikingJsonInfo = JsonConvert.DeserializeObject<HikingJsonInfo>(jsonresult);
+                
+                await db.SaveChangesAsync();
+            }
         }
     }
 }
