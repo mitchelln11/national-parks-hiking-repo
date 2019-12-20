@@ -14,12 +14,6 @@ namespace NationalParksHiking.Models
         [Display(Name = "Park Name")]
         public string ParkName { get; set; }
 
-        [Display(Name = "Street Address")]
-        public string StreetAddress { get; set; }
-
-        [Display(Name = "City")]
-        public string ParkCity { get; set; }
-
         [Display(Name = "State")]
         public string ParkState { get; set; }
 

@@ -32,7 +32,7 @@ namespace NationalParksHiking.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
-            await GetLatLong(park);
+            await RunJsonClient(park);
             if (park == null)
             {
                 return HttpNotFound();
@@ -56,7 +56,7 @@ namespace NationalParksHiking.Controllers
             if (ModelState.IsValid)
             {
                 db.Parks.Add(park);
-                await GetLatLong(park);
+                await RunJsonClient(park);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -72,7 +72,7 @@ namespace NationalParksHiking.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
-            await GetLatLong(park);
+            await RunJsonClient(park);
             if (park == null)
             {
                 return HttpNotFound();
@@ -131,10 +131,42 @@ namespace NationalParksHiking.Controllers
             base.Dispose(disposing);
         }
 
-        public async Task GetLatLong(Park park)
+        // ------------------ Get Lat Long -----------------------------
+        public async Task GetLatLong(Park park, NpsJsonInfo npsJsonInfo)
         {
-            ApiKeys apiKeys = new ApiKeys(); // Instantiate, so this file knows what file to look at
-            var parkKey = apiKeys.NpsKey;
+            string comboLatLong = npsJsonInfo.data[0].latLong; // Grabs entire lat long string.
+            var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma, set to an array
+            string isolatedLatitude = latLongArray[0].TrimEnd(','); // New lat variable for the 0 index, trim trailing comma
+            string isolatedLongtitude = latLongArray[1].TrimEnd(','); // New lng variable for the 1 index trim trailing comma
+            string latitude = isolatedLatitude.Substring(4, isolatedLatitude.Length - 4); // Remove beginning lat: text
+            string longitude = isolatedLongtitude.Substring(5, isolatedLongtitude.Length - 5); // Remove beginning lng: text
+            park.ParkLat = latitude;
+            park.ParkLng = longitude;
+            await db.SaveChangesAsync();
+        }
+
+
+        // ------------------ Get Park Name -----------------------------
+        public async Task GetFullParkName(Park park, NpsJsonInfo npsJsonInfo)
+        {
+            string fullParkName = npsJsonInfo.data[0].fullName;
+            park.ParkName = fullParkName;
+            await db.SaveChangesAsync();
+        }
+
+        // ------------------ Get State ----------------------------------
+        public async Task GetParkState(Park park, NpsJsonInfo npsJsonInfo)
+        {
+            string ParkState = npsJsonInfo.data[0].states;
+            park.ParkState = ParkState;
+            await db.SaveChangesAsync();
+        }
+
+        // ------------------ Run single httpclient and response call -----------------------------
+        public async Task RunJsonClient(Park park)
+        {
+            ApiKeys apiKeys = new ApiKeys();
+            string parkKey = apiKeys.NpsKey;
             string url = $"https://developer.nps.gov/api/v1/parks?api_key={parkKey}";
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(url);
@@ -142,14 +174,9 @@ namespace NationalParksHiking.Controllers
             if (response.IsSuccessStatusCode)
             {
                 NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult);
-                var comboLatLong = npsJsonInfo.data[0].latLong; // Grabs entire lat long string.
-                var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma, set to an array
-                var isolatedLatitude = latLongArray[0].TrimEnd(','); // New lat variable for the 0 index, trim trailing comma
-                var isolatedLongtitude = latLongArray[1].TrimEnd(','); // New lng variable for the 1 index trim trailing comma
-                var latitude = isolatedLatitude.Substring(4, isolatedLatitude.Length - 4); // Remove beginning lat: text
-                var longitude = isolatedLongtitude.Substring(5, isolatedLongtitude.Length - 5); // Remove beginning lng: text
-                park.ParkLat = latitude;
-                park.ParkLng = longitude;
+                await GetFullParkName(park, npsJsonInfo);
+                await GetParkState(park, npsJsonInfo);
+                await GetLatLong(park, npsJsonInfo);
                 await db.SaveChangesAsync();
             }
         }

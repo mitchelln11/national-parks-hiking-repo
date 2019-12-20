@@ -183,6 +183,14 @@
     <Compile Include="Migrations\201912201658092_InitOnNewComputer.Designer.cs">
       <DependentUpon>201912201658092_InitOnNewComputer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912201940013_HidingAddressNotNeeded.cs" />
+    <Compile Include="Migrations\201912201940013_HidingAddressNotNeeded.Designer.cs">
+      <DependentUpon>201912201940013_HidingAddressNotNeeded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912201951345_RemovedAddressFieldsFromModel.cs" />
+    <Compile Include="Migrations\201912201951345_RemovedAddressFieldsFromModel.Designer.cs">
+      <DependentUpon>201912201951345_RemovedAddressFieldsFromModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Hiker.cs" />
@@ -297,6 +305,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201912201658092_InitOnNewComputer.resx">
       <DependentUpon>201912201658092_InitOnNewComputer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912201940013_HidingAddressNotNeeded.resx">
+      <DependentUpon>201912201940013_HidingAddressNotNeeded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912201951345_RemovedAddressFieldsFromModel.resx">
+      <DependentUpon>201912201951345_RemovedAddressFieldsFromModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
