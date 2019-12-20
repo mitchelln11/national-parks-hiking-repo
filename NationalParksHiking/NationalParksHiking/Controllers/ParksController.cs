@@ -150,6 +150,7 @@ namespace NationalParksHiking.Controllers
                 var longitude = isolatedLongtitude.Substring(5, isolatedLongtitude.Length - 5); // Remove beginning lng: text
                 park.ParkLat = latitude;
                 park.ParkLng = longitude;
+                await db.SaveChangesAsync();
             }
         }
     }
