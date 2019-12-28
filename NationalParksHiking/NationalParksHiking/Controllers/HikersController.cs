@@ -123,5 +123,20 @@ namespace NationalParksHiking.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        //public async Task GetHikerLatLong()
+        //{
+        //    string comboLatLong = npsJsonInfo.data[0].latLong; // Grabs entire lat long string.
+        //    var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma, set to an array
+        //    string isolatedLatitude = latLongArray[0].TrimEnd(','); // New lat variable for the 0 index, trim trailing comma
+        //    string isolatedLongtitude = latLongArray[1].TrimEnd(','); // New lng variable for the 1 index trim trailing comma
+        //    string latitude = isolatedLatitude.Substring(4, isolatedLatitude.Length - 4); // Remove beginning lat: text
+        //    string longitude = isolatedLongtitude.Substring(5, isolatedLongtitude.Length - 5); // Remove beginning lng: text
+        //    park.ParkLat = latitude;
+        //    park.ParkLng = longitude;
+        //    await db.SaveChangesAsync();
+        //}
+
     }
 }

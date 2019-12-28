@@ -58,7 +58,7 @@ namespace NationalParksHiking.Controllers
                 db.Parks.Add(park);
                 await RunJsonClient(park, apiKeys);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Parks");
             }
 
             return View(park);
