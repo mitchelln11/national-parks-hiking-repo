@@ -179,5 +179,31 @@ namespace NationalParksHiking.Controllers
                 await db.SaveChangesAsync();
             }
         }
+
+        // -----------------------------------Test to try foreach-------------------
+        //public async Task RunJsonClient(Park park, ApiKeys apiKeys)
+        //{
+        //    string parkKey = apiKeys.NpsKey;
+        //    string url = $"https://developer.nps.gov/api/v1/parks?api_key={parkKey}";
+        //    HttpClient client = new HttpClient();
+        //    HttpResponseMessage response = await client.GetAsync(url);
+        //    string jsonresult = await response.Content.ReadAsStringAsync();
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult);
+        //        //await GetFullParkName(park, npsJsonInfo);
+        //        //await GetParkState(park, npsJsonInfo);
+        //        //await GetLatLong(park, npsJsonInfo);
+        //        await db.SaveChangesAsync();
+        //        IEnumerable parkEnum = npsJsonInfo as IEnumerable;
+        //        foreach (var singlePark in parkEnum)
+        //        {
+        //            await GetFullParkName(park, npsJsonInfo);
+        //            await GetParkState(park, npsJsonInfo);
+        //            await GetLatLong(park, npsJsonInfo);
+        //            await db.SaveChangesAsync();
+        //        }
+        //    }
+        //}
     }
 }

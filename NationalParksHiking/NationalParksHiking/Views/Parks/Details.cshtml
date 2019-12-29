@@ -4,46 +4,44 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+    <div class="header-container">
+        <h1>@Html.DisplayFor(model => model.ParkName)</h1>
+        <div class="weather-container">
 
-<div>
-    <h4>Park</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ParkName)
-        </dt>
+        </div>
+    </div>
+    
 
-        <dd>
-            @Html.DisplayFor(model => model.ParkName)
-        </dd>
+    <div class="container">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ParkState)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ParkState)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ParkState)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ParkState)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ParkLat)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ParkLat)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ParkLat)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ParkLat)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ParkLng)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ParkLng)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ParkLng)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ParkLng)
-        </dd>
+        </dl>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Home", "Index", "Home")
-</p>
+        <p>
+            @Html.ActionLink("Home", "Index", "Home")
+        </p>
+    </div>
