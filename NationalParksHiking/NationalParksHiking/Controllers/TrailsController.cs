@@ -24,13 +24,14 @@ namespace NationalParksHiking.Controllers
         }
 
         // GET: Trails/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int? id, Trail difficulty, Park park, ApiKeys apiKeys)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var trail = await db.HikingTrails.FindAsync(id);
+            await GetTrailDifficulty(park, apiKeys);
             if (trail == null)
             {
                 return HttpNotFound();
@@ -128,13 +129,8 @@ namespace NationalParksHiking.Controllers
         }
 
 
-
-
-
-
-
         // ------------------ Run single httpclient and response call -----------------------------
-        public async Task GetTrailDifficulty(Trail trail, Park park, ApiKeys apiKeys)
+        public async Task GetTrailDifficulty(Park park, ApiKeys apiKeys)
         {
             string trailKey = apiKeys.HikingProjectKey;
             string parkLat = park.ParkLat;
@@ -146,8 +142,11 @@ namespace NationalParksHiking.Controllers
             if (response.IsSuccessStatusCode)
             {
 
-                HikingJsonInfo hikingJsonInfo = JsonConvert.DeserializeObject<HikingJsonInfo>(jsonresult);
-                
+                HikingTrailJsonInfo hikingTrailJsonInfo = JsonConvert.DeserializeObject<HikingTrailJsonInfo>(jsonresult);
+                string TrailDifficulty = hikingTrailJsonInfo.trails[0].difficulty.ToString();
+                //string userLoggedIn = User.Identity.GetUserId();
+                Trail trail = new Trail();
+                trail.difficulty = TrailDifficulty;
                 await db.SaveChangesAsync();
             }
         }

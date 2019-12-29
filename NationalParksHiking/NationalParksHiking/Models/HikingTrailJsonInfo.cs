@@ -6,7 +6,7 @@ using System.Web;
 namespace NationalParksHiking.Models
 {
 
-    public class HikingJsonInfo
+    public class HikingTrailJsonInfo
     {
         public Trail[] trails { get; set; }
         public int success { get; set; }

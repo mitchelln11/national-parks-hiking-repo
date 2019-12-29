@@ -19,6 +19,12 @@ namespace NationalParksHiking.Models
         [Display(Name = "Difficulty")]
         public string TrailDifficulty { get; set; }
 
+        [Display(Name = "Summary")]
+        public string TrailSummary { get; set; }
+
+        [Display(Name = "Length")]
+        public double TrailLength { get; set; }
+
         [ForeignKey("Park")]
         public int ParkId { get; set; }
         public Park Park { get; set; }

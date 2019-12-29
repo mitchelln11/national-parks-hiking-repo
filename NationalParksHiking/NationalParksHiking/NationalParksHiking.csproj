@@ -183,6 +183,14 @@
     <Compile Include="Migrations\201912202239100_UppercaseHikingTrailObject.Designer.cs">
       <DependentUpon>201912202239100_UppercaseHikingTrailObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912290125009_FieldsAddedToTrailModel.cs" />
+    <Compile Include="Migrations\201912290125009_FieldsAddedToTrailModel.Designer.cs">
+      <DependentUpon>201912290125009_FieldsAddedToTrailModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912290134018_UpdatedNamingOfTrailDatabase.cs" />
+    <Compile Include="Migrations\201912290134018_UpdatedNamingOfTrailDatabase.Designer.cs">
+      <DependentUpon>201912290134018_UpdatedNamingOfTrailDatabase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -190,7 +198,7 @@
     <Compile Include="Models\HikerJsonInfo.cs" />
     <Compile Include="Models\HikerParkWishlist.cs" />
     <Compile Include="Models\HikerTrailRating.cs" />
-    <Compile Include="Models\HikingJsonInfo.cs" />
+    <Compile Include="Models\HikingTrailJsonInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NpsParksJsonInfo.cs" />
@@ -300,6 +308,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201912202239100_UppercaseHikingTrailObject.resx">
       <DependentUpon>201912202239100_UppercaseHikingTrailObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912290125009_FieldsAddedToTrailModel.resx">
+      <DependentUpon>201912290125009_FieldsAddedToTrailModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912290134018_UpdatedNamingOfTrailDatabase.resx">
+      <DependentUpon>201912290134018_UpdatedNamingOfTrailDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

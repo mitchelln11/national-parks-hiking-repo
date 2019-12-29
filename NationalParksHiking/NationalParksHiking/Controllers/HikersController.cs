@@ -150,23 +150,5 @@ namespace NationalParksHiking.Controllers
                 await db.SaveChangesAsync();
             }
         }
-
-        //public async Task GetHikerLat(Hiker hiker, HikerJsonInfo hikerJsonInfo)
-        //{
-        //    var HikerStreetAddress = hiker.StreetAddress;
-        //    var HikerCity = hiker.City;
-        //    var HikerState = hiker.State;
-        //    var HikerLat = hikerJsonInfo.results[0].geometry.location.lat;
-        //    hiker.Latitude = HikerLat.ToString();
-        //    await db.SaveChangesAsync();
-        //}
-
-        //public async Task GetHikerLng(Hiker hiker, HikerJsonInfo hikerJsonInfo)
-        //{
-        //    var HikerLat = hikerJsonInfo.results[0].geometry.location.lng;
-        //    hiker.Longitude = HikerLat.ToString();
-        //    await db.SaveChangesAsync();
-        //}
-
     }
 }
