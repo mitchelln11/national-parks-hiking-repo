@@ -4,9 +4,12 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using NationalParksHiking.Models;
+using Newtonsoft.Json;
 
 namespace NationalParksHiking.Controllers
 {
@@ -38,6 +41,7 @@ namespace NationalParksHiking.Controllers
         // GET: Hikers/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 
@@ -46,13 +50,14 @@ namespace NationalParksHiking.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "HikerId,FirstName,LastName,StreetAddress,City,State,Latitude,Longitude")] Hiker hiker)
+        public async Task<ActionResult> Create([Bind(Include = "HikerId,FirstName,LastName,StreetAddress,City,State,Latitude,Longitude")] Hiker hiker, ApiKeys apiKeys)
         {
             if (ModelState.IsValid)
             {
+                await GetHikerLatLong(apiKeys, hiker);
                 db.Hikers.Add(hiker);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(hiker);
@@ -125,16 +130,41 @@ namespace NationalParksHiking.Controllers
         }
 
 
-        //public async Task GetHikerLatLong()
+        public async Task GetHikerLatLong(ApiKeys apiKeys, Hiker hiker)
+        {
+            string HikerKey = apiKeys.GeoKey;
+            string HikerAddress = hiker.StreetAddress;
+            string HikerCity = hiker.City;
+            string HikerState = hiker.State;
+            string url = $"https://maps.googleapis.com/maps/api/geocode/json?address={HikerAddress},+{HikerCity},+{HikerState}&key={HikerKey}";
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
+            string jsonresult = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                HikerJsonInfo hikerJsonInfo = JsonConvert.DeserializeObject<HikerJsonInfo>(jsonresult);
+                string HikerLat = hikerJsonInfo.results[0].geometry.location.lat.ToString();
+                string HikerLng = hikerJsonInfo.results[0].geometry.location.lng.ToString();
+                hiker.Latitude = HikerLat.ToString();
+                hiker.Longitude = HikerLng.ToString();
+                await db.SaveChangesAsync();
+            }
+        }
+
+        //public async Task GetHikerLat(Hiker hiker, HikerJsonInfo hikerJsonInfo)
         //{
-        //    string comboLatLong = npsJsonInfo.data[0].latLong; // Grabs entire lat long string.
-        //    var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma, set to an array
-        //    string isolatedLatitude = latLongArray[0].TrimEnd(','); // New lat variable for the 0 index, trim trailing comma
-        //    string isolatedLongtitude = latLongArray[1].TrimEnd(','); // New lng variable for the 1 index trim trailing comma
-        //    string latitude = isolatedLatitude.Substring(4, isolatedLatitude.Length - 4); // Remove beginning lat: text
-        //    string longitude = isolatedLongtitude.Substring(5, isolatedLongtitude.Length - 5); // Remove beginning lng: text
-        //    park.ParkLat = latitude;
-        //    park.ParkLng = longitude;
+        //    var HikerStreetAddress = hiker.StreetAddress;
+        //    var HikerCity = hiker.City;
+        //    var HikerState = hiker.State;
+        //    var HikerLat = hikerJsonInfo.results[0].geometry.location.lat;
+        //    hiker.Latitude = HikerLat.ToString();
+        //    await db.SaveChangesAsync();
+        //}
+
+        //public async Task GetHikerLng(Hiker hiker, HikerJsonInfo hikerJsonInfo)
+        //{
+        //    var HikerLat = hikerJsonInfo.results[0].geometry.location.lng;
+        //    hiker.Longitude = HikerLat.ToString();
         //    await db.SaveChangesAsync();
         //}
 

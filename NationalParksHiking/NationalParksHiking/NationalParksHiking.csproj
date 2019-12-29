@@ -187,6 +187,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
     <Compile Include="Models\Hiker.cs" />
+    <Compile Include="Models\HikerJsonInfo.cs" />
     <Compile Include="Models\HikerParkWishlist.cs" />
     <Compile Include="Models\HikerTrailRating.cs" />
     <Compile Include="Models\HikingJsonInfo.cs" />
