@@ -184,12 +184,13 @@ namespace NationalParksHiking.Controllers
             }
         }
 
-        // ------------------ Get State ----------------------------------
+        // ------------------ Get Temperature ----------------------------------
         public async Task GetCurrentTemperature(Park park, WeatherJsonInfo weatherJsonInfo)
         {
             float tempInKelvin = weatherJsonInfo.main.temp;
-            double convertKelvinToFahrenheit = (((tempInKelvin - 273.15) * 9) / 5) + 32;
-            park.CurrentWeatherInfo.temperature = convertKelvinToFahrenheit;
+            double convertKelvinToFahrenheit = ((tempInKelvin - 273.15) * 9 / 5) + 32;
+            int simpleDegree = Convert.ToInt32(convertKelvinToFahrenheit);
+            park.CurrentWeatherInfo.temperature = simpleDegree;
             await db.SaveChangesAsync();
         }
 
