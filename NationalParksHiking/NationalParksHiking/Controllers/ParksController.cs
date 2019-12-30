@@ -32,8 +32,12 @@ namespace NationalParksHiking.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
+            
+            // !!!!!!!!!!!!! -- ONCE THE DETAILS VIEW IS HIT, IT OVERWRITES THE CONTENT WITH THE VERY FIRST RECORD INFO, DOES NOT CHANGE ALL, JUST ONCE THE VIEW IS HIT
+
             park.CurrentWeatherInfo = new CurrentWeatherInfo(); // Instantiate blank spot for data to bind to
             park.CurrentWeatherInfo.temperature = 876; // Doesn't matter what's here, will overwrite anyway
+            park = db.Parks.Where(p => p.ParkId == id).Single();
             park.Trails = db.HikingTrails.Where(i => i.ParkId == id).ToList();
             await RunJsonClient(park, apiKeys);
             await RunWeatherJson(apiKeys, park);
@@ -61,7 +65,7 @@ namespace NationalParksHiking.Controllers
             if (ModelState.IsValid)
             {
                 db.Parks.Add(park);
-                await RunJsonClient(park, apiKeys);
+                //await RunJsonClient(park, apiKeys);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index", "Parks");
             }
@@ -77,7 +81,7 @@ namespace NationalParksHiking.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
-            await RunJsonClient(park, apiKeys);
+            //await RunJsonClient(park, apiKeys);
             if (park == null)
             {
                 return HttpNotFound();
@@ -173,9 +177,12 @@ namespace NationalParksHiking.Controllers
         // ------------------ Get State ----------------------------------
         public async Task GetParkState(Park park, NpsJsonInfo npsJsonInfo)
         {
+
             string ParkState = npsJsonInfo.data[0].states;
             park.ParkState = ParkState;
-            await db.SaveChangesAsync();
+            
+
+            await db.SaveChangesAsync(); // Issues with saving the database???????
         }
 
         // ------------------ Run single httpclient and response call for Parks -----------------------------
@@ -206,6 +213,27 @@ namespace NationalParksHiking.Controllers
             await db.SaveChangesAsync();
         }
 
+        public async Task GetTrailDifficulty(HikingTrail hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
+        {
+            string trailDifficulty = hikingTrailJsonInfo.trails[0].difficulty;
+            hikingTrail.TrailDifficulty = trailDifficulty;
+            await db.SaveChangesAsync();
+        }
+
+        public async Task GetTrailLength(HikingTrail hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
+        {
+            double trailLength = hikingTrailJsonInfo.trails[0].length;
+            hikingTrail.TrailLength = trailLength;
+            await db.SaveChangesAsync();
+        }
+
+        public async Task GetTrailSummary(HikingTrail hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
+        {
+            string trailSummary = hikingTrailJsonInfo.trails[0].summary;
+            hikingTrail.TrailSummary = trailSummary;
+            await db.SaveChangesAsync();
+        }
+
         // ------------------ Get Hiking Project JSON -----------------------------
         public async Task RunHikingJson(ApiKeys apiKeys, Park park, HikingTrail hikingTrail)
         {
@@ -220,6 +248,9 @@ namespace NationalParksHiking.Controllers
             {
                 HikingTrailJsonInfo hikingTrailJsonInfo = JsonConvert.DeserializeObject<HikingTrailJsonInfo>(jsonresult);
                 await GetTrailName(hikingTrail, hikingTrailJsonInfo);
+                await GetTrailDifficulty(hikingTrail, hikingTrailJsonInfo);
+                await GetTrailLength(hikingTrail, hikingTrailJsonInfo);
+                await GetTrailSummary(hikingTrail, hikingTrailJsonInfo);
                 await db.SaveChangesAsync();
             }
         }
@@ -231,7 +262,8 @@ namespace NationalParksHiking.Controllers
             float tempInKelvin = weatherJsonInfo.main.temp;
             double convertKelvinToFahrenheit = ((tempInKelvin - 273.15) * 9 / 5) + 32;
             int simpleDegree = Convert.ToInt32(convertKelvinToFahrenheit);
-            park.CurrentWeatherInfo.temperature = simpleDegree;
+            park.CurrentWeatherInfo.temperature = simpleDegree; // Object reference not set to an instance of an object.
+            // Line 260: park.CurrentWeatherInfo.temperature = simpleDegree;
             await db.SaveChangesAsync();
         }
 

@@ -211,6 +211,10 @@
     <Compile Include="Migrations\201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.Designer.cs">
       <DependentUpon>201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912302250173_UpdateBadlandsDataToSeeIfItKeepsUpdating.cs" />
+    <Compile Include="Migrations\201912302250173_UpdateBadlandsDataToSeeIfItKeepsUpdating.Designer.cs">
+      <DependentUpon>201912302250173_UpdateBadlandsDataToSeeIfItKeepsUpdating.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -350,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.resx">
       <DependentUpon>201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912302250173_UpdateBadlandsDataToSeeIfItKeepsUpdating.resx">
+      <DependentUpon>201912302250173_UpdateBadlandsDataToSeeIfItKeepsUpdating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
