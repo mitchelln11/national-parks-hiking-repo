@@ -135,6 +135,17 @@ namespace NationalParksHiking.Controllers
             base.Dispose(disposing);
         }
 
+
+        //  -------///////------START PARK RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
+        // ------------------ Get Park Description --------------------
+        public async Task GetParkDescription(Park park, NpsJsonInfo npsJsonInfo)
+        {
+            string parkDescription = npsJsonInfo.data[0].description;
+            park.ParkDescription = parkDescription;
+            await db.SaveChangesAsync();
+        }
+
+
         // ------------------ Get Lat Long -----------------------------
         public async Task GetLatLong(Park park, NpsJsonInfo npsJsonInfo)
         {
@@ -177,6 +188,7 @@ namespace NationalParksHiking.Controllers
             if (response.IsSuccessStatusCode)
             {
                 NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult);
+                await GetParkDescription(park, npsJsonInfo);
                 await GetFullParkName(park, npsJsonInfo);
                 await GetParkState(park, npsJsonInfo);
                 await GetLatLong(park, npsJsonInfo);
@@ -184,6 +196,8 @@ namespace NationalParksHiking.Controllers
             }
         }
 
+
+        //  -------///////------START WEATHER RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
         // ------------------ Get Temperature ----------------------------------
         public async Task GetCurrentTemperature(Park park, WeatherJsonInfo weatherJsonInfo)
         {
@@ -211,7 +225,7 @@ namespace NationalParksHiking.Controllers
             await db.SaveChangesAsync();
         }
 
-        // ------------------ Get weather from Park Long and Lat -----------------------------
+        // ------------------ Get Weather JSON -----------------------------
         public async Task RunWeatherJson(ApiKeys apiKeys, Park park)
         {
             string weatherKey = apiKeys.OpenWeatherKey;

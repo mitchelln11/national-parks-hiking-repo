@@ -7,7 +7,7 @@
 <div class="header-container">
     <h1>@Html.DisplayFor(model => model.ParkName)</h1>
     <div class="weather-info">
-        <h3>Current Weather</h3>
+        <h2>Current Weather</h2>
         <span>@Model.CurrentWeatherInfo.temperature &deg;F | </span>
         <span>@Model.CurrentWeatherInfo.condition | </span>
         <span>Wind: @Model.CurrentWeatherInfo.wind MPH</span>
@@ -16,31 +16,18 @@
 
 
 <div class="container body-content">
-    <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.ParkState)
-            </dt>
+    <div class="flex-container">
+        <div class="flex-box">
+            <h3>Located in: @Html.DisplayFor(model => model.ParkState)</h3>
+            <p>@Html.DisplayFor(model => model.ParkDescription)</p>
+        </div>
+        <div class="flex-box">
+            <p>Test</p>
+        </div>
+    </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.ParkState)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ParkLat)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ParkLat)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ParkLng)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ParkLng)
-            </dd>
-        </dl>
+    @Html.HiddenFor(model => model.ParkLat)
+    @Html.HiddenFor(model => model.ParkLng)
 
     <p>
         @Html.ActionLink("Home", "Index", "Home")

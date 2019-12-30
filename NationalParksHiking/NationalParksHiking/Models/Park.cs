@@ -23,6 +23,9 @@ namespace NationalParksHiking.Models
         [Display(Name = "Longitude")]
         public string ParkLng { get; set; }
 
+        [Display(Name = "Description")]
+        public string ParkDescription { get; set; }
+
         public CurrentWeatherInfo CurrentWeatherInfo { get; set; } // Connect extra weather app info to Park model -- Not implemented into database as it's an object
     }
 
