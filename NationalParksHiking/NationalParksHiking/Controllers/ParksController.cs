@@ -33,7 +33,7 @@ namespace NationalParksHiking.Controllers
             }
             Park park = await db.Parks.FindAsync(id);
             park.CurrentWeatherInfo = new CurrentWeatherInfo(); // Instantiate blank spot for data to bind to
-            park.CurrentWeatherInfo.temperature = 876;
+            park.CurrentWeatherInfo.temperature = 876; // Doeasn't matter what's here, will overwrite anyway
             await RunJsonClient(park, apiKeys);
             await RunWeatherJson(apiKeys, park);
             if (park == null)
@@ -194,6 +194,23 @@ namespace NationalParksHiking.Controllers
             await db.SaveChangesAsync();
         }
 
+        // ------------------ Get Wind Condition ----------------------------------
+        public async Task GetWindCondition(Park park, WeatherJsonInfo weatherJsonInfo)
+        {
+            float windCondition = weatherJsonInfo.wind.speed;
+            double simpleWindMeasure = Math.Round(windCondition, 2);
+            park.CurrentWeatherInfo.wind = simpleWindMeasure;
+            await db.SaveChangesAsync();
+        }
+
+        // ------------------ Get Weather Description ----------------------------------
+        public async Task GetWeatherCondition(Park park, WeatherJsonInfo weatherJsonInfo)
+        {
+            string weatherCondition = weatherJsonInfo.weather[0].main;
+            park.CurrentWeatherInfo.condition = weatherCondition;
+            await db.SaveChangesAsync();
+        }
+
         // ------------------ Get weather from Park Long and Lat -----------------------------
         public async Task RunWeatherJson(ApiKeys apiKeys, Park park)
         {
@@ -208,6 +225,8 @@ namespace NationalParksHiking.Controllers
             {
                 WeatherJsonInfo weatherJsonInfo = JsonConvert.DeserializeObject<WeatherJsonInfo>(jsonresult);
                 await GetCurrentTemperature(park, weatherJsonInfo);
+                await GetWindCondition(park, weatherJsonInfo);
+                await GetWeatherCondition(park, weatherJsonInfo);
                 await db.SaveChangesAsync();
             }
         }
