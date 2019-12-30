@@ -33,6 +33,7 @@ namespace NationalParksHiking.Controllers
             }
             Park park = await db.Parks.FindAsync(id);
             await RunJsonClient(park, apiKeys);
+            await RunWeatherJson(apiKeys);
             if (park == null)
             {
                 return HttpNotFound();
@@ -162,7 +163,7 @@ namespace NationalParksHiking.Controllers
             await db.SaveChangesAsync();
         }
 
-        // ------------------ Run single httpclient and response call -----------------------------
+        // ------------------ Run single httpclient and response call for Parks -----------------------------
         public async Task RunJsonClient(Park park, ApiKeys apiKeys)
         {
             string parkKey = apiKeys.NpsKey;
@@ -205,5 +206,26 @@ namespace NationalParksHiking.Controllers
         //        }
         //    }
         //}
+
+
+
+        // ------------------ Get weather from Park Long and Lat -----------------------------
+        public async Task RunWeatherJson(ApiKeys apiKeys)
+        {
+            string weatherKey = apiKeys.OpenWeatherKey;
+            string url = $"https://api.openweathermap.org/data/2.5/weather?lat=38.916554&lon=-77.025977&APPID={weatherKey}";
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
+            string jsonresult = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                WeatherJsonInfo weatherJsonInfo = JsonConvert.DeserializeObject<WeatherJsonInfo>(jsonresult);
+                float tempInKelvin = weatherJsonInfo.main.temp;
+                double convertKelvinToFahrenheit = (((tempInKelvin - 273.15)*9)/5)+32;
+
+                await db.SaveChangesAsync();
+                // -------How do I actually return the value? To print onto the view--------
+            }
+        }
     }
 }

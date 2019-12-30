@@ -191,6 +191,10 @@
     <Compile Include="Migrations\201912290134018_UpdatedNamingOfTrailDatabase.Designer.cs">
       <DependentUpon>201912290134018_UpdatedNamingOfTrailDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912300308062_AddParkForeignKeysToTrailsForLatLng.cs" />
+    <Compile Include="Migrations\201912300308062_AddParkForeignKeysToTrailsForLatLng.Designer.cs">
+      <DependentUpon>201912300308062_AddParkForeignKeysToTrailsForLatLng.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -204,6 +208,7 @@
     <Compile Include="Models\NpsParksJsonInfo.cs" />
     <Compile Include="Models\Park.cs" />
     <Compile Include="Models\Trail.cs" />
+    <Compile Include="Models\WeatherJsonInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -314,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912290134018_UpdatedNamingOfTrailDatabase.resx">
       <DependentUpon>201912290134018_UpdatedNamingOfTrailDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912300308062_AddParkForeignKeysToTrailsForLatLng.resx">
+      <DependentUpon>201912300308062_AddParkForeignKeysToTrailsForLatLng.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

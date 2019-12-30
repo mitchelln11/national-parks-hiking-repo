@@ -24,19 +24,19 @@ namespace NationalParksHiking.Controllers
         }
 
         // GET: Trails/Details/5
-        public async Task<ActionResult> Details(int? id, Trail difficulty, Park park, ApiKeys apiKeys)
+        public async Task<ActionResult> Details(int? id, Trail trailName, HikingTrailJsonInfo hikingTrailJsonInfo)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var trail = await db.HikingTrails.FindAsync(id);
-            await GetTrailDifficulty(park, apiKeys);
-            if (trail == null)
+            var trailInfo = await db.HikingTrails.FindAsync(id);
+            await GetTrailName(trailName, hikingTrailJsonInfo);
+            if (trailInfo == null)
             {
                 return HttpNotFound();
             }
-            return View(trail);
+            return View(trailInfo);
         }
 
         // GET: Trails/Create
@@ -129,9 +129,19 @@ namespace NationalParksHiking.Controllers
         }
 
 
+        public async Task GetTrailName(Trail trailName, HikingTrailJsonInfo hikingTrailJsonInfo)
+        {
+            // Do I need to check Foreign Key ID like we do with User ID?
+            string fulltrailName = hikingTrailJsonInfo.trails[0].name;
+            trailName.name = fulltrailName;
+            await db.SaveChangesAsync();
+        }
+
         // ------------------ Run single httpclient and response call -----------------------------
         public async Task GetTrailDifficulty(Park park, ApiKeys apiKeys)
         {
+            // How do I pass the park ID number to a trail controller?
+            // Get Lat Long from Parks database
             string trailKey = apiKeys.HikingProjectKey;
             string parkLat = park.ParkLat;
             string parkLng = park.ParkLng;
@@ -141,7 +151,6 @@ namespace NationalParksHiking.Controllers
             string jsonresult = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-
                 HikingTrailJsonInfo hikingTrailJsonInfo = JsonConvert.DeserializeObject<HikingTrailJsonInfo>(jsonresult);
                 string TrailDifficulty = hikingTrailJsonInfo.trails[0].difficulty.ToString();
                 //string userLoggedIn = User.Identity.GetUserId();

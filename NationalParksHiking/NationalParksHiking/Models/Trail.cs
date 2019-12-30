@@ -27,6 +27,8 @@ namespace NationalParksHiking.Models
 
         [ForeignKey("Park")]
         public int ParkId { get; set; }
+        public string ParkLat { get; set; }
+        public string ParkLng { get; set; }
         public Park Park { get; set; }
     }
 }
