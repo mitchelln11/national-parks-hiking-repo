@@ -24,11 +24,10 @@ textarea {
 }
 
 @media screen and (min-width:768px) {
-    .header-container
-    {
-        display:flex;
-        flex-direction:row;
-        align-items:center;
-        justify-content:center;
+    .header-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
     }
 }

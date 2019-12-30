@@ -24,14 +24,14 @@ namespace NationalParksHiking.Controllers
         }
 
         // GET: Trails/Details/5
-        public async Task<ActionResult> Details(int? id, Trail trailName, HikingTrailJsonInfo hikingTrailJsonInfo)
+        public async Task<ActionResult> Details(int? id, HikingTrail hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var trailInfo = await db.HikingTrails.FindAsync(id);
-            await GetTrailName(trailName, hikingTrailJsonInfo);
+            await GetTrailName(hikingTrail, hikingTrailJsonInfo);
             if (trailInfo == null)
             {
                 return HttpNotFound();
@@ -70,6 +70,18 @@ namespace NationalParksHiking.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var trail = await db.HikingTrails.FindAsync(id);
+
+            //----Below if from StackOverFlow--- Could Try it---------------------
+            //var viewModel = new StoreManagerViewModel
+            //{
+            //    Album = storeDB.Albums.SingleOrDefault(a => a.AlbumId == id),
+            //    Genres = storeDB.Genres.ToList(),
+            //    Artists = storeDB.Artists.ToList()
+            //};
+
+            //ViewData["Artists"] = storeDB.Artists.ToList();
+            //ViewData["Genres"] = storeDB.Genres.ToList();
+
             if (trail == null)
             {
                 return HttpNotFound();
@@ -129,11 +141,11 @@ namespace NationalParksHiking.Controllers
         }
 
 
-        public async Task GetTrailName(Trail trailName, HikingTrailJsonInfo hikingTrailJsonInfo)
+        public async Task GetTrailName(HikingTrail  hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
         {
             // Do I need to check Foreign Key ID like we do with User ID?
             string fulltrailName = hikingTrailJsonInfo.trails[0].name;
-            trailName.name = fulltrailName;
+            hikingTrail.TrailName = fulltrailName;
             await db.SaveChangesAsync();
         }
 

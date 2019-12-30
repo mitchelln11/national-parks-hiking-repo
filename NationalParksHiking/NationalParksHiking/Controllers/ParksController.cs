@@ -32,10 +32,13 @@ namespace NationalParksHiking.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
+            park.CurrentWeatherInfo = new CurrentWeatherInfo(); // Instantiate blank spot for data to bind to
+            park.CurrentWeatherInfo.temperature = 876;
             await RunJsonClient(park, apiKeys);
-            await RunWeatherJson(apiKeys);
+            await RunWeatherJson(apiKeys, park);
             if (park == null)
             {
+                
                 return HttpNotFound();
             }
             return View(park);
@@ -181,50 +184,30 @@ namespace NationalParksHiking.Controllers
             }
         }
 
-        // -----------------------------------Test to try foreach-------------------
-        //public async Task RunJsonClient(Park park, ApiKeys apiKeys)
-        //{
-        //    string parkKey = apiKeys.NpsKey;
-        //    string url = $"https://developer.nps.gov/api/v1/parks?api_key={parkKey}";
-        //    HttpClient client = new HttpClient();
-        //    HttpResponseMessage response = await client.GetAsync(url);
-        //    string jsonresult = await response.Content.ReadAsStringAsync();
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult);
-        //        //await GetFullParkName(park, npsJsonInfo);
-        //        //await GetParkState(park, npsJsonInfo);
-        //        //await GetLatLong(park, npsJsonInfo);
-        //        await db.SaveChangesAsync();
-        //        IEnumerable parkEnum = npsJsonInfo as IEnumerable;
-        //        foreach (var singlePark in parkEnum)
-        //        {
-        //            await GetFullParkName(park, npsJsonInfo);
-        //            await GetParkState(park, npsJsonInfo);
-        //            await GetLatLong(park, npsJsonInfo);
-        //            await db.SaveChangesAsync();
-        //        }
-        //    }
-        //}
-
-
+        // ------------------ Get State ----------------------------------
+        public async Task GetCurrentTemperature(Park park, WeatherJsonInfo weatherJsonInfo)
+        {
+            float tempInKelvin = weatherJsonInfo.main.temp;
+            double convertKelvinToFahrenheit = (((tempInKelvin - 273.15) * 9) / 5) + 32;
+            park.CurrentWeatherInfo.temperature = convertKelvinToFahrenheit;
+            await db.SaveChangesAsync();
+        }
 
         // ------------------ Get weather from Park Long and Lat -----------------------------
-        public async Task RunWeatherJson(ApiKeys apiKeys)
+        public async Task RunWeatherJson(ApiKeys apiKeys, Park park)
         {
             string weatherKey = apiKeys.OpenWeatherKey;
-            string url = $"https://api.openweathermap.org/data/2.5/weather?lat=38.916554&lon=-77.025977&APPID={weatherKey}";
+            string parkLatitude = park.ParkLat;
+            string parkLongitude = park.ParkLng;
+            string url = $"https://api.openweathermap.org/data/2.5/weather?lat={parkLatitude}&lon={parkLongitude}&APPID={weatherKey}";
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(url);
             string jsonresult = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
                 WeatherJsonInfo weatherJsonInfo = JsonConvert.DeserializeObject<WeatherJsonInfo>(jsonresult);
-                float tempInKelvin = weatherJsonInfo.main.temp;
-                double convertKelvinToFahrenheit = (((tempInKelvin - 273.15)*9)/5)+32;
-
+                await GetCurrentTemperature(park, weatherJsonInfo);
                 await db.SaveChangesAsync();
-                // -------How do I actually return the value? To print onto the view--------
             }
         }
     }

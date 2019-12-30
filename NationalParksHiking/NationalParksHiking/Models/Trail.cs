@@ -24,11 +24,11 @@ namespace NationalParksHiking.Models
 
         [Display(Name = "Length")]
         public double TrailLength { get; set; }
+        public string ParkLat { get; set; }
+        public string ParkLng { get; set; }
 
         [ForeignKey("Park")]
         public int ParkId { get; set; }
-        public string ParkLat { get; set; }
-        public string ParkLng { get; set; }
         public Park Park { get; set; }
     }
 }

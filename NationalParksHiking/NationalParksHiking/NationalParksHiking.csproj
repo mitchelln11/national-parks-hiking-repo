@@ -195,6 +195,10 @@
     <Compile Include="Migrations\201912300308062_AddParkForeignKeysToTrailsForLatLng.Designer.cs">
       <DependentUpon>201912300308062_AddParkForeignKeysToTrailsForLatLng.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912301600059_AddWeatherValuesToParkModelNotSeeded.cs" />
+    <Compile Include="Migrations\201912301600059_AddWeatherValuesToParkModelNotSeeded.Designer.cs">
+      <DependentUpon>201912301600059_AddWeatherValuesToParkModelNotSeeded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -322,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912300308062_AddParkForeignKeysToTrailsForLatLng.resx">
       <DependentUpon>201912300308062_AddParkForeignKeysToTrailsForLatLng.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912301600059_AddWeatherValuesToParkModelNotSeeded.resx">
+      <DependentUpon>201912301600059_AddWeatherValuesToParkModelNotSeeded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
