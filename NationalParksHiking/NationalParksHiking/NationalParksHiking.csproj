@@ -203,6 +203,14 @@
     <Compile Include="Migrations\201912301729501_AddDescriptionVariableToPark.Designer.cs">
       <DependentUpon>201912301729501_AddDescriptionVariableToPark.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912301912197_thing.cs" />
+    <Compile Include="Migrations\201912301912197_thing.Designer.cs">
+      <DependentUpon>201912301912197_thing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.cs" />
+    <Compile Include="Migrations\201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.Designer.cs">
+      <DependentUpon>201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -336,6 +344,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912301729501_AddDescriptionVariableToPark.resx">
       <DependentUpon>201912301729501_AddDescriptionVariableToPark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912301912197_thing.resx">
+      <DependentUpon>201912301912197_thing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.resx">
+      <DependentUpon>201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

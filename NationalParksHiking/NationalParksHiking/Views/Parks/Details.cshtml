@@ -25,6 +25,12 @@
             <p>Test</p>
         </div>
     </div>
+    <div>
+        @foreach (var item in Model.Trails)
+        {
+            @Html.DisplayFor(model => item.TrailName)
+        }
+    </div>
 
     @Html.HiddenFor(model => model.ParkLat)
     @Html.HiddenFor(model => model.ParkLng)

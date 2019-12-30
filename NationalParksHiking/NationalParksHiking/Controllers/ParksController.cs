@@ -24,7 +24,7 @@ namespace NationalParksHiking.Controllers
         }
 
         // GET: Parks/Details/5
-        public async Task<ActionResult> Details(int? id, ApiKeys apiKeys)
+        public async Task<ActionResult> Details(int? id, ApiKeys apiKeys, HikingTrail hikingTrail)
         {
             
             if (id == null)
@@ -33,12 +33,13 @@ namespace NationalParksHiking.Controllers
             }
             Park park = await db.Parks.FindAsync(id);
             park.CurrentWeatherInfo = new CurrentWeatherInfo(); // Instantiate blank spot for data to bind to
-            park.CurrentWeatherInfo.temperature = 876; // Doeasn't matter what's here, will overwrite anyway
+            park.CurrentWeatherInfo.temperature = 876; // Doesn't matter what's here, will overwrite anyway
+            park.Trails = db.HikingTrails.Where(i => i.ParkId == id).ToList();
             await RunJsonClient(park, apiKeys);
             await RunWeatherJson(apiKeys, park);
+            await RunHikingJson(apiKeys, park, hikingTrail);
             if (park == null)
             {
-                
                 return HttpNotFound();
             }
             return View(park);
@@ -196,6 +197,32 @@ namespace NationalParksHiking.Controllers
             }
         }
 
+        //  -------///////------START TRAIL RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
+        // ------------------ Get Trail Name --------------------
+        public async Task GetTrailName(HikingTrail hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
+        {
+            string trailName = hikingTrailJsonInfo.trails[0].name;
+            hikingTrail.TrailName = trailName;
+            await db.SaveChangesAsync();
+        }
+
+        // ------------------ Get Hiking Project JSON -----------------------------
+        public async Task RunHikingJson(ApiKeys apiKeys, Park park, HikingTrail hikingTrail)
+        {
+            string hikingKey = apiKeys.HikingProjectKey;
+            string parkLatitude = park.ParkLat;
+            string parkLongitude = park.ParkLng;
+            string url = $"https://www.hikingproject.com/data/get-trails?lat={parkLatitude}&lon={parkLongitude}&key={hikingKey}"; // Lat, long, and API Key neede for API call
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
+            string jsonresult = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                HikingTrailJsonInfo hikingTrailJsonInfo = JsonConvert.DeserializeObject<HikingTrailJsonInfo>(jsonresult);
+                await GetTrailName(hikingTrail, hikingTrailJsonInfo);
+                await db.SaveChangesAsync();
+            }
+        }
 
         //  -------///////------START WEATHER RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
         // ------------------ Get Temperature ----------------------------------

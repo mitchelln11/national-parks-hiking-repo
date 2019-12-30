@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -26,7 +27,11 @@ namespace NationalParksHiking.Models
         [Display(Name = "Description")]
         public string ParkDescription { get; set; }
 
+        [NotMapped]
         public CurrentWeatherInfo CurrentWeatherInfo { get; set; } // Connect extra weather app info to Park model -- Not implemented into database as it's an object
+
+       [NotMapped]
+       public List<HikingTrail> Trails { get; set; }
     }
 
     public class CurrentWeatherInfo
@@ -34,6 +39,5 @@ namespace NationalParksHiking.Models
         public double temperature { get; set; }
         public double wind { get; set; }
         public string condition { get; set; }
-        //public string pressure;
     }
 }
