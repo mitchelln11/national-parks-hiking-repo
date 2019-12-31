@@ -89,7 +89,7 @@ namespace NationalParksHiking.Controllers
             {
                 db.Entry(hiker).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Hikers", new { id = hiker.HikerId });
             }
             return View(hiker);
         }

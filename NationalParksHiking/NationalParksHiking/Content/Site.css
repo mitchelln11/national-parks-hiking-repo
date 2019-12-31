@@ -23,6 +23,9 @@ textarea {
 }
 
 /* Custom Styles  */
+th {
+    background-color: grey;
+}
 .header-container {
     padding: 15px;
     background-color: grey;

@@ -32,12 +32,12 @@ namespace NationalParksHiking.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
-            
-            // !!!!!!!!!!!!! -- ONCE THE DETAILS VIEW IS HIT, IT OVERWRITES THE CONTENT WITH THE VERY FIRST RECORD INFO, DOES NOT CHANGE ALL, JUST ONCE THE VIEW IS HIT
 
+            // !!!!!!!!!!!!! -- ONCE THE DETAILS VIEW IS HIT, IT OVERWRITES THE CONTENT WITH THE VERY FIRST RECORD INFO, DOES NOT CHANGE ALL, JUST ONCE THE VIEW IS HIT
+            park = db.Parks.Where(p => p.ParkId == id).Single();
             park.CurrentWeatherInfo = new CurrentWeatherInfo(); // Instantiate blank spot for data to bind to
             park.CurrentWeatherInfo.temperature = 876; // Doesn't matter what's here, will overwrite anyway
-            park = db.Parks.Where(p => p.ParkId == id).Single();
+            
             park.Trails = db.HikingTrails.Where(i => i.ParkId == id).ToList();
             await RunJsonClient(park, apiKeys);
             await RunWeatherJson(apiKeys, park);
