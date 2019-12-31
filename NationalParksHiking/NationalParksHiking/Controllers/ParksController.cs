@@ -196,7 +196,6 @@ namespace NationalParksHiking.Controllers
             {
                 NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult); // Run through entire JSON file
                 Datum parkInfo = npsJsonInfo.data.Where(p => p.parkCode == park.ParkCode).Single(); // Look into individual park when passing id in URL
-                //park.ParkCode = parkInfo.parkCode;
                 // From here on out, refer to parkInfo instead of npsJsonInfo
                 await GetParkDescription(park, parkInfo);
                 await GetFullParkName(park, parkInfo);
