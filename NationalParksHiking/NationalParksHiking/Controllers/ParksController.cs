@@ -39,7 +39,7 @@ namespace NationalParksHiking.Controllers
             park.CurrentWeatherInfo.temperature = 876; // Doesn't matter what's here, will overwrite anyway
             
             park.Trails = db.HikingTrails.Where(i => i.ParkId == id).ToList();
-            await RunJsonClient(park, apiKeys);
+            await RunJsonClient(id, park, apiKeys);
             await RunWeatherJson(apiKeys, park);
             await RunHikingJson(apiKeys, park, hikingTrail);
             if (park == null)
@@ -142,19 +142,12 @@ namespace NationalParksHiking.Controllers
 
 
         //  -------///////------START PARK RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
-        // ------------------ Get Park Description --------------------
-        public async Task GetParkDescription(Park park, NpsJsonInfo npsJsonInfo)
-        {
-            string parkDescription = npsJsonInfo.data[0].description;
-            park.ParkDescription = parkDescription;
-            await db.SaveChangesAsync();
-        }
-
 
         // ------------------ Get Lat Long -----------------------------
-        public async Task GetLatLong(Park park, NpsJsonInfo npsJsonInfo)
+        public async Task GetLatLong(Park park, Datum parkInfo)
         {
-            string comboLatLong = npsJsonInfo.data[0].latLong; // Grabs entire lat long string.
+            //string comboLatLong = parkInfo.data[0].latLong; // Grabs entire lat long string.
+            var comboLatLong = parkInfo.latLong;
             var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma, set to an array
             string isolatedLatitude = latLongArray[0].TrimEnd(','); // New lat variable for the 0 index, trim trailing comma
             string isolatedLongtitude = latLongArray[1].TrimEnd(','); // New lng variable for the 1 index trim trailing comma
@@ -165,41 +158,50 @@ namespace NationalParksHiking.Controllers
             await db.SaveChangesAsync();
         }
 
+        // ------------------ Get Park Description --------------------
+        public async Task GetParkDescription(Park park, Datum parkInfo)
+        {
+            string parkDescription = parkInfo.description;
+            park.ParkDescription = parkDescription;
+            await db.SaveChangesAsync();
+        }
+
 
         // ------------------ Get Park Name -----------------------------
-        public async Task GetFullParkName(Park park, NpsJsonInfo npsJsonInfo)
+        public async Task GetFullParkName(Park park, Datum parkInfo)
         {
-            string fullParkName = npsJsonInfo.data[0].fullName;
+            string fullParkName = parkInfo.fullName;
             park.ParkName = fullParkName;
             await db.SaveChangesAsync();
         }
 
         // ------------------ Get State ----------------------------------
-        public async Task GetParkState(Park park, NpsJsonInfo npsJsonInfo)
+        public async Task GetParkState(Park park, Datum parkInfo)
         {
-
-            string ParkState = npsJsonInfo.data[0].states;
+            string ParkState = parkInfo.states;
             park.ParkState = ParkState;
-            
-
             await db.SaveChangesAsync(); // Issues with saving the database???????
         }
 
         // ------------------ Run single httpclient and response call for Parks -----------------------------
-        public async Task RunJsonClient(Park park, ApiKeys apiKeys)
+        public async Task RunJsonClient(int? id, Park park, ApiKeys apiKeys)
         {
             string parkKey = apiKeys.NpsKey;
-            string url = $"https://developer.nps.gov/api/v1/parks?api_key={parkKey}";
+            int apiLimit = 150;
+            string url = $"https://developer.nps.gov/api/v1/parks?q=National%20Park&limit={apiLimit}&api_key={parkKey}";
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(url);
             string jsonresult = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult);
-                await GetParkDescription(park, npsJsonInfo);
-                await GetFullParkName(park, npsJsonInfo);
-                await GetParkState(park, npsJsonInfo);
-                await GetLatLong(park, npsJsonInfo);
+                NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult); // Run through entire JSON file
+                Datum parkInfo = npsJsonInfo.data.Where(p => p.parkCode == park.ParkCode).Single(); // Look into individual park when passing id in URL
+                //park.ParkCode = parkInfo.parkCode;
+                // From here on out, refer to parkInfo instead of npsJsonInfo
+                await GetParkDescription(park, parkInfo);
+                await GetFullParkName(park, parkInfo);
+                await GetParkState(park, parkInfo);
+                await GetLatLong(park, parkInfo);
                 await db.SaveChangesAsync();
             }
         }
