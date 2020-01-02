@@ -179,6 +179,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HelperClass\parkHelper.cs" />
     <Compile Include="Migrations\201912202239100_UppercaseHikingTrailObject.cs" />
     <Compile Include="Migrations\201912202239100_UppercaseHikingTrailObject.Designer.cs">
       <DependentUpon>201912202239100_UppercaseHikingTrailObject.cs</DependentUpon>
@@ -226,6 +227,10 @@
     <Compile Include="Migrations\202001021426110_UpdateTrailConditionToString.cs" />
     <Compile Include="Migrations\202001021426110_UpdateTrailConditionToString.Designer.cs">
       <DependentUpon>202001021426110_UpdateTrailConditionToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001021559537_TestForUpdatingTrailConditionToString.cs" />
+    <Compile Include="Migrations\202001021559537_TestForUpdatingTrailConditionToString.Designer.cs">
+      <DependentUpon>202001021559537_TestForUpdatingTrailConditionToString.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -378,6 +383,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001021426110_UpdateTrailConditionToString.resx">
       <DependentUpon>202001021426110_UpdateTrailConditionToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001021559537_TestForUpdatingTrailConditionToString.resx">
+      <DependentUpon>202001021559537_TestForUpdatingTrailConditionToString.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

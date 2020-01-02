@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using NationalParksHiking.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
+using NationalParksHiking;
 
 namespace NationalParksHiking.Controllers
 {
@@ -18,8 +19,9 @@ namespace NationalParksHiking.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Parks
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(ApiKeys apiKeys)
         {
+            ViewBag.APIKey = "https://maps.googleapis.com/maps/api/js?key=" + ApiKeys.GoogleMapsJsKey+"&callback=initMap";
             return View(await db.Parks.ToListAsync());
         }
 
@@ -146,7 +148,6 @@ namespace NationalParksHiking.Controllers
         // ------------------ Get Lat Long -----------------------------
         public async Task GetLatLong(Park park, Datum parkInfo)
         {
-            //string comboLatLong = parkInfo.data[0].latLong; // Grabs entire lat long string.
             var comboLatLong = parkInfo.latLong;
             var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma, set to an array
             string isolatedLatitude = latLongArray[0].TrimEnd(','); // New lat variable for the 0 index, trim trailing comma
@@ -204,6 +205,9 @@ namespace NationalParksHiking.Controllers
             }
         }
 
+
+
+
         //  -------///////------START TRAIL RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
         // ------------------ Get Trail Name --------------------
         public async Task GetTrailName(HikingTrail hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
@@ -220,20 +224,6 @@ namespace NationalParksHiking.Controllers
             await db.SaveChangesAsync();
         }
 
-        public async Task GetTrailCondition(HikingTrail hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
-        {
-            string trailCondition = hikingTrailJsonInfo.trails[0].conditionStatus;
-            if (trailCondition != null || trailCondition == "Unkown")
-            {
-                hikingTrail.TrailCondition = trailCondition;
-            }
-            else
-            {
-                hikingTrail.TrailCondition = "No condition status available at this time";
-            }
-            await db.SaveChangesAsync();
-        }
-
         public async Task GetTrailLength(HikingTrail hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
         {
             double trailLength = hikingTrailJsonInfo.trails[0].length;
@@ -245,6 +235,20 @@ namespace NationalParksHiking.Controllers
         {
             string trailSummary = hikingTrailJsonInfo.trails[0].summary;
             hikingTrail.TrailSummary = trailSummary;
+            await db.SaveChangesAsync();
+        }
+
+        public async Task GetTrailCondition(HikingTrail hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
+        {
+            string trailCondition = hikingTrailJsonInfo.trails[0].conditionStatus;
+            if (trailCondition != null || trailCondition != "Unkown")
+            {
+                hikingTrail.TrailCondition = trailCondition;
+            }
+            else
+            {
+                hikingTrail.TrailCondition = "No condition status available at this time";
+            }
             await db.SaveChangesAsync();
         }
 
@@ -269,6 +273,33 @@ namespace NationalParksHiking.Controllers
                 await db.SaveChangesAsync();
             }
         }
+
+
+        //  -------///////------START FULL US MAP WITH MARKER RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
+
+        public string GetParkVarName()
+        {
+            Park park = new Park();
+            var parkVariableName = park.ParkCode;
+            return parkVariableName;
+        }
+
+        public string GetParkLat()
+        {
+            Park park = new Park();
+            var parkLat = park.ParkLat;
+            return parkLat;
+        }
+
+        public string GetParkLng()
+        {
+            Park park = new Park();
+            var parkLng = park.ParkLng;
+            return parkLng;
+        }
+
+
+
 
         //  -------///////------START WEATHER RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
         // ------------------ Get Temperature ----------------------------------
@@ -318,5 +349,35 @@ namespace NationalParksHiking.Controllers
                 await db.SaveChangesAsync();
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //public ActionResult Browse(Park park)
+        //{
+        //    // Retrieve Genre and its Associated Albums from database
+        //    Park parkInfo = new Park
+        //    {
+        //        ParkId = park.ParkId,
+        //        //Park = this.db.Parks.ToList()
+        //    };
+
+        //    return this.View(parkInfo);
+        //}
+
+
+
+
     }
 }

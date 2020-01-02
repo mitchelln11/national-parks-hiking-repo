@@ -1,4 +1,10 @@
-﻿body {
+﻿html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -40,6 +46,10 @@ th {
 }
 .trail-list .trail-box:nth-child(odd) {
     background: grey;
+}
+#map {
+    height: 50vh;
+    width: 100%;
 }
 
 
