@@ -21,10 +21,8 @@ namespace NationalParksHiking.Controllers
         // GET: Parks
         public async Task<ActionResult> Index()
         {
-            //await GetParkMarker(int? id)
             return View(await db.Parks.ToListAsync());
         }
-
 
 
         // GET: Parks/Details/5
@@ -280,27 +278,7 @@ namespace NationalParksHiking.Controllers
 
         //  -------///////------START FULL US MAP WITH MARKER RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
 
-        //public string GetParkVarName()
-        //{
-        //    Park park = new Park();
-        //    var parkVariableName = park.ParkCode;
-        //    return parkVariableName;
-        //}
-
-        //public string GetParkLat()
-        //{
-        //    Park park = new Park();
-        //    var parkLat = park.ParkLat;
-        //    return parkLat;
-        //}
-
-        //public string GetParkLng()
-        //{
-        //    Park park = new Park();
-        //    var parkLng = park.ParkLng;
-        //    return parkLng;
-        //}
-
+        //For Details page
         public async Task GetParkMarker(int? id)
         {
             Park park = await db.Parks.FindAsync(id);
@@ -313,7 +291,33 @@ namespace NationalParksHiking.Controllers
             await db.SaveChangesAsync();
         }
 
-        
+        //For Index page
+        //public async Task GetAllMarkers(Park park)
+        //{
+        //    park.ParkMarkers = new ParkMarkers();
+        //    park.ParkMarkers.ParkUniqueCode = park.ParkCode;
+        //    park.ParkMarkers.ParkLatitude = park.ParkLat;
+        //    park.ParkMarkers.ParkLongitude = park.ParkLng;
+        //    Park parkInfo = new Park();
+
+        //    var parkMarkers = new[] { new { uniqueParkCode = "", parkLatitude = "", parkLongitude = "" } };
+
+        //    foreach (var mark in parkMarkers)
+        //    {
+        //        var code = mark.uniqueParkCode;
+        //        var parkLatitude = mark.parkLatitude;
+        //        var parkLongitude = mark.parkLongitude;
+        //    }
+            
+        //    //Park park = await db.Parks.FindAsync(id);
+        //    //park = db.Parks.Where(p => p.ParkId == id).Single();
+        //    //ViewBag.ParkVarName = park.ParkCode;
+        //    //ViewBag.ParkLat = park.ParkLat;
+        //    //ViewBag.ParkLng = park.ParkLng;
+
+        //    ViewBag.APIKey = "https://maps.googleapis.com/maps/api/js?key=" + ApiKeys.GoogleMapsJsKey + "&callback=initMap";
+        //    await db.SaveChangesAsync();
+        //}
 
 
         //  -------///////------START WEATHER RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------

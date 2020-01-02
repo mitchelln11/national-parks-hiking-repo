@@ -57,10 +57,12 @@
             center: { lat: 39.8283, lng: -98.5795 }, // General Middle of the US
             zoom: 4
         });
-        var @ViewBag.ParkVarName = new google.maps.Marker({
-            position: { lat: @ViewBag.ParkLat, lng: @ViewBag.ParkLng },
+        var @ViewBag.uniqueParkCode = new google.maps.Marker({
+            position: { lat: @ViewBag.parkLatitude, lng: @ViewBag.parkLongitude },
             map: map
         });
+
+        // Brett is using it with anonymous type
     }
 </script>
 <script src=@ViewBag.APIKey async defer type="text/javascript"></script>

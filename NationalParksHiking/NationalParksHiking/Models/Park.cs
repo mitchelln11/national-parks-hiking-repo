@@ -35,6 +35,9 @@ namespace NationalParksHiking.Models
 
        [NotMapped]
        public List<HikingTrail> Trails { get; set; }
+
+        [NotMapped]
+        public ParkMarkers ParkMarkers { get; set;}
     }
 
     public class CurrentWeatherInfo
@@ -43,4 +46,11 @@ namespace NationalParksHiking.Models
         public double wind { get; set; }
         public string condition { get; set; }
     }
-}
+
+    public class ParkMarkers
+    {
+        public string ParkUniqueCode { get; set; }
+        public string ParkLatitude { get; set; }
+        public string ParkLongitude { get; set; }
+    }
+}   
