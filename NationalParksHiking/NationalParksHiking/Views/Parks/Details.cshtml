@@ -14,46 +14,60 @@
     </div>
 </div>
 
-<div class="container-fluid body-content">
     <div class="flex-container">
         <div class="flex-box">
-            <h3>Located in: @Html.DisplayFor(model => model.ParkState)</h3>
-            <p>@Html.DisplayFor(model => model.ParkDescription)</p>
+            <div class="content-box">
+                <h3>Located in: @Html.DisplayFor(model => model.ParkState)</h3>
+                <p>@Html.DisplayFor(model => model.ParkDescription)</p>
+            </div>
         </div>
-        <div class="flex-box">
-            <p>Test</p>
+        <div class="flex-box solo-park-map">
+            <div id="map"></div>
         </div>
+        <hr />
     </div>
-    <hr />
-</div>
 
-<div class="container-fluid body-content">
-    <h2>Trails available at <em>@Html.DisplayFor(model => model.ParkName)</em></h2>
-</div>
+    <div class="park-header">
+        <h2>Trails available at <em>@Html.DisplayFor(model => model.ParkName)</em></h2>
+    </div>
 
-<div class="trail-list">
-    @foreach (var item in Model.Trails)
-    {
-        <div class="trail-box">
-            <div class="col-md-7">
-                <h3>@Html.DisplayFor(model => item.TrailName)</h3>
-                <h3>Trail Summary:</h3>
-                <p>@Html.DisplayFor(model => item.TrailSummary)</p>
+    <div class="trail-list">
+        @foreach (var item in Model.Trails)
+        {
+            <div class="trail-box">
+                <div class="col-md-7">
+                    <h3>@Html.DisplayFor(model => item.TrailName)</h3>
+                    <h3>Trail Summary:</h3>
+                    <p>@Html.DisplayFor(model => item.TrailSummary)</p>
+                </div>
+                <div class="col-md-5 centered-flex">
+                    <p><strong>Trail Difficulty:</strong> @Html.DisplayFor(model => item.TrailDifficulty)</p>
+                    <p><strong>Trail Length:</strong> @Html.DisplayFor(model => item.TrailLength)</p>
+                    <p><strong>Trail Condition:</strong> @Html.DisplayFor(model => item.TrailCondition)</p>
+                </div>
             </div>
-            <div class="col-md-5 centered-flex">
-                <p><strong>Trail Difficulty:</strong> @Html.DisplayFor(model => item.TrailDifficulty)</p>
-                <p><strong>Trail Length:</strong> @Html.DisplayFor(model => item.TrailLength)</p>
-                <p><strong>Trail Condition:</strong> @Html.DisplayFor(model => item.TrailCondition)</p>
-            </div>
-        </div>
-     }
-</div>
+        }
+    </div>
 
-<div class="container-fluid body-content">
-    @Html.HiddenFor(model => model.ParkLat)
-    @Html.HiddenFor(model => model.ParkLng)
+    <div class="container-fluid body-content">
+        @Html.HiddenFor(model => model.ParkLat)
+        @Html.HiddenFor(model => model.ParkLng)
 
-    <p>
-        @Html.ActionLink("Home", "Index", "Home")
-    </p>
-</div>
+        <p>
+            @Html.ActionLink("Home", "Index", "Home")
+        </p>
+    </div>
+    <script>
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: @ViewBag.ParkLat, lng: @ViewBag.ParkLng }, // General Middle of the US
+            zoom: 6
+        });
+        var @ViewBag.ParkVarName = new google.maps.Marker({
+            position: { lat: @ViewBag.ParkLat, lng: @ViewBag.ParkLng },
+            map: map
+        });
+    }
+    </script>
+    <script src=@ViewBag.APIKey async defer type="text/javascript"></script>

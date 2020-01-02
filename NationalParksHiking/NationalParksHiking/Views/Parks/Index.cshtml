@@ -7,10 +7,6 @@
         <h2>US National Parks</h2>
     </div>
     <div id="map">
-        @*@foreach (var item in Model)
-        {
-                
-        }*@
     </div>
 
     <table class="table">
@@ -61,12 +57,10 @@
             center: { lat: 39.8283, lng: -98.5795 }, // General Middle of the US
             zoom: 4
         });
-        var parkVariableName = new google.maps.Marker({
-            position: { lat: 37.58399144, lng: -112.1826689 },
+        var @ViewBag.ParkVarName = new google.maps.Marker({
+            position: { lat: @ViewBag.ParkLat, lng: @ViewBag.ParkLng },
             map: map
         });
     }
-
 </script>
-
 <script src=@ViewBag.APIKey async defer type="text/javascript"></script>

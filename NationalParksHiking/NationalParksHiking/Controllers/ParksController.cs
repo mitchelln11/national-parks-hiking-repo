@@ -19,11 +19,13 @@ namespace NationalParksHiking.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Parks
-        public async Task<ActionResult> Index(ApiKeys apiKeys)
+        public async Task<ActionResult> Index()
         {
-            ViewBag.APIKey = "https://maps.googleapis.com/maps/api/js?key=" + ApiKeys.GoogleMapsJsKey+"&callback=initMap";
+            //await GetParkMarker(int? id)
             return View(await db.Parks.ToListAsync());
         }
+
+
 
         // GET: Parks/Details/5
         public async Task<ActionResult> Details(int? id, ApiKeys apiKeys, HikingTrail hikingTrail)
@@ -44,6 +46,7 @@ namespace NationalParksHiking.Controllers
             await RunJsonClient(id, park, apiKeys);
             await RunWeatherJson(apiKeys, park);
             await RunHikingJson(apiKeys, park, hikingTrail);
+            await GetParkMarker(id);
             if (park == null)
             {
                 return HttpNotFound();
@@ -180,7 +183,7 @@ namespace NationalParksHiking.Controllers
         {
             string ParkState = parkInfo.states;
             park.ParkState = ParkState;
-            await db.SaveChangesAsync(); // Issues with saving the database???????
+            await db.SaveChangesAsync();
         }
 
         // ------------------ Run single httpclient and response call for Parks -----------------------------
@@ -204,7 +207,6 @@ namespace NationalParksHiking.Controllers
                 await db.SaveChangesAsync();
             }
         }
-
 
 
 
@@ -275,30 +277,43 @@ namespace NationalParksHiking.Controllers
         }
 
 
+
         //  -------///////------START FULL US MAP WITH MARKER RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
 
-        public string GetParkVarName()
+        //public string GetParkVarName()
+        //{
+        //    Park park = new Park();
+        //    var parkVariableName = park.ParkCode;
+        //    return parkVariableName;
+        //}
+
+        //public string GetParkLat()
+        //{
+        //    Park park = new Park();
+        //    var parkLat = park.ParkLat;
+        //    return parkLat;
+        //}
+
+        //public string GetParkLng()
+        //{
+        //    Park park = new Park();
+        //    var parkLng = park.ParkLng;
+        //    return parkLng;
+        //}
+
+        public async Task GetParkMarker(int? id)
         {
-            Park park = new Park();
-            var parkVariableName = park.ParkCode;
-            return parkVariableName;
+            Park park = await db.Parks.FindAsync(id);
+            park = db.Parks.Where(p => p.ParkId == id).Single();
+            ViewBag.ParkVarName = park.ParkCode;
+            ViewBag.ParkLat = park.ParkLat;
+            ViewBag.ParkLng = park.ParkLng;
+
+            ViewBag.APIKey = "https://maps.googleapis.com/maps/api/js?key=" + ApiKeys.GoogleMapsJsKey + "&callback=initMap";
+            await db.SaveChangesAsync();
         }
 
-        public string GetParkLat()
-        {
-            Park park = new Park();
-            var parkLat = park.ParkLat;
-            return parkLat;
-        }
-
-        public string GetParkLng()
-        {
-            Park park = new Park();
-            var parkLng = park.ParkLng;
-            return parkLng;
-        }
-
-
+        
 
 
         //  -------///////------START WEATHER RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
@@ -349,35 +364,5 @@ namespace NationalParksHiking.Controllers
                 await db.SaveChangesAsync();
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public ActionResult Browse(Park park)
-        //{
-        //    // Retrieve Genre and its Associated Albums from database
-        //    Park parkInfo = new Park
-        //    {
-        //        ParkId = park.ParkId,
-        //        //Park = this.db.Parks.ToList()
-        //    };
-
-        //    return this.View(parkInfo);
-        //}
-
-
-
-
     }
 }

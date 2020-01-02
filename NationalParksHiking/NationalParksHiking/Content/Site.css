@@ -51,6 +51,15 @@ th {
     height: 50vh;
     width: 100%;
 }
+.content-box {
+    padding:15px;
+}
+.park-header h2 {
+    margin: 0;
+    padding: 15px;
+    background-color: #dbd8d8;
+    box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.7) inset;
+}
 
 
 @media screen and (min-width:768px) {
@@ -59,6 +68,10 @@ th {
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
+    }
+
+    .solo-park-map #map {
+        width: 50vw;
     }
 
     .flex-container {
@@ -72,7 +85,6 @@ th {
         display: flex;
         flex-direction: column;
         flex: 1;
-        margin: 0 15px 0 0;
     }
 
     .trail-list {
