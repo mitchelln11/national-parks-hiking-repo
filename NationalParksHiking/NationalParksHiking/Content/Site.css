@@ -31,6 +31,17 @@ th {
     background-color: grey;
 }
 
+.trail-list .trail-box {
+    padding: 10px 0;
+}
+
+.trail-list .trail-box:nth-child(even) {
+    background: white;
+}
+.trail-list .trail-box:nth-child(odd) {
+    background: grey;
+}
+
 
 @media screen and (min-width:768px) {
     .header-container {
@@ -52,6 +63,25 @@ th {
         flex-direction: column;
         flex: 1;
         margin: 0 15px 0 0;
+    }
+
+    .trail-list {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .trail-list .trail-box {
+        display: flex;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .centered-flex {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }
 

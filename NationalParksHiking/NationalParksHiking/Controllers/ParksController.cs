@@ -166,7 +166,6 @@ namespace NationalParksHiking.Controllers
             await db.SaveChangesAsync();
         }
 
-
         // ------------------ Get Park Name -----------------------------
         public async Task GetFullParkName(Park park, Datum parkInfo)
         {
@@ -221,6 +220,20 @@ namespace NationalParksHiking.Controllers
             await db.SaveChangesAsync();
         }
 
+        public async Task GetTrailCondition(HikingTrail hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
+        {
+            string trailCondition = hikingTrailJsonInfo.trails[0].conditionStatus;
+            if (trailCondition != null || trailCondition == "Unkown")
+            {
+                hikingTrail.TrailCondition = trailCondition;
+            }
+            else
+            {
+                hikingTrail.TrailCondition = "No condition status available at this time";
+            }
+            await db.SaveChangesAsync();
+        }
+
         public async Task GetTrailLength(HikingTrail hikingTrail, HikingTrailJsonInfo hikingTrailJsonInfo)
         {
             double trailLength = hikingTrailJsonInfo.trails[0].length;
@@ -252,6 +265,7 @@ namespace NationalParksHiking.Controllers
                 await GetTrailDifficulty(hikingTrail, hikingTrailJsonInfo);
                 await GetTrailLength(hikingTrail, hikingTrailJsonInfo);
                 await GetTrailSummary(hikingTrail, hikingTrailJsonInfo);
+                await GetTrailCondition(hikingTrail, hikingTrailJsonInfo);
                 await db.SaveChangesAsync();
             }
         }

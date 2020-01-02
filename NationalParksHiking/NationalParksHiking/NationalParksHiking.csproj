@@ -219,6 +219,14 @@
     <Compile Include="Migrations\201912311617520_AddParkCodeFieldForUniqueJsonCall.Designer.cs">
       <DependentUpon>201912311617520_AddParkCodeFieldForUniqueJsonCall.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001021402513_AddTrailConditionToTrailsModelUserStory.cs" />
+    <Compile Include="Migrations\202001021402513_AddTrailConditionToTrailsModelUserStory.Designer.cs">
+      <DependentUpon>202001021402513_AddTrailConditionToTrailsModelUserStory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001021426110_UpdateTrailConditionToString.cs" />
+    <Compile Include="Migrations\202001021426110_UpdateTrailConditionToString.Designer.cs">
+      <DependentUpon>202001021426110_UpdateTrailConditionToString.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -364,6 +372,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912311617520_AddParkCodeFieldForUniqueJsonCall.resx">
       <DependentUpon>201912311617520_AddParkCodeFieldForUniqueJsonCall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001021402513_AddTrailConditionToTrailsModelUserStory.resx">
+      <DependentUpon>202001021402513_AddTrailConditionToTrailsModelUserStory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001021426110_UpdateTrailConditionToString.resx">
+      <DependentUpon>202001021426110_UpdateTrailConditionToString.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

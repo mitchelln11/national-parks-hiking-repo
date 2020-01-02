@@ -4,16 +4,15 @@
     ViewBag.Title = "Details";
 }
 
-    <div class="header-container">
-        <h1>@Html.DisplayFor(model => model.ParkName)</h1>
-        <div class="weather-info">
-            <h2>Current Weather</h2>
-            <span>@Model.CurrentWeatherInfo.temperature &deg;F | </span>
-            <span>@Model.CurrentWeatherInfo.condition | </span>
-            <span>Wind: @Model.CurrentWeatherInfo.wind MPH</span>
-        </div>
+<div class="header-container">
+    <h1>@Html.DisplayFor(model => model.ParkName)</h1>
+    <div class="weather-info">
+        <h2>Current Weather</h2>
+        <span>@Model.CurrentWeatherInfo.temperature &deg;F | </span>
+        <span>@Model.CurrentWeatherInfo.condition | </span>
+        <span>Wind: @Model.CurrentWeatherInfo.wind mph</span>
     </div>
-
+</div>
 
 <div class="container-fluid body-content">
     <div class="flex-container">
@@ -25,18 +24,31 @@
             <p>Test</p>
         </div>
     </div>
-    <div>
-        @foreach (var item in Model.Trails)
-        {
-            <h3>@Html.DisplayFor(model => item.TrailName)</h3>
-            <p><strong>Trail Difficulty:</strong> @Html.DisplayFor(model => item.TrailDifficulty)</p>
-            <p><strong>Trail Length:</strong> @Html.DisplayFor(model => item.TrailLength)</p>
-            <h3>Trail Summary:</h3>
-            <hr />
-            <p>@Html.DisplayFor(model => item.TrailSummary)</p>
-        }
-    </div>
+</div>
 
+<div class="container-fluid body-content">
+    <h2>Trails available at @Html.DisplayFor(model => model.ParkName)</h2>
+</div>
+
+<div class="trail-list">
+    @foreach (var item in Model.Trails)
+    {
+        <div class="trail-box">
+            <div class="col-md-7">
+                <h3>@Html.DisplayFor(model => item.TrailName)</h3>
+                <h3>Trail Summary:</h3>
+                <p>@Html.DisplayFor(model => item.TrailSummary)</p>
+            </div>
+            <div class="col-md-5 centered-flex">
+                <p><strong>Trail Difficulty:</strong> @Html.DisplayFor(model => item.TrailDifficulty)</p>
+                <p><strong>Trail Length:</strong> @Html.DisplayFor(model => item.TrailLength)</p>
+                <p><strong>Trail Condition:</strong> @Html.DisplayFor(model => item.TrailCondition)</p>
+            </div>
+        </div>
+     }
+</div>
+
+<div class="container-fluid body-content">
     @Html.HiddenFor(model => model.ParkLat)
     @Html.HiddenFor(model => model.ParkLng)
 
