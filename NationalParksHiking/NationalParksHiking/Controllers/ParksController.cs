@@ -46,6 +46,7 @@ namespace NationalParksHiking.Controllers
             await RunJsonClient(id, park, apiKeys);
             await RunWeatherJson(apiKeys, park);
             await RunHikingJson(apiKeys, park, hikingTrail);
+            await GetApiKey();
             await GetParkMarker(id);
             if (park == null)
             {
@@ -288,36 +289,14 @@ namespace NationalParksHiking.Controllers
             ViewBag.ParkVarName = park.ParkCode;
             ViewBag.ParkLat = park.ParkLat;
             ViewBag.ParkLng = park.ParkLng;
-
-            ViewBag.APIKey = "https://maps.googleapis.com/maps/api/js?key=" + ApiKeys.GoogleMapsJsKey + "&callback=initMap";
             await db.SaveChangesAsync();
         }
 
         //For Index page
         public async Task GetApiKey()
         {
-        //    Park parkList = new Park();
-        //    var parkRecords = db.Parks.Attach(r => r.ParkCode = parkList.ParkCode;
-        //    foreach (var parkRecord in parkList.ParkCode)
-        //    {
-        //        var parkCode = parkRecord;
-        //    }
-        //    //park.ParkMarkers = new ParkMarkers();
-        //    //park.ParkMarkers.ParkUniqueCode = park.ParkCode;
-        //    //park.ParkMarkers.ParkLatitude = park.ParkLat;
-        //    //park.ParkMarkers.ParkLongitude = park.ParkLng;
-        //    //Park parkInfo = new Park();
-
-        //    //var parkMarkers = new[] { new { uniqueParkCode = "", parkLatitude = "", parkLongitude = "" } };
-
-        //    //foreach (var mark in parkMarkers)
-        //    //{
-        //    //    var code = mark.uniqueParkCode;
-        //    //    var parkLatitude = mark.parkLatitude;
-        //    //    var parkLongitude = mark.parkLongitude;
-        //    //}
-
            ViewBag.APIKey = "https://maps.googleapis.com/maps/api/js?key=" + ApiKeys.GoogleMapsJsKey + "&callback=initMap";
+            await db.SaveChangesAsync();
         }
 
 
