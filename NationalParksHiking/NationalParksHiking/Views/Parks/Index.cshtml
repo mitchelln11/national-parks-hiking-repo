@@ -6,6 +6,10 @@
 <div class="container-fluid">
     <h2>US National Parks</h2>
 </div>
+@{
+    // Create an empty list for the marker values to add into
+    List<NationalParksHiking.Models.ParkMarkers> parkMarkers = new List<NationalParksHiking.Models.ParkMarkers>();
+}
 <div id="map">
 </div>
 
@@ -28,6 +32,14 @@
 
     @foreach (var item in Model)
     {
+        // Add Markers
+        NationalParksHiking.Models.ParkMarkers parkMarker = new NationalParksHiking.Models.ParkMarkers();
+        //Assign required parameters
+        parkMarker.ParkLatitude = item.ParkLat;
+        parkMarker.ParkLongitude = item.ParkLng;
+        parkMarker.ParkUniqueCode = item.ParkCode;
+        //Actually add all three values together into the parkMarker object
+        parkMarkers.Add(parkMarker);
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ParkName)
@@ -45,10 +57,10 @@
                 @Html.ActionLink("Details", "Details", new { id = item.ParkId })
             </td>
         </tr>
+        
     }
 
 </table>
-
 
 <script>
     var map;
@@ -57,10 +69,20 @@
             center: { lat: 39.8283, lng: -98.5795 }, // General Middle of the US
             zoom: 4
         });
-        @*var @ViewBag.ParkVarName = new google.maps.Marker({
-            position: { lat: @ViewBag.ParkLat, lng: @ViewBag.ParkLng },
+
+        //Loop through each marker and instantiate the actual marker call from Google Maps API
+        @foreach (var marker in parkMarkers)
+        {
+            // <Text> needed because it can't be used in tables
+            <text>
+            marker = new google.maps.Marker({
+                position: { lat: @marker.ParkLatitude, lng: @marker.ParkLongitude },
             map: map
-        });*@
+            });
+            </text>
+        }
+        
     }
 </script>
+
 <script src="@ViewBag.APIKey" async defer type="text/javascript"></script>
