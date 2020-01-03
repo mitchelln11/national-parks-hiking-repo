@@ -21,6 +21,8 @@ namespace NationalParksHiking.Controllers
         // GET: Parks
         public async Task<ActionResult> Index()
         {
+            Park park = new Park();
+            await GetAllMarkers(park);
             return View(await db.Parks.ToListAsync());
         }
 
@@ -292,32 +294,35 @@ namespace NationalParksHiking.Controllers
         }
 
         //For Index page
-        //public async Task GetAllMarkers(Park park)
-        //{
-        //    park.ParkMarkers = new ParkMarkers();
-        //    park.ParkMarkers.ParkUniqueCode = park.ParkCode;
-        //    park.ParkMarkers.ParkLatitude = park.ParkLat;
-        //    park.ParkMarkers.ParkLongitude = park.ParkLng;
-        //    Park parkInfo = new Park();
+        public async Task GetAllMarkers(Park park)
+        {
+            //park.ParkMarkers = new ParkMarkers();
+            //park.ParkMarkers.ParkUniqueCode = park.ParkCode;
+            //park.ParkMarkers.ParkLatitude = park.ParkLat;
+            //park.ParkMarkers.ParkLongitude = park.ParkLng;
+            //Park parkInfo = new Park();
 
-        //    var parkMarkers = new[] { new { uniqueParkCode = "", parkLatitude = "", parkLongitude = "" } };
+            //var parkMarkers = new[] { new { uniqueParkCode = "", parkLatitude = "", parkLongitude = "" } };
 
-        //    foreach (var mark in parkMarkers)
-        //    {
-        //        var code = mark.uniqueParkCode;
-        //        var parkLatitude = mark.parkLatitude;
-        //        var parkLongitude = mark.parkLongitude;
-        //    }
-            
-        //    //Park park = await db.Parks.FindAsync(id);
-        //    //park = db.Parks.Where(p => p.ParkId == id).Single();
-        //    //ViewBag.ParkVarName = park.ParkCode;
-        //    //ViewBag.ParkLat = park.ParkLat;
-        //    //ViewBag.ParkLng = park.ParkLng;
+            //foreach (var mark in parkMarkers)
+            //{
+            //    var code = mark.uniqueParkCode;
+            //    var parkLatitude = mark.parkLatitude;
+            //    var parkLongitude = mark.parkLongitude;
+            //}
 
-        //    ViewBag.APIKey = "https://maps.googleapis.com/maps/api/js?key=" + ApiKeys.GoogleMapsJsKey + "&callback=initMap";
-        //    await db.SaveChangesAsync();
-        //}
+            //Park park = await db.Parks.FindAsync(id);
+            //park = db.Parks.Where(p => p.ParkId == id).Single();
+            //ViewBag.ParkVarName = park.ParkCode;
+            //ViewBag.ParkLat = park.ParkLat;
+            //ViewBag.ParkLng = park.ParkLng;
+            ViewBag.ParkVarName = park.ParkCode;
+            ViewBag.ParkLat = park.ParkLat;
+            ViewBag.ParkLng = park.ParkLng;
+
+            ViewBag.APIKey = "https://maps.googleapis.com/maps/api/js?key=" + ApiKeys.GoogleMapsJsKey + "&callback=initMap";
+            await db.SaveChangesAsync();
+        }
 
 
         //  -------///////------START WEATHER RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
