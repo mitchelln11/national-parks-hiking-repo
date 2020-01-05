@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace NationalParksHiking.Models
 {
@@ -33,11 +34,18 @@ namespace NationalParksHiking.Models
         [NotMapped]
         public CurrentWeatherInfo CurrentWeatherInfo { get; set; } // Connect extra weather app info to Park model -- Not implemented into database as it's an object
 
-       [NotMapped]
-       public List<HikingTrail> Trails { get; set; }
+        [NotMapped]
+        public List<HikingTrail> Trails { get; set; }
 
         [NotMapped]
         public ParkMarkers ParkMarkers { get; set;}
+
+        [NotMapped]
+        [Display(Name = "Filter by State")]
+        public string State { get; set; }
+
+        [NotMapped]
+        public IEnumerable<SelectListItem> States { get; set; }
     }
 
     public class CurrentWeatherInfo

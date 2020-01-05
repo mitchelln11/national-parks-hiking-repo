@@ -232,6 +232,10 @@
     <Compile Include="Migrations\202001021559537_TestForUpdatingTrailConditionToString.Designer.cs">
       <DependentUpon>202001021559537_TestForUpdatingTrailConditionToString.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001042133099_AddApplicationIdAsForeignIdToHikersModel.cs" />
+    <Compile Include="Migrations\202001042133099_AddApplicationIdAsForeignIdToHikersModel.Designer.cs">
+      <DependentUpon>202001042133099_AddApplicationIdAsForeignIdToHikersModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -386,6 +390,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001021559537_TestForUpdatingTrailConditionToString.resx">
       <DependentUpon>202001021559537_TestForUpdatingTrailConditionToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001042133099_AddApplicationIdAsForeignIdToHikersModel.resx">
+      <DependentUpon>202001042133099_AddApplicationIdAsForeignIdToHikersModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

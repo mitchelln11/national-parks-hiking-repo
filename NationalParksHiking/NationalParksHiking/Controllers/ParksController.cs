@@ -18,10 +18,50 @@ namespace NationalParksHiking.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        //https://nimblegecko.com/using-simple-drop-down-lists-in-ASP-NET-MVC/
+        //public ActionResult GetStateFromDropdown()
+        //{
+        //    // Get Sign Up information from the session
+        //    var states = GetAllStates();
+        //    var model = new Park();
+        //    model.States = GetSelectListItems(states);
+        //    // Display Done.html page that shows Name and selected state.
+        //    return View(model);
+        //}
+
+        
+        //[HttpPost]
+        //public ActionResult GetStateFromDropdown(Park park)
+        //{
+        //    // Get all states for DropDownList
+        //    var states = GetAllStates();
+        //    var model = new Park();
+        //    // Create a list of SelectListItems so these can be rendered on the page
+        //    model.States = GetSelectListItems(states);
+        //    if (ModelState.IsValid)
+        //    {
+        //        Session["Park"] = park;
+        //        return RedirectToAction("Index", "Park");
+        //    }
+        //    return View("Index", "Park");
+        //}
+
+        //public ActionResult FoundState()
+        //{
+        //    var model = Session["Park"] as Park;
+        //    return View("Index", "Park", model);
+        //}
+
+
         // GET: Parks
         public async Task<ActionResult> Index()
         {
             await GetApiKey(); // Needed to use API key
+
+            //var states = GetAllStates();
+            //var model = new Park();
+            //model.States = GetSelectListItems(states);
+
             var parks = await db.Parks.ToListAsync();
             return View(parks);
         }
@@ -250,6 +290,42 @@ namespace NationalParksHiking.Controllers
             }
             await db.SaveChangesAsync();
         }
+
+
+
+
+        // ---------------GET ALL STATE INFO-------------------------------------
+        //private IEnumerable<string> GetAllStates()
+        //{
+        //    return new List<string>
+        //    {
+        //        "UT",
+        //        "ND",
+        //        "ME",
+        //    };
+        //}
+
+        //private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<string> stateList)
+        //{
+        //    // Create an empty list to hold result of the operation
+        //    var selectList = new List<SelectListItem>();
+
+        //    // For each string in the 'elements' variable, create a new SelectListItem object
+        //    // that has both its Value and Text properties set to a particular value.
+        //    // This will result in MVC rendering each item as:
+        //    // <option value="State Name">State Name</option>
+        //    foreach (var state in stateList)
+        //    {
+        //        selectList.Add(new SelectListItem
+        //        {
+        //            Value = state,
+        //            Text = state
+        //        });
+        //    }
+
+        //    return selectList;
+        //}
+        // -----------------END STATE INFO  ---------------------------------------
 
         // ------------------ Get Hiking Project JSON -----------------------------
         public async Task RunHikingJson(ApiKeys apiKeys, Park park, HikingTrail hikingTrail)

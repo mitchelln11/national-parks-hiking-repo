@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using NationalParksHiking.Models;
 using Newtonsoft.Json;
 
@@ -26,6 +27,8 @@ namespace NationalParksHiking.Controllers
         // GET: Hikers/Details/5
         public ActionResult Details(int? id)
         {
+            //string userLoggedIn = User.Identity.GetUserId();
+            //Hiker personLoggedIn = db.Hikers.Where(u => u.HikerId == userLoggedIn).FirstOrDefault();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -54,10 +57,13 @@ namespace NationalParksHiking.Controllers
         {
             if (ModelState.IsValid)
             {
+                string newuserid = User.Identity.GetUserId();
+                hiker.ApplicationId = newuserid;
                 await GetHikerLatLong(apiKeys, hiker);
                 db.Hikers.Add(hiker);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                var test = hiker.HikerId;
+                return RedirectToAction("Details", "Hikers", new { id = hiker.HikerId });
             }
 
             return View(hiker);

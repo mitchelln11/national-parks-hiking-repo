@@ -12,6 +12,36 @@
 }
 <div id="map">
 </div>
+<div class="clearfix"></div>
+
+<div class="container-fluid">
+    <div class="flex-container">
+        <div class="panel-body">
+            @*@using (Html.BeginForm("Park", "Park", FormMethod.Post, new { role = "form" }))
+            {*@
+
+                @* State selection dropdown *@
+                @*<div class="form-group">*@
+                    @*Html.LabelFor(m => m.States)
+                    @*Html.DropDownListFor(m => m.States, // 1. Store selected value in Model.State;
+                                                         // when page is rendered after postback,
+                                                         // take selected value from Model.State.
+
+                // 2. Take list of values from Model.States
+                //Model.States,
+
+                // 3. Text for the first 'default' option
+                //"- Please select a state -",
+
+                //4. A class name to assign to <select> tag
+                //new { @class = "form-control" })
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign up</button>
+            @*}*@
+        </div>
+    </div>
+</div>
 
 <table class="table">
     <tr>

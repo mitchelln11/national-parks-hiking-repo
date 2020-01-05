@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace NationalParksHiking.Models
 {
@@ -31,5 +33,10 @@ namespace NationalParksHiking.Models
 
         [Display(Name = "Longitude")]
         public string Longitude { get; set; }
+
+        [ForeignKey("ApplicationUser")]
+        [HiddenInput(DisplayValue = false)]
+        public string ApplicationId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
