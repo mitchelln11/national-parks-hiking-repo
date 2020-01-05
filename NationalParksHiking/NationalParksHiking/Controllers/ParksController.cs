@@ -249,10 +249,25 @@ namespace NationalParksHiking.Controllers
 
         //  -------///////------START TRAIL RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
         // ------------------ Get Trail Name --------------------
-        public async Task GetTrailName(HikingTrail hikingTrail)
+        public async Task GetTrailName(HikingTrail hikingTrail, List<Trail> trailInfo) //Why can't I access the trailInfo options?
         {
-            string trailName = hikingTrail.TrailName;
-            hikingTrail.TrailName = trailName;
+            for (var i=0;i<trailInfo.Count;i++)
+            {
+                hikingTrail.TrailName = trailInfo[i].name;
+            }
+            
+            //trail.TrailName = trailInfo.name;
+            //HikingTrail.TrailName
+            //var JsonTrailName = trailInfo.
+            //HikingTrail hiking = new HikingTrail();
+            //foreach (var Trail in trailInfo)
+            //{
+            //    Trail.
+            //}
+            //var nameTest = db.HikingTrails.
+            //hiking.TrailName = trailInfo.name.ToString();
+
+            //trailInfo.
             await db.SaveChangesAsync();
         }
 
@@ -343,9 +358,12 @@ namespace NationalParksHiking.Controllers
             {
                 HikingTrailJsonInfo hikingTrailJsonInfo = JsonConvert.DeserializeObject<HikingTrailJsonInfo>(jsonresult);
                 HikingTrail hikingTrail = new HikingTrail();
-                Trail trailInfo = hikingTrailJsonInfo.trails[0];
+                List<Trail> trailInfo = hikingTrailJsonInfo.trails.ToList();
+                // How to access an item from a list because lists can't be passed through as a parameter apparently
+                //var JsonTrailName = 
+                
                 //List<HikingTrail> TrailInfo = hikingTrailJsonInfo.trails.Where(p => p).ToList();
-                await GetTrailName(hikingTrail);
+                await GetTrailName(hikingTrail, trailInfo);
                 //await GetTrailDifficulty(hikingTrail, trailInfo);
                 //await GetTrailLength(hikingTrail, trailInfo);
                 //await GetTrailSummary(hikingTrail, trailInfo);
