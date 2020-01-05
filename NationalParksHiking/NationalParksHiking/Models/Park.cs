@@ -38,14 +38,17 @@ namespace NationalParksHiking.Models
         public List<HikingTrail> Trails { get; set; }
 
         [NotMapped]
+        public HikingTrail trail { get; set; }
+
+        [NotMapped]
         public ParkMarkers ParkMarkers { get; set;}
 
-        [NotMapped]
-        [Display(Name = "Filter by State")]
-        public string State { get; set; }
+        //[NotMapped]
+        //[Display(Name = "Filter by State")]
+        //public string State { get; set; }
 
-        [NotMapped]
-        public IEnumerable<SelectListItem> States { get; set; }
+        //[NotMapped]
+        //public IEnumerable<SelectListItem> States { get; set; }
     }
 
     public class CurrentWeatherInfo

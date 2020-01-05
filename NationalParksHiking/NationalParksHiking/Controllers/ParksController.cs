@@ -68,7 +68,7 @@ namespace NationalParksHiking.Controllers
 
 
         // GET: Parks/Details/5
-        public async Task<ActionResult> Details(int? id, ApiKeys apiKeys)
+        public async Task<ActionResult> Details(int? id, ApiKeys apiKeys, HikingTrail hikingTrail)
         {
             
             if (id == null)
@@ -79,9 +79,10 @@ namespace NationalParksHiking.Controllers
             park.CurrentWeatherInfo = new CurrentWeatherInfo(); // Instantiate blank spot for data to bind to
             park.CurrentWeatherInfo.temperature = 876; // Doesn't matter what's here, will overwrite anyway
             park.Trails = db.HikingTrails.Where(i => i.ParkId == id).ToList();
-            await RunJsonClient(park, apiKeys);
+            //await GetTrailDifficulty(hikingTrail,  trailinfo);
+            await RunJsonClient(apiKeys, park);
             await RunWeatherJson(apiKeys, park);
-            
+            await RunHikingJson(apiKeys, park);
             await GetApiKey();
             await GetParkMarker(id);
             if (park == null)
@@ -223,7 +224,7 @@ namespace NationalParksHiking.Controllers
         }
 
         // ------------------ Run single httpclient and response call for Parks -----------------------------
-        public async Task RunJsonClient(Park park, ApiKeys apiKeys)
+        public async Task RunJsonClient(ApiKeys apiKeys, Park park)
         {
             string parkKey = apiKeys.NpsKey;
             int apiLimit = 150;
@@ -248,9 +249,9 @@ namespace NationalParksHiking.Controllers
 
         //  -------///////------START TRAIL RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
         // ------------------ Get Trail Name --------------------
-        public async Task GetTrailName(HikingTrail hikingTrail, Trail trailInfo)
+        public async Task GetTrailName(HikingTrail hikingTrail)
         {
-            string trailName = trailInfo.name;
+            string trailName = hikingTrail.TrailName;
             hikingTrail.TrailName = trailName;
             await db.SaveChangesAsync();
         }
@@ -264,8 +265,9 @@ namespace NationalParksHiking.Controllers
 
         public async Task GetTrailLength(HikingTrail hikingTrail, Trail trailInfo)
         {
-            double trailLength = trailInfo.length;
-            hikingTrail.TrailLength = trailLength;
+            double TrailLength = trailInfo.length;
+            double SimpletrailLength = Math.Round(TrailLength, 2);
+            hikingTrail.TrailLength = SimpletrailLength;
             await db.SaveChangesAsync();
         }
 
@@ -328,7 +330,7 @@ namespace NationalParksHiking.Controllers
         // -----------------END STATE INFO  ---------------------------------------
 
         // ------------------ Get Hiking Project JSON -----------------------------
-        public async Task RunHikingJson(ApiKeys apiKeys, Park park, HikingTrail hikingTrail)
+        public async Task RunHikingJson(ApiKeys apiKeys, Park park)
         {
             string hikingKey = apiKeys.HikingProjectKey;
             string parkLatitude = park.ParkLat;
@@ -340,12 +342,14 @@ namespace NationalParksHiking.Controllers
             if (response.IsSuccessStatusCode)
             {
                 HikingTrailJsonInfo hikingTrailJsonInfo = JsonConvert.DeserializeObject<HikingTrailJsonInfo>(jsonresult);
-                Trail trailInfo = hikingTrailJsonInfo.trails.Where(p => p.id == park.ParkId).Single();
-                await GetTrailName(hikingTrail, trailInfo);
-                await GetTrailDifficulty(hikingTrail, trailInfo);
-                await GetTrailLength(hikingTrail, trailInfo);
-                await GetTrailSummary(hikingTrail, trailInfo);
-                await GetTrailCondition(hikingTrail, trailInfo);
+                HikingTrail hikingTrail = new HikingTrail();
+                Trail trailInfo = hikingTrailJsonInfo.trails[0];
+                //List<HikingTrail> TrailInfo = hikingTrailJsonInfo.trails.Where(p => p).ToList();
+                await GetTrailName(hikingTrail);
+                //await GetTrailDifficulty(hikingTrail, trailInfo);
+                //await GetTrailLength(hikingTrail, trailInfo);
+                //await GetTrailSummary(hikingTrail, trailInfo);
+                //await GetTrailCondition(hikingTrail, trailInfo);
                 await db.SaveChangesAsync();
             }
         }
