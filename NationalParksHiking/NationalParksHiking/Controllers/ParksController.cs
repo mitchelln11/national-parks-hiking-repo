@@ -11,6 +11,7 @@ using NationalParksHiking.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
 using NationalParksHiking;
+using Microsoft.AspNet.Identity;
 
 namespace NationalParksHiking.Controllers
 {
@@ -248,6 +249,98 @@ namespace NationalParksHiking.Controllers
 
 
         //  -------///////------START TRAIL RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
+        // ------------------ Get Trail Ratings --------------------
+
+        public async Task GetAverageTrailRating()
+        {
+            var user = User.Identity.GetUserId();
+            //HikingTrail trailInPark = new HikingTrail();
+            //List<HikingTrail> hikingTrails = db.HikingTrails.Any(p => p.TrailId == trailInfo[0].);
+            //var parkId = db.HikingTrails.Where(t => t.ParkId == Park.ParkId);
+            //var trailList = db.HikerTrailRatings.ToList(); // returns all the ratings
+
+            // Where TrailId Matches
+            // Get Count of reviews
+            // Get Sum of reviews
+            List<HikerTrailRating> AllRatings = db.HikerTrailRatings.ToList();
+            //var ReviewAverage = AllRatings[0].AverageUserRating;
+            var ReviewCount = AllRatings.Count;
+
+            List<int> RatingInts = new List<int>();
+            foreach(HikerTrailRating rating in AllRatings)
+            {
+                int individualRating = rating.IndividualRating;
+                RatingInts.Add(individualRating);
+            }
+            var RatingsSum = RatingInts.Sum();
+            var TotalAverageRating = RatingsSum/ReviewCount;
+            for (var j=0;j<AllRatings.Count;j++)
+            {
+                AllRatings[j].AverageUserRating = TotalAverageRating;
+            }
+            
+            //foreach (var Rating in AllRatings)
+            //{
+            //    //List<HikerTrailRating> hikerTrailRating;
+            //    //TrailCollection trailCollections = new TrailCollection(); 
+            //    var IndivRating = Rating.IndividualRating;
+            //    //Rating.IndividualRating = hikerTrailRating.Add();
+            //}
+            //var SingleRating = AllRatings.
+            //List<HikingTrail> trailList = db.HikingTrails.ToList();
+            //for (var i=0;i<trailList.Count;i++)
+            //{
+            //    //HikerTrailRating hikerTrailRating = new HikerTrailRating(); // Instantiating new Rating
+            //    var test = db.HikingTrails.Where(d => d.TrailId == trailList[i].TrailId);
+            //    var Rating = hikerTrailRating.IndividualRating;
+            //    var TrailIndex = trailList[i].TrailId;
+            //    //var Rating = trailList[i].
+            //    db.HikerTrailRatings.Add(hikerTrailRating);
+            //}
+
+            //var 
+
+            //var trailList = db.HikerTrailRatings.Where(t => t.TrailId == Convert.ToInt32(trailInfo.);
+            //List<HikerTrailRating> hikingTrailRatings = db.HikerTrailRatings.Where(h => h.TrailId == trailInPark.TrailId).ToList();
+            //var AmountOfReviews = trailInfo.Count();
+            //var Rating = db.HikerTrailRatings.Where()
+            //HikingTrail hikingTrail = new HikingTrail();
+            //HikerTrailRating hikerTrailRating = new HikerTrailRating();
+            //HikerTrailRating hikerTrailRating = new HikerTrailRating();
+            // Pull Individual Ratings
+            // Pull Trail being Rated
+            //HikingTrail hikingTrail = new HikingTrail()
+            //HikerTrailRating hikerTrailRating = db.HikerTrailRatings.Where(t => t.TrailId == hikingTrail.TrailId);
+            //var rating = db.HikingTrails.Where(h => h.TrailId == hikingTrail.TrailId);
+            //HikingTrail hikingTrail = db.HikingTrails.Where(t => t.TrailId == hikerTrailRating.TrailId);
+
+            //var test = hikerTrailRating.Average();
+            //var IndividualRating = hikerTrailRating.IndividualRating
+            //var AverageTrailRating = IndividualRating.
+            //var TotalNumberOfReviews = hikingTrail.TotalUserReviews;
+            //var IndividualRating = ;
+            //var AverageTrailReview = 20/TotalNumberOfReviews; 
+            await db.SaveChangesAsync();
+        }
+
+        //public async Task AddRating()
+        //{
+        //    var user = User.Identity.GetUserId();
+        //    List<HikingTrail> trailList = db.HikingTrails.ToList();
+        //    for (var i = 0; i < trailList.Count; i++)
+        //    {
+        //        HikerTrailRating hikerTrailRating = new HikerTrailRating(); // Instantiating new Rating
+        //        hikerTrailRating.HikerId = Convert.ToInt32(user);
+        //        hikerTrailRating.IndividualRating = db.HikerTrailRatings.Where(r => r.TrailId == trailList[i].TrailId).;
+        //        //var test = db.HikingTrails.Where(d => d.TrailId == trailList[i].TrailId);
+        //        //var Rating = hikerTrailRating.IndividualRating;
+        //        //var TrailIndex = trailList[i].TrailId;
+        //        //var Rating = trailList[i].
+        //        db.HikerTrailRatings.Add(hikerTrailRating);
+        //    }
+        //    await db.SaveChangesAsync();
+        //}
+
         // ------------------ Get Trail Details --------------------
         public async Task GetTrailDetails(Park Park, List<Trail> trailInfo)
         {
@@ -255,22 +348,19 @@ namespace NationalParksHiking.Controllers
             HikingTrail hiking = db.HikingTrails.Where(t => t.ParkId == foreignParkId).FirstOrDefault(); // Matching park id with foreign id
             for (var i=0;i<trailInfo.Count;i++)
             {
-                
                 HikingTrail hikingTrail = new HikingTrail(); // I want to add a new record
                 hikingTrail.HikingApiCode = trailInfo[i].id.ToString();
                 hikingTrail.ParkId = foreignParkId;
                 hikingTrail.TrailName = trailInfo[i].name.ToString();
                 hikingTrail.TrailDifficulty = trailInfo[i].difficulty.ToString();
 
-
                 string trailSummary = trailInfo[i].summary;
-                if (trailSummary != String.Empty ||trailSummary == null )
+                if (trailSummary == null )
                 {
                     hikingTrail.TrailSummary = "No information available at this time.";
                 }
                 else
                 {
-                    
                     hikingTrail.TrailSummary = trailSummary;
                 }
 
@@ -290,30 +380,14 @@ namespace NationalParksHiking.Controllers
                     hikingTrail.TrailCondition = "No condition status available at this time";
                 }
 
+                //await GetAverageTrailRating();
+
                 // Check to see if it already exists
-                //if (hikingTrail.HikingApiCode != trailInfo[i].id.ToString())
-                //{
-                //    db.HikingTrails.Add(hikingTrail);
-                //}
-
-                //if (hikingTrail.HikingApiCode.Count(0))
-                //{
-                //    db.HikingTrails.Add(hikingTrail);
-                //}
-
-                //HikingTrail hiking = db.HikingTrails.Where(t => t.ParkId == foreignParkId).FirstOrDefault();
-                //hikingTrail.HikingApiCode != trailInfo[i].id
-                // LINQ to Entities does not recognize the method 'NationalParksHiking.Models.Trail get_Item(Int32)' method, and this method cannot be translated into a store expression.
-                //var convertedHikingCode = Convert.ToInt32(hikingTrail.HikingApiCode);
                 var trailCode = db.HikingTrails.Where(c => c.HikingApiCode == hikingTrail.HikingApiCode).FirstOrDefault();
-                //bool containsItem = db.HikingTrails.Any(t => t.convertedHikingCode == trailInfo[i].id);
-                //bool alreadyExist = hikingTrail.Contains(trailInfo[i].id);
-
                 if (trailCode == null)
                 {
                     db.HikingTrails.Add(hikingTrail);
                 }
-
             }
             await db.SaveChangesAsync();
         }
@@ -332,9 +406,11 @@ namespace NationalParksHiking.Controllers
             if (response.IsSuccessStatusCode)
             {
                 HikingTrailJsonInfo hikingTrailJsonInfo = JsonConvert.DeserializeObject<HikingTrailJsonInfo>(jsonresult);
-                HikingTrail hikingTrail = new HikingTrail();
+                //HikingTrail hikingTrail = new HikingTrail(); // Empty value needs to be here to pass parameters to methods.
                 List<Trail> trailInfo = hikingTrailJsonInfo.trails.ToList();
+                //await AddRating();
                 await GetTrailDetails(park, trailInfo);
+                await GetAverageTrailRating();
                 await db.SaveChangesAsync();
             }
         }

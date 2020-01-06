@@ -20,7 +20,13 @@ namespace NationalParksHiking.Models
         public int TrailId { get; set; }
         public HikingTrail HikingTrail { get; set; }
 
-        [Display(Name = "Amount of Ratings")]
-        public int RatingAmt { get; set; }
+        //[Display(Name = "Total Reviews")]
+        //public int TotalUserReviews { get; set; }
+
+        [Display(Name = "Individual Review")]
+        public int IndividualRating { get; set; }
+
+        [Display(Name = "Average Rating")]
+        public decimal AverageUserRating { get; set; }
     }
 }

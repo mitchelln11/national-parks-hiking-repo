@@ -19,9 +19,12 @@ namespace NationalParksHiking.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Hikers
-        public ActionResult Index()
+        public ActionResult Index(Hiker hiker)
         {
-            return View(db.Hikers.ToList());
+            string userId = User.Identity.GetUserId();
+            db.Hikers.Where(c => c.ApplicationId == userId).ToString();
+            return View("Index", "Hikers" );
+            //return View(db.Hikers.ToList());
         }
 
         // GET: Hikers/Details/5

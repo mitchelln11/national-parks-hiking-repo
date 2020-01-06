@@ -41,6 +41,9 @@ namespace NationalParksHiking.Models
         //public HikingTrail trail { get; set; }
 
         [NotMapped]
+        public HikerTrailRating HikerTrailRating { get; set; }
+
+        [NotMapped]
         public ParkMarkers ParkMarkers { get; set;}
 
         //[NotMapped]

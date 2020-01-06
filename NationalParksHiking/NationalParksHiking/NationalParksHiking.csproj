@@ -244,6 +244,26 @@
     <Compile Include="Migrations\202001061401171_ChangedHikingIdToMapped.Designer.cs">
       <DependentUpon>202001061401171_ChangedHikingIdToMapped.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001061641341_AddReviewAmountAndAverageToTrailsModel.cs" />
+    <Compile Include="Migrations\202001061641341_AddReviewAmountAndAverageToTrailsModel.Designer.cs">
+      <DependentUpon>202001061641341_AddReviewAmountAndAverageToTrailsModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001061653471_ChangedIntToDecimalAverageRating.cs" />
+    <Compile Include="Migrations\202001061653471_ChangedIntToDecimalAverageRating.Designer.cs">
+      <DependentUpon>202001061653471_ChangedIntToDecimalAverageRating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001061710154_AddIndividualReviewToTrailModel.cs" />
+    <Compile Include="Migrations\202001061710154_AddIndividualReviewToTrailModel.Designer.cs">
+      <DependentUpon>202001061710154_AddIndividualReviewToTrailModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001061717444_MovedAveragesToJunctionTable.cs" />
+    <Compile Include="Migrations\202001061717444_MovedAveragesToJunctionTable.Designer.cs">
+      <DependentUpon>202001061717444_MovedAveragesToJunctionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001061728034_ReplacedTotalUserReviewsWithIndividualRating.cs" />
+    <Compile Include="Migrations\202001061728034_ReplacedTotalUserReviewsWithIndividualRating.Designer.cs">
+      <DependentUpon>202001061728034_ReplacedTotalUserReviewsWithIndividualRating.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -407,6 +427,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001061401171_ChangedHikingIdToMapped.resx">
       <DependentUpon>202001061401171_ChangedHikingIdToMapped.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001061641341_AddReviewAmountAndAverageToTrailsModel.resx">
+      <DependentUpon>202001061641341_AddReviewAmountAndAverageToTrailsModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001061653471_ChangedIntToDecimalAverageRating.resx">
+      <DependentUpon>202001061653471_ChangedIntToDecimalAverageRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001061710154_AddIndividualReviewToTrailModel.resx">
+      <DependentUpon>202001061710154_AddIndividualReviewToTrailModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001061717444_MovedAveragesToJunctionTable.resx">
+      <DependentUpon>202001061717444_MovedAveragesToJunctionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001061728034_ReplacedTotalUserReviewsWithIndividualRating.resx">
+      <DependentUpon>202001061728034_ReplacedTotalUserReviewsWithIndividualRating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
