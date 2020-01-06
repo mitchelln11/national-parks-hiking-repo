@@ -250,31 +250,18 @@ namespace NationalParksHiking.Controllers
         // ------------------ Get Trail Name --------------------
         public async Task GetTrailName(Park Park, List<Trail> trailInfo)
         {
-            HikingTrail hikingTrail = new HikingTrail();
-            //hikingTrail.ParkId = db.Parks.Add(Park park).ToList();
             var foreignParkId = Park.ParkId;
             HikingTrail hiking = db.HikingTrails.Where(t => t.ParkId == foreignParkId).FirstOrDefault();
             for (var i=0;i<trailInfo.Count;i++)
             {
-                //  The INSERT statement conflicted with the FOREIGN KEY constraint "FK_dbo.HikingTrails_dbo.Parks_ParkId". The conflict occurred in database "NationalParksHiking", table "dbo.Parks", column 'ParkId'.
-                // The statement has been terminated.
-                // How do I actually save a new record in a datatable?
-                // Park park = db.HikingTrails.Add(park.ParkId).ToList(); // Do I have to somehow set the current id as the foreign id to match the park?
-
-                //db.HikingTrails.Add(hikingTrail.TrailName);
-                //hikingTrail = trailInfo[i].;
-                db.HikingTrails.Add(hiking);
+                HikingTrail hikingTrail = new HikingTrail(); // I want to add a new record
+                hikingTrail.ParkId = foreignParkId;
                 hikingTrail.TrailName = trailInfo[i].name.ToString();
                 hikingTrail.TrailDifficulty = trailInfo[i].difficulty.ToString();
-                //hikingTrail.TrailSummary = trailInfo[i].summary;
-                //hikingTrail.TrailLength = trailInfo[i].length;
-                //hikingTrail.TrailCondition = trailInfo[i].conditionDetails;
-                
-                //
-                //
-                //
-                //
-                //db.HikingTrails.Add(hikingTrail);
+                hikingTrail.TrailSummary = trailInfo[i].summary.ToString();
+                hikingTrail.TrailLength = trailInfo[i].length;
+                hikingTrail.TrailCondition = trailInfo[i].conditionDetails;
+                db.HikingTrails.Add(hikingTrail);
             }
             await db.SaveChangesAsync();
         }
