@@ -54,21 +54,22 @@ namespace NationalParksHiking.Controllers
 
 
         // GET: Parks
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(ApiKeys apiKeys)
         {
             await GetApiKey(); // Needed to use API key
 
             //var states = GetAllStates();
             //var model = new Park();
             //model.States = GetSelectListItems(states);
-
+            //Park park = new Park();
+            //await RunParkJson(apiKeys, park);
             var parks = await db.Parks.ToListAsync();
             return View(parks);
         }
 
 
         // GET: Parks/Details/5
-        public async Task<ActionResult> Details(int? id, ApiKeys apiKeys, HikingTrail hikingTrail)
+        public async Task<ActionResult> Details(int? id, ApiKeys apiKeys)
         {
             
             if (id == null)
@@ -79,7 +80,7 @@ namespace NationalParksHiking.Controllers
             park.CurrentWeatherInfo = new CurrentWeatherInfo(); // Instantiate blank spot for data to bind to
             park.CurrentWeatherInfo.temperature = 876; // Doesn't matter what's here, will overwrite anyway
             park.Trails = db.HikingTrails.Where(i => i.ParkId == id).ToList();
-            await RunJsonClient(apiKeys, park);
+            await RunParkJson(apiKeys, park);
             await RunWeatherJson(apiKeys, park);
             await RunHikingJson(apiKeys, park);
             await GetApiKey();
@@ -223,7 +224,7 @@ namespace NationalParksHiking.Controllers
         }
 
         // ------------------ Run single httpclient and response call for Parks -----------------------------
-        public async Task RunJsonClient(ApiKeys apiKeys, Park park)
+        public async Task RunParkJson(ApiKeys apiKeys, Park park)
         {
             string parkKey = apiKeys.NpsKey;
             int apiLimit = 150;
@@ -247,27 +248,30 @@ namespace NationalParksHiking.Controllers
 
 
         //  -------///////------START TRAIL RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
-        // ------------------ Get Trail Name --------------------
+        // ------------------ Get Trail Details --------------------
         public async Task GetTrailDetails(Park Park, List<Trail> trailInfo)
         {
             var foreignParkId = Park.ParkId;
-            HikingTrail hiking = db.HikingTrails.Where(t => t.ParkId == foreignParkId).FirstOrDefault();
+            HikingTrail hiking = db.HikingTrails.Where(t => t.ParkId == foreignParkId).FirstOrDefault(); // Matching park id with foreign id
             for (var i=0;i<trailInfo.Count;i++)
             {
+                
                 HikingTrail hikingTrail = new HikingTrail(); // I want to add a new record
+                hikingTrail.HikingApiCode = trailInfo[i].id.ToString();
                 hikingTrail.ParkId = foreignParkId;
                 hikingTrail.TrailName = trailInfo[i].name.ToString();
                 hikingTrail.TrailDifficulty = trailInfo[i].difficulty.ToString();
 
 
                 string trailSummary = trailInfo[i].summary;
-                if (trailSummary != null || trailSummary != "")
+                if (trailSummary != String.Empty ||trailSummary == null )
                 {
-                    hikingTrail.TrailSummary = trailSummary;
+                    hikingTrail.TrailSummary = "No information available at this time.";
                 }
                 else
                 {
-                    hikingTrail.TrailSummary = "No information available at this time.";
+                    
+                    hikingTrail.TrailSummary = trailSummary;
                 }
 
                 // Convert long decimal to a 2 decimal number
@@ -275,6 +279,7 @@ namespace NationalParksHiking.Controllers
                 double SimpletrailLength = Math.Round(TrailLength, 2);
                 hikingTrail.TrailLength = SimpletrailLength;
 
+                // Trail Conditions
                 string trailCondition = trailInfo[i].conditionDetails;
                 if (trailCondition != null)
                 {
@@ -284,26 +289,34 @@ namespace NationalParksHiking.Controllers
                 {
                     hikingTrail.TrailCondition = "No condition status available at this time";
                 }
-                db.HikingTrails.Add(hikingTrail);
+
+                // Check to see if it already exists
+                //if (hikingTrail.HikingApiCode != trailInfo[i].id.ToString())
+                //{
+                //    db.HikingTrails.Add(hikingTrail);
+                //}
+
+                //if (hikingTrail.HikingApiCode.Count(0))
+                //{
+                //    db.HikingTrails.Add(hikingTrail);
+                //}
+
+                //HikingTrail hiking = db.HikingTrails.Where(t => t.ParkId == foreignParkId).FirstOrDefault();
+                //hikingTrail.HikingApiCode != trailInfo[i].id
+                // LINQ to Entities does not recognize the method 'NationalParksHiking.Models.Trail get_Item(Int32)' method, and this method cannot be translated into a store expression.
+                //var convertedHikingCode = Convert.ToInt32(hikingTrail.HikingApiCode);
+                var trailCode = db.HikingTrails.Where(c => c.HikingApiCode == hikingTrail.HikingApiCode).FirstOrDefault();
+                //bool containsItem = db.HikingTrails.Any(t => t.convertedHikingCode == trailInfo[i].id);
+                //bool alreadyExist = hikingTrail.Contains(trailInfo[i].id);
+
+                if (trailCode == null)
+                {
+                    db.HikingTrails.Add(hikingTrail);
+                }
+
             }
             await db.SaveChangesAsync();
         }
-
-        //public async Task GetTrailCondition(HikingTrail hikingTrail, Trail trailInfo)
-        //{
-        //    string trailCondition = trailInfo.conditionStatus;
-        //    var trailInDb = db.HikingTrails.Where(t => t.TrailId == hikingTrail.TrailId).FirstOrDefault();
-        //    if (trailCondition != null)
-        //    {
-        //        trailInDb.TrailCondition = trailCondition;
-        //    }
-        //    else
-        //    {
-        //        trailInDb.TrailCondition = "No condition status available at this time";
-        //    }
-        //    await db.SaveChangesAsync();
-        //}
-
 
         // ------------------ Get Hiking Project JSON -----------------------------
         public async Task RunHikingJson(ApiKeys apiKeys, Park park)

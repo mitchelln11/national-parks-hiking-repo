@@ -236,6 +236,14 @@
     <Compile Include="Migrations\202001042133099_AddApplicationIdAsForeignIdToHikersModel.Designer.cs">
       <DependentUpon>202001042133099_AddApplicationIdAsForeignIdToHikersModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001061354569_AddNotMappedUniqueTrailCode.cs" />
+    <Compile Include="Migrations\202001061354569_AddNotMappedUniqueTrailCode.Designer.cs">
+      <DependentUpon>202001061354569_AddNotMappedUniqueTrailCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001061401171_ChangedHikingIdToMapped.cs" />
+    <Compile Include="Migrations\202001061401171_ChangedHikingIdToMapped.Designer.cs">
+      <DependentUpon>202001061401171_ChangedHikingIdToMapped.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -393,6 +401,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001042133099_AddApplicationIdAsForeignIdToHikersModel.resx">
       <DependentUpon>202001042133099_AddApplicationIdAsForeignIdToHikersModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001061354569_AddNotMappedUniqueTrailCode.resx">
+      <DependentUpon>202001061354569_AddNotMappedUniqueTrailCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001061401171_ChangedHikingIdToMapped.resx">
+      <DependentUpon>202001061401171_ChangedHikingIdToMapped.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

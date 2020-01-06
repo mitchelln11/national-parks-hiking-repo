@@ -28,6 +28,8 @@ namespace NationalParksHiking.Models
         [Display(Name = "Trail Condition")]
         public string TrailCondition { get; set; }
 
+        public string HikingApiCode { get; set; }
+
         [ForeignKey("Park")]
         public int ParkId { get; set; }
         public Park Park { get; set; }
