@@ -79,7 +79,6 @@ namespace NationalParksHiking.Controllers
             park.CurrentWeatherInfo = new CurrentWeatherInfo(); // Instantiate blank spot for data to bind to
             park.CurrentWeatherInfo.temperature = 876; // Doesn't matter what's here, will overwrite anyway
             park.Trails = db.HikingTrails.Where(i => i.ParkId == id).ToList();
-            //await GetTrailDifficulty(hikingTrail,  trailinfo);
             await RunJsonClient(apiKeys, park);
             await RunWeatherJson(apiKeys, park);
             await RunHikingJson(apiKeys, park);
@@ -249,32 +248,44 @@ namespace NationalParksHiking.Controllers
 
         //  -------///////------START TRAIL RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
         // ------------------ Get Trail Name --------------------
-        public async Task GetTrailName(HikingTrail hikingTrail, List<Trail> trailInfo) //Why can't I access the trailInfo options?
+        public async Task GetTrailName(Park Park, List<Trail> trailInfo)
         {
+            HikingTrail hikingTrail = new HikingTrail();
+            //hikingTrail.ParkId = db.Parks.Add(Park park).ToList();
+            var foreignParkId = Park.ParkId;
+            HikingTrail hiking = db.HikingTrails.Where(t => t.ParkId == foreignParkId).FirstOrDefault();
             for (var i=0;i<trailInfo.Count;i++)
             {
-                hikingTrail.TrailName = trailInfo[i].name;
-            }
-            
-            //trail.TrailName = trailInfo.name;
-            //HikingTrail.TrailName
-            //var JsonTrailName = trailInfo.
-            //HikingTrail hiking = new HikingTrail();
-            //foreach (var Trail in trailInfo)
-            //{
-            //    Trail.
-            //}
-            //var nameTest = db.HikingTrails.
-            //hiking.TrailName = trailInfo.name.ToString();
+                //  The INSERT statement conflicted with the FOREIGN KEY constraint "FK_dbo.HikingTrails_dbo.Parks_ParkId". The conflict occurred in database "NationalParksHiking", table "dbo.Parks", column 'ParkId'.
+                // The statement has been terminated.
+                // How do I actually save a new record in a datatable?
+                // Park park = db.HikingTrails.Add(park.ParkId).ToList(); // Do I have to somehow set the current id as the foreign id to match the park?
 
-            //trailInfo.
+                //db.HikingTrails.Add(hikingTrail.TrailName);
+                //hikingTrail = trailInfo[i].;
+                db.HikingTrails.Add(hiking);
+                hikingTrail.TrailName = trailInfo[i].name.ToString();
+                hikingTrail.TrailDifficulty = trailInfo[i].difficulty.ToString();
+                //hikingTrail.TrailSummary = trailInfo[i].summary;
+                //hikingTrail.TrailLength = trailInfo[i].length;
+                //hikingTrail.TrailCondition = trailInfo[i].conditionDetails;
+                
+                //
+                //
+                //
+                //
+                //db.HikingTrails.Add(hikingTrail);
+            }
             await db.SaveChangesAsync();
         }
 
-        public async Task GetTrailDifficulty(HikingTrail hikingTrail, Trail trailInfo)
+        public async Task GetTrailDifficulty(List<Trail> trailInfo)
         {
-            string trailDifficulty = trailInfo.difficulty;
-            hikingTrail.TrailDifficulty = trailDifficulty;
+            for (var i = 0; i < trailInfo.Count; i++)
+            {
+                HikingTrail hikingTrail = new HikingTrail();
+                hikingTrail.TrailDifficulty = trailInfo[i].difficulty;
+            }
             await db.SaveChangesAsync();
         }
 
@@ -309,41 +320,6 @@ namespace NationalParksHiking.Controllers
         }
 
 
-
-
-        // ---------------GET ALL STATE INFO-------------------------------------
-        //private IEnumerable<string> GetAllStates()
-        //{
-        //    return new List<string>
-        //    {
-        //        "UT",
-        //        "ND",
-        //        "ME",
-        //    };
-        //}
-
-        //private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<string> stateList)
-        //{
-        //    // Create an empty list to hold result of the operation
-        //    var selectList = new List<SelectListItem>();
-
-        //    // For each string in the 'elements' variable, create a new SelectListItem object
-        //    // that has both its Value and Text properties set to a particular value.
-        //    // This will result in MVC rendering each item as:
-        //    // <option value="State Name">State Name</option>
-        //    foreach (var state in stateList)
-        //    {
-        //        selectList.Add(new SelectListItem
-        //        {
-        //            Value = state,
-        //            Text = state
-        //        });
-        //    }
-
-        //    return selectList;
-        //}
-        // -----------------END STATE INFO  ---------------------------------------
-
         // ------------------ Get Hiking Project JSON -----------------------------
         public async Task RunHikingJson(ApiKeys apiKeys, Park park)
         {
@@ -363,8 +339,8 @@ namespace NationalParksHiking.Controllers
                 //var JsonTrailName = 
                 
                 //List<HikingTrail> TrailInfo = hikingTrailJsonInfo.trails.Where(p => p).ToList();
-                await GetTrailName(hikingTrail, trailInfo);
-                //await GetTrailDifficulty(hikingTrail, trailInfo);
+                await GetTrailName(park, trailInfo);
+                //await GetTrailDifficulty(trailInfo);
                 //await GetTrailLength(hikingTrail, trailInfo);
                 //await GetTrailSummary(hikingTrail, trailInfo);
                 //await GetTrailCondition(hikingTrail, trailInfo);

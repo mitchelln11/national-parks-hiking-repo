@@ -37,8 +37,8 @@ namespace NationalParksHiking.Models
         [NotMapped]
         public List<HikingTrail> Trails { get; set; }
 
-        [NotMapped]
-        public HikingTrail trail { get; set; }
+        //[NotMapped]
+        //public HikingTrail trail { get; set; }
 
         [NotMapped]
         public ParkMarkers ParkMarkers { get; set;}
