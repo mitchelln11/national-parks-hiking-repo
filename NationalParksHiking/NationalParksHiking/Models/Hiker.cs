@@ -38,5 +38,8 @@ namespace NationalParksHiking.Models
         [HiddenInput(DisplayValue = false)]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
+
+        [NotMapped]
+        public Park Park { get; set; } // Read Park info on hiker views
     }
 }

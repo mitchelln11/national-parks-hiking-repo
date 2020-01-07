@@ -19,11 +19,11 @@ namespace NationalParksHiking.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Hikers
-        public ActionResult Index(Hiker hiker)
+        public ActionResult Index()
         {
             string userId = User.Identity.GetUserId();
-            db.Hikers.Where(c => c.ApplicationId == userId).ToString();
-            return View("Index", "Hikers" );
+            Hiker hiker = db.Hikers.Where(h => h.ApplicationId == userId).FirstOrDefault();
+            return View("Details", "Hikers", new { id = hiker.HikerId } );
             //return View(db.Hikers.ToList());
         }
 
@@ -32,6 +32,7 @@ namespace NationalParksHiking.Controllers
         {
             //string userLoggedIn = User.Identity.GetUserId();
             //Hiker personLoggedIn = db.Hikers.Where(u => u.HikerId == userLoggedIn).FirstOrDefault();
+            GetParkName();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -158,6 +159,36 @@ namespace NationalParksHiking.Controllers
                 hiker.Longitude = HikerLng.ToString();
                 await db.SaveChangesAsync();
             }
+        }
+
+        public ActionResult GetParkName()
+        {
+            //Hiker hiker = db.Hikers.Find(id);
+            string userid = User.Identity.GetUserId(); // Get user Id
+            var hiker = db.Hikers.Where(h => h.ApplicationId == userid).FirstOrDefault(); // Find current user
+            List<HikerParkWishlist> hikerParkWishlist = db.HikerParkWishlists.Where(w => w.HikerId == hiker.HikerId).ToList(); // Find matching hiker ids in wishlist and hiker
+
+            //List<Park> park = db.Parks.Where(t => t.ParkName == hiker);
+            List<Park> park = db.Parks.ToList(); // Instantiate a blank list
+            List<string> Wishlist = new List<string>();
+
+            foreach (var parklist in park)
+            {
+                string parkName = parklist.ParkName;
+                Wishlist.Add(parkName);
+            }
+            //Park park = db.Parks.All(p => p.ParkId == hikerParkWishlist.Hiker.ParkId)
+            //List<string> parkHoldingLists = new List<string>();
+
+            //foreach (var FinalWishList in Wishlist)
+            //{
+            //    var ParkWish = FinalWishList.Where(w => w.)
+            //}
+            
+            //Park park = db.Parks.Where(p => p.ParkId == hikerParkWishlist.)
+            //hikerParkWishlist.Add(parkHoldingLists);
+            //db.SaveChanges();
+            return View(Wishlist);
         }
     }
 }
