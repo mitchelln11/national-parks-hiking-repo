@@ -58,6 +58,7 @@
             @Html.DisplayNameFor(model => model.ParkLng)
         </th>
         <th></th>
+        @*<th></th>*@
     </tr>
 
     @foreach (var item in Model)
@@ -85,6 +86,9 @@
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.ParkId })
             </td>
+            @*<td>
+                @Html.ActionLink("Add to Wishlist", "AddParkToWishlist")
+            </td>*@
         </tr>
         
     }

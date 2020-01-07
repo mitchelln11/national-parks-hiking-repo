@@ -41,10 +41,16 @@ namespace NationalParksHiking.Models
         //public HikingTrail trail { get; set; }
 
         [NotMapped]
-        public HikerTrailRating HikerTrailRating { get; set; }
+        public HikerTrailRating HikerTrailRating { get; set; } // To Use on Park info from Junction table 
 
         [NotMapped]
-        public ParkMarkers ParkMarkers { get; set;}
+        public List<HikerTrailRating> hikerTrailRatings { get; set; } // Testing to see if a value comes through through a list.
+
+        [NotMapped]
+        public ParkMarkers ParkMarkers { get; set;} // From Below
+
+        [NotMapped]
+        public HikerParkWishlist HikerParkWishlist { get; set; } // To Use on Park info from Junction table 
 
         //[NotMapped]
         //[Display(Name = "Filter by State")]
@@ -52,6 +58,9 @@ namespace NationalParksHiking.Models
 
         //[NotMapped]
         //public IEnumerable<SelectListItem> States { get; set; }
+
+        [NotMapped]
+        public Hiker Hiker { get; set; } // Used in the Parks Wishlist redirectAction
     }
 
     public class CurrentWeatherInfo
@@ -63,7 +72,7 @@ namespace NationalParksHiking.Models
 
     public class ParkMarkers
     {
-        public string ParkUniqueCode { get; set; }
+        //public string ParkUniqueCode { get; set; }
         public string ParkLatitude { get; set; }
         public string ParkLongitude { get; set; }
     }

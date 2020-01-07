@@ -19,5 +19,8 @@ namespace NationalParksHiking.Models
         [ForeignKey("Park")]
         public int ParkId { get; set; }
         public Park Park { get; set; }
+
+        [Display(Name = "Park")]
+        public string ParkName { get; set; }
     }
 }

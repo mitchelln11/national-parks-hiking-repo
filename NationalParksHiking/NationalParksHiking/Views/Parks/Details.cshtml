@@ -17,6 +17,7 @@
     <div class="flex-container">
         <div class="flex-box">
             <div class="content-box">
+                @Html.ActionLink("Add Park to Wish List", "AddParkToWishList", new { @id = Model.ParkId }, new {@class = "btn btn-default"})
                 <h3>Located in: @Html.DisplayFor(model => model.ParkState)</h3>
                 <p>@Html.DisplayFor(model => model.ParkDescription)</p>
             </div>
@@ -49,9 +50,15 @@
                 @*<p><strong>Total Reviews: </strong>@Html.DisplayFor(model => item.TotalUserReviews)</p>*@
                 <p><strong>Average Review: </strong>@Html.DisplayFor(model => item.Park.HikerTrailRating.AverageUserRating)</p>
                 <p>@Html.DisplayFor(model => model.HikerTrailRating.AverageUserRating)</p>
+                @*@foreach (var rating in Model.T)
+                {*@
+                    @Html.DisplayFor(model => item.HikerTrailRating.AverageUserRating)  @*Why does the review not display? Do I need to somehow pass an ID?
+                @*}*@
+
             </div>
             <div class="col-md-2">
-                <h4>Review This Trail:</h4>
+                <p><strong>Review This Trail:</strong></p>
+                
             </div>
         </div>
         }

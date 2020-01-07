@@ -264,6 +264,10 @@
     <Compile Include="Migrations\202001061728034_ReplacedTotalUserReviewsWithIndividualRating.Designer.cs">
       <DependentUpon>202001061728034_ReplacedTotalUserReviewsWithIndividualRating.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001071549317_AddParkNameToWishlistForVisualParksAddingToWishlist.cs" />
+    <Compile Include="Migrations\202001071549317_AddParkNameToWishlistForVisualParksAddingToWishlist.Designer.cs">
+      <DependentUpon>202001071549317_AddParkNameToWishlistForVisualParksAddingToWishlist.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -442,6 +446,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001061728034_ReplacedTotalUserReviewsWithIndividualRating.resx">
       <DependentUpon>202001061728034_ReplacedTotalUserReviewsWithIndividualRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001071549317_AddParkNameToWishlistForVisualParksAddingToWishlist.resx">
+      <DependentUpon>202001071549317_AddParkNameToWishlistForVisualParksAddingToWishlist.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

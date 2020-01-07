@@ -20,50 +20,11 @@ namespace NationalParksHiking.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         //https://nimblegecko.com/using-simple-drop-down-lists-in-ASP-NET-MVC/
-        //public ActionResult GetStateFromDropdown()
-        //{
-        //    // Get Sign Up information from the session
-        //    var states = GetAllStates();
-        //    var model = new Park();
-        //    model.States = GetSelectListItems(states);
-        //    // Display Done.html page that shows Name and selected state.
-        //    return View(model);
-        //}
-
-        
-        //[HttpPost]
-        //public ActionResult GetStateFromDropdown(Park park)
-        //{
-        //    // Get all states for DropDownList
-        //    var states = GetAllStates();
-        //    var model = new Park();
-        //    // Create a list of SelectListItems so these can be rendered on the page
-        //    model.States = GetSelectListItems(states);
-        //    if (ModelState.IsValid)
-        //    {
-        //        Session["Park"] = park;
-        //        return RedirectToAction("Index", "Park");
-        //    }
-        //    return View("Index", "Park");
-        //}
-
-        //public ActionResult FoundState()
-        //{
-        //    var model = Session["Park"] as Park;
-        //    return View("Index", "Park", model);
-        //}
-
 
         // GET: Parks
         public async Task<ActionResult> Index(ApiKeys apiKeys)
         {
             await GetApiKey(); // Needed to use API key
-
-            //var states = GetAllStates();
-            //var model = new Park();
-            //model.States = GetSelectListItems(states);
-            //Park park = new Park();
-            //await RunParkJson(apiKeys, park);
             var parks = await db.Parks.ToListAsync();
             return View(parks);
         }
@@ -186,6 +147,20 @@ namespace NationalParksHiking.Controllers
 
         //  -------///////------START PARK RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
 
+        public ActionResult AddParkToWishList(int? id) // why does it have to be id rather than parkId?
+        {
+            var user = User.Identity.GetUserId(); // Get Application user to match against all Hiker records
+            HikerParkWishlist hikerParkWishlist = new HikerParkWishlist(); // Instantiate new wish list item
+            Hiker hiker = db.Hikers.Where(h => h.ApplicationId == user).FirstOrDefault(); // Find correct, logged in user
+            hikerParkWishlist.HikerId = hiker.HikerId; // Add to database
+
+            int convertedParkId = Convert.ToInt32(id);  // Convert passed park Id to acceptable int format
+            hikerParkWishlist.ParkId = convertedParkId; // Add to database
+            db.HikerParkWishlists.Add(hikerParkWishlist);
+            db.SaveChanges();
+            return RedirectToAction("Details", "Hikers", new { id = hiker.HikerId } );
+        }
+
         // ------------------ Get Lat Long -----------------------------
         public async Task GetLatLong(Park park, Datum parkInfo)
         {
@@ -254,16 +229,8 @@ namespace NationalParksHiking.Controllers
         public async Task GetAverageTrailRating()
         {
             var user = User.Identity.GetUserId();
-            //HikingTrail trailInPark = new HikingTrail();
-            //List<HikingTrail> hikingTrails = db.HikingTrails.Any(p => p.TrailId == trailInfo[0].);
-            //var parkId = db.HikingTrails.Where(t => t.ParkId == Park.ParkId);
-            //var trailList = db.HikerTrailRatings.ToList(); // returns all the ratings
-
-            // Where TrailId Matches
-            // Get Count of reviews
-            // Get Sum of reviews
-            List<HikerTrailRating> AllRatings = db.HikerTrailRatings.ToList();
-            //var ReviewAverage = AllRatings[0].AverageUserRating;
+            //List<HikerTrailRating> AllRatings = db.HikerTrailRatings.Where(r => r.TrailId == parkId).ToList(); // What do I pass through to match against the TrailId?
+            List<HikerTrailRating> AllRatings = db.HikerTrailRatings.ToList(); // Will add average to all 
             var ReviewCount = AllRatings.Count;
 
             List<int> RatingInts = new List<int>();
@@ -278,68 +245,8 @@ namespace NationalParksHiking.Controllers
             {
                 AllRatings[j].AverageUserRating = TotalAverageRating;
             }
-            
-            //foreach (var Rating in AllRatings)
-            //{
-            //    //List<HikerTrailRating> hikerTrailRating;
-            //    //TrailCollection trailCollections = new TrailCollection(); 
-            //    var IndivRating = Rating.IndividualRating;
-            //    //Rating.IndividualRating = hikerTrailRating.Add();
-            //}
-            //var SingleRating = AllRatings.
-            //List<HikingTrail> trailList = db.HikingTrails.ToList();
-            //for (var i=0;i<trailList.Count;i++)
-            //{
-            //    //HikerTrailRating hikerTrailRating = new HikerTrailRating(); // Instantiating new Rating
-            //    var test = db.HikingTrails.Where(d => d.TrailId == trailList[i].TrailId);
-            //    var Rating = hikerTrailRating.IndividualRating;
-            //    var TrailIndex = trailList[i].TrailId;
-            //    //var Rating = trailList[i].
-            //    db.HikerTrailRatings.Add(hikerTrailRating);
-            //}
-
-            //var 
-
-            //var trailList = db.HikerTrailRatings.Where(t => t.TrailId == Convert.ToInt32(trailInfo.);
-            //List<HikerTrailRating> hikingTrailRatings = db.HikerTrailRatings.Where(h => h.TrailId == trailInPark.TrailId).ToList();
-            //var AmountOfReviews = trailInfo.Count();
-            //var Rating = db.HikerTrailRatings.Where()
-            //HikingTrail hikingTrail = new HikingTrail();
-            //HikerTrailRating hikerTrailRating = new HikerTrailRating();
-            //HikerTrailRating hikerTrailRating = new HikerTrailRating();
-            // Pull Individual Ratings
-            // Pull Trail being Rated
-            //HikingTrail hikingTrail = new HikingTrail()
-            //HikerTrailRating hikerTrailRating = db.HikerTrailRatings.Where(t => t.TrailId == hikingTrail.TrailId);
-            //var rating = db.HikingTrails.Where(h => h.TrailId == hikingTrail.TrailId);
-            //HikingTrail hikingTrail = db.HikingTrails.Where(t => t.TrailId == hikerTrailRating.TrailId);
-
-            //var test = hikerTrailRating.Average();
-            //var IndividualRating = hikerTrailRating.IndividualRating
-            //var AverageTrailRating = IndividualRating.
-            //var TotalNumberOfReviews = hikingTrail.TotalUserReviews;
-            //var IndividualRating = ;
-            //var AverageTrailReview = 20/TotalNumberOfReviews; 
             await db.SaveChangesAsync();
         }
-
-        //public async Task AddRating()
-        //{
-        //    var user = User.Identity.GetUserId();
-        //    List<HikingTrail> trailList = db.HikingTrails.ToList();
-        //    for (var i = 0; i < trailList.Count; i++)
-        //    {
-        //        HikerTrailRating hikerTrailRating = new HikerTrailRating(); // Instantiating new Rating
-        //        hikerTrailRating.HikerId = Convert.ToInt32(user);
-        //        hikerTrailRating.IndividualRating = db.HikerTrailRatings.Where(r => r.TrailId == trailList[i].TrailId).;
-        //        //var test = db.HikingTrails.Where(d => d.TrailId == trailList[i].TrailId);
-        //        //var Rating = hikerTrailRating.IndividualRating;
-        //        //var TrailIndex = trailList[i].TrailId;
-        //        //var Rating = trailList[i].
-        //        db.HikerTrailRatings.Add(hikerTrailRating);
-        //    }
-        //    await db.SaveChangesAsync();
-        //}
 
         // ------------------ Get Trail Details --------------------
         public async Task GetTrailDetails(Park Park, List<Trail> trailInfo)
