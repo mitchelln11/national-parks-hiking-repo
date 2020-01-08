@@ -23,7 +23,7 @@ namespace NationalParksHiking.Controllers
         {
             string userId = User.Identity.GetUserId();
             Hiker hiker = db.Hikers.Where(h => h.ApplicationId == userId).FirstOrDefault();
-            return View("Details", "Hikers", new { id = hiker.HikerId } );
+            return View("Home", "Home" );
             //return View(db.Hikers.ToList());
         }
 
@@ -57,7 +57,7 @@ namespace NationalParksHiking.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "HikerId,FirstName,LastName,StreetAddress,City,State,Latitude,Longitude")] Hiker hiker, ApiKeys apiKeys)
+        public async Task<ActionResult> Create([Bind(Include = "HikerId,FirstName,LastName,StreetAddress,City,State,Latitude,Longitude,ApplicationId")] Hiker hiker, ApiKeys apiKeys)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,6 @@ namespace NationalParksHiking.Controllers
                 await GetHikerLatLong(apiKeys, hiker);
                 db.Hikers.Add(hiker);
                 db.SaveChanges();
-                var test = hiker.HikerId;
                 return RedirectToAction("Details", "Hikers", new { id = hiker.HikerId });
             }
 
@@ -93,7 +92,7 @@ namespace NationalParksHiking.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "HikerId,FirstName,LastName,StreetAddress,City,State,Latitude,Longitude")] Hiker hiker)
+        public ActionResult Edit([Bind(Include = "HikerId,FirstName,LastName,StreetAddress,City,State,Latitude,Longitude,ApplicationId")] Hiker hiker)
         {
             if (ModelState.IsValid)
             {
@@ -168,7 +167,7 @@ namespace NationalParksHiking.Controllers
             string userid = User.Identity.GetUserId(); // Get user Id
             var hiker = db.Hikers.Where(h => h.ApplicationId == userid).FirstOrDefault(); // Find current user
             List<HikerParkWishlist> hikerParkWishlist = db.HikerParkWishlists.Where(w => w.HikerId == hiker.HikerId).ToList(); // Find matching hiker ids in wishlist and hiker
-
+            //hikerParkWishlist
             //List<Park> park = db.Parks.Where(t => t.ParkName == hiker);
             List<Park> park = db.Parks.ToList(); // Instantiate a blank list
             List<string> Wishlist = new List<string>();

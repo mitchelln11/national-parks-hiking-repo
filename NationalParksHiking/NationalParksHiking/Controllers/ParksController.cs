@@ -79,14 +79,13 @@ namespace NationalParksHiking.Controllers
         }
 
         // GET: Parks/Edit/5
-        public async Task<ActionResult> Edit(int? id, ApiKeys apiKeys)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
-            //await RunJsonClient(park, apiKeys);
             if (park == null)
             {
                 return HttpNotFound();
@@ -154,6 +153,8 @@ namespace NationalParksHiking.Controllers
             HikerParkWishlist hikerParkWishlist = new HikerParkWishlist(); // Instantiate new wish list item
             Hiker hiker = db.Hikers.Where(h => h.ApplicationId == user).FirstOrDefault(); // Find correct, logged in user
             hikerParkWishlist.HikerId = hiker.HikerId; // Add to database
+
+            // FIGURE OUT HOW THIS IS NOT BEING INSTANTIATED
 
             int convertedParkId = Convert.ToInt32(id);  // Convert passed park Id to acceptable int format
             hikerParkWishlist.ParkId = convertedParkId; // Add to database

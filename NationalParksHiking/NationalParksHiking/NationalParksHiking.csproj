@@ -288,6 +288,18 @@
     <Compile Include="Migrations\202001080136534_AddHikersToHomeForLinkingFromHome.Designer.cs">
       <DependentUpon>202001080136534_AddHikersToHomeForLinkingFromHome.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001080209402_RemovedVisitedBoolFromWishlist.cs" />
+    <Compile Include="Migrations\202001080209402_RemovedVisitedBoolFromWishlist.Designer.cs">
+      <DependentUpon>202001080209402_RemovedVisitedBoolFromWishlist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001080210570_removedParkNameFromWishlistNotBeingUsed.cs" />
+    <Compile Include="Migrations\202001080210570_removedParkNameFromWishlistNotBeingUsed.Designer.cs">
+      <DependentUpon>202001080210570_removedParkNameFromWishlistNotBeingUsed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001080237361_ChangedAccountTesting.cs" />
+    <Compile Include="Migrations\202001080237361_ChangedAccountTesting.Designer.cs">
+      <DependentUpon>202001080237361_ChangedAccountTesting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -486,6 +498,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001080136534_AddHikersToHomeForLinkingFromHome.resx">
       <DependentUpon>202001080136534_AddHikersToHomeForLinkingFromHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001080209402_RemovedVisitedBoolFromWishlist.resx">
+      <DependentUpon>202001080209402_RemovedVisitedBoolFromWishlist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001080210570_removedParkNameFromWishlistNotBeingUsed.resx">
+      <DependentUpon>202001080210570_removedParkNameFromWishlistNotBeingUsed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001080237361_ChangedAccountTesting.resx">
+      <DependentUpon>202001080237361_ChangedAccountTesting.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
