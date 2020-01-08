@@ -7,62 +7,52 @@
     <div class="container-fluid body-content">
         <h2>@Html.DisplayFor(model => model.FirstName) Details</h2>
         <hr />
-        <div class="flex-container">
-            <div class="flex-box">
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.FirstName)
-                    </dt>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.FirstName)
-                    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.LastName)
-                    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.LastName)
-                    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.StreetAddress)
-                    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.StreetAddress)
+            </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.StreetAddress)
-                    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.StreetAddress)
+            </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.City)
-                    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.City)
-                    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.City)
+            </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.State)
-                    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.State)
+            </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.State)
-                    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.State)
+            </dd>
 
-                    @Html.HiddenFor(model => model.Longitude)
-                    @Html.HiddenFor(model => model.Longitude)
-                </dl>
-            </div>
-            <div class="flex-box">
-                <h3>Wishlist</h3>
-                @*@foreach (var park in model.)
-                {
-                    @Html.DisplayFor(model => model.Park)
-                }*@
-            </div>
-        </div>
+            @Html.HiddenFor(model => model.Longitude)
+            @Html.HiddenFor(model => model.Longitude)
+        </dl>
         <p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.HikerId })
+            @Html.ActionLink("Edit", "Edit", new { id = Model.HikerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.HikerId })
         </p>
     </div>

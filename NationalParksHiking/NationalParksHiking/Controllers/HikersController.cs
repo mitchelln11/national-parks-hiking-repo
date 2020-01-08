@@ -161,6 +161,7 @@ namespace NationalParksHiking.Controllers
             }
         }
 
+
         public ActionResult GetParkName()
         {
             //Hiker hiker = db.Hikers.Find(id);

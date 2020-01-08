@@ -12,6 +12,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using NationalParksHiking;
 using Microsoft.AspNet.Identity;
+using NationalParksHiking.HelperClass;
 
 namespace NationalParksHiking.Controllers
 {
@@ -19,13 +20,13 @@ namespace NationalParksHiking.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        //https://nimblegecko.com/using-simple-drop-down-lists-in-ASP-NET-MVC/
 
         // GET: Parks
-        public async Task<ActionResult> Index(ApiKeys apiKeys)
+        public async Task<ActionResult> Index()
         {
             await GetApiKey(); // Needed to use API key
             var parks = await db.Parks.ToListAsync();
+            DisplayForm();
             return View(parks);
         }
 
@@ -33,7 +34,6 @@ namespace NationalParksHiking.Controllers
         // GET: Parks/Details/5
         public async Task<ActionResult> Details(int? id, ApiKeys apiKeys)
         {
-            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -47,6 +47,7 @@ namespace NationalParksHiking.Controllers
             await RunHikingJson(apiKeys, park);
             await GetApiKey();
             await GetParkMarker(id);
+            //SelectStateForFilter();
             if (park == null)
             {
                 return HttpNotFound();
@@ -156,6 +157,7 @@ namespace NationalParksHiking.Controllers
 
             int convertedParkId = Convert.ToInt32(id);  // Convert passed park Id to acceptable int format
             hikerParkWishlist.ParkId = convertedParkId; // Add to database
+
             db.HikerParkWishlists.Add(hikerParkWishlist);
             db.SaveChanges();
             return RedirectToAction("Details", "Hikers", new { id = hiker.HikerId } );
@@ -199,6 +201,25 @@ namespace NationalParksHiking.Controllers
             await db.SaveChangesAsync();
         }
 
+
+        // Get State dropdown options
+        public ActionResult DisplayForm()
+        {
+            ParkStateViewModel ParkStateViewModel = new ParkStateViewModel
+            {
+                ParkStates = parkHelper.GetParkStates()
+            };
+            return View(ParkStateViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult DisplayForm(ParkStateViewModel parkStateViewModel)
+        {
+            return Content(parkStateViewModel.ParkStates.ToString());
+        }
+
+
+
         // ------------------ Run single httpclient and response call for Parks -----------------------------
         public async Task RunParkJson(ApiKeys apiKeys, Park park)
         {
@@ -221,6 +242,26 @@ namespace NationalParksHiking.Controllers
             }
         }
 
+        //// --------------------- Run Google Place API call -----------------------------------------------------------
+        //public async Task RunPlacesJson(Park park)
+        //{
+        //    string placeKey = ApiKeys.GooglePlacesKey;
+        //    string url = $"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=50000&type=restaurant&key={placeKey}";
+        //    HttpClient client = new HttpClient();
+        //    HttpResponseMessage response = await client.GetAsync(url);
+        //    string jsonresult = await response.Content.ReadAsStringAsync();
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult); // Run through entire JSON file
+        //        Datum parkInfo = npsJsonInfo.data.Where(p => p.parkCode == park.ParkCode).Single(); // Look into individual park when passing id in URL
+        //        // From here on out, refer to parkInfo instead of npsJsonInfo
+        //        await GetParkDescription(park, parkInfo);
+        //        await GetFullParkName(park, parkInfo);
+        //        await GetParkState(park, parkInfo);
+        //        await GetLatLong(park, parkInfo);
+        //        await db.SaveChangesAsync();
+        //    }
+        //}
 
 
         //  -------///////------START TRAIL RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------

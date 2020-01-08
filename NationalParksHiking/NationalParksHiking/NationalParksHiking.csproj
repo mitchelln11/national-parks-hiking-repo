@@ -272,6 +272,22 @@
     <Compile Include="Migrations\202001071555400_AddParkObjectToHikersForViewDetails.Designer.cs">
       <DependentUpon>202001071555400_AddParkObjectToHikersForViewDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001072200022_AddStatesToParkModel.cs" />
+    <Compile Include="Migrations\202001072200022_AddStatesToParkModel.Designer.cs">
+      <DependentUpon>202001072200022_AddStatesToParkModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001072331111_ParkModelUpdatesTestingDropdownList.cs" />
+    <Compile Include="Migrations\202001072331111_ParkModelUpdatesTestingDropdownList.Designer.cs">
+      <DependentUpon>202001072331111_ParkModelUpdatesTestingDropdownList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001080126296_MovingClassesAroundToWorkOnDropDown.cs" />
+    <Compile Include="Migrations\202001080126296_MovingClassesAroundToWorkOnDropDown.Designer.cs">
+      <DependentUpon>202001080126296_MovingClassesAroundToWorkOnDropDown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001080136534_AddHikersToHomeForLinkingFromHome.cs" />
+    <Compile Include="Migrations\202001080136534_AddHikersToHomeForLinkingFromHome.Designer.cs">
+      <DependentUpon>202001080136534_AddHikersToHomeForLinkingFromHome.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -284,6 +300,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NpsParksJsonInfo.cs" />
     <Compile Include="Models\Park.cs" />
+    <Compile Include="Models\ParkStateViewModel.cs" />
     <Compile Include="Models\Trail.cs" />
     <Compile Include="Models\WeatherJsonInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -370,6 +387,7 @@
     <Content Include="Views\HikerTrailRatings\Details.cshtml" />
     <Content Include="Views\HikerTrailRatings\Edit.cshtml" />
     <Content Include="Views\HikerTrailRatings\Index.cshtml" />
+    <Content Include="Views\Parks\ParkStateViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -456,6 +474,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001071555400_AddParkObjectToHikersForViewDetails.resx">
       <DependentUpon>202001071555400_AddParkObjectToHikersForViewDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001072200022_AddStatesToParkModel.resx">
+      <DependentUpon>202001072200022_AddStatesToParkModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001072331111_ParkModelUpdatesTestingDropdownList.resx">
+      <DependentUpon>202001072331111_ParkModelUpdatesTestingDropdownList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001080126296_MovingClassesAroundToWorkOnDropDown.resx">
+      <DependentUpon>202001080126296_MovingClassesAroundToWorkOnDropDown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001080136534_AddHikersToHomeForLinkingFromHome.resx">
+      <DependentUpon>202001080136534_AddHikersToHomeForLinkingFromHome.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

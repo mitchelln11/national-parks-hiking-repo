@@ -22,5 +22,8 @@ namespace NationalParksHiking.Models
 
         [Display(Name = "Park")]
         public string ParkName { get; set; }
+
+        [Display(Name = "Visited")]
+        public bool Visited { get; set; }
     }
 }

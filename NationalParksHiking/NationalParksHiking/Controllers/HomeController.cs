@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using NationalParksHiking.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -3,78 +3,67 @@
 @{
     ViewBag.Title = "Delete";
 }
+    <div class="container-fluid body-content">
+        <h2>Delete</h2>
 
-<h2>Delete</h2>
+        <h3>Are you sure you want to delete this?</h3>
+        <div>
+            <h4>Hiker</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Hiker</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FirstName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StreetAddress)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StreetAddress)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StreetAddress)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.StreetAddress)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.City)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.City)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.State)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.State)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.State)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.State)
-        </dd>
+                @Html.HiddenFor(model => model.Longitude)
+                @Html.HiddenFor(model => model.Longitude)
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </dt>
+            </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.Latitude)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back", "Details", new { id = Model.HikerId })
         </div>
-    }
-</div>
+            }
+        </div>
+    </div>
