@@ -5,10 +5,11 @@ using System.Web;
 
 namespace NationalParksHiking.Models
 {
-    public class HikerParkViewModel
+    public class HikerParkViewModel  // Actually uses all of these on a single details page
     {
         public Hiker Hiker { get; set; } // From main Hiker model
         public Park Park { get; set; } // From main Park model
+        public HikingTrail HikingTrail { get; set; }
         public HikerParkWishlist HikerParkWishlist { get; set; } // From Hiker Park Junction Model
     }
 }

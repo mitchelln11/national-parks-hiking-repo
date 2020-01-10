@@ -419,7 +419,7 @@ namespace NationalParksHiking.Controllers
                 List<Trail> trailInfo = hikingTrailJsonInfo.trails.ToList();
                 //await AddRating();
                 await GetTrailDetails(park, trailInfo);
-                await GetAverageTrailRating();
+                //await GetAverageTrailRating();
                 await db.SaveChangesAsync();
             }
         }
