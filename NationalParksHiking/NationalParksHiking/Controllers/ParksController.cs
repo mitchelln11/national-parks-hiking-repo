@@ -24,9 +24,10 @@ namespace NationalParksHiking.Controllers
         // GET: Parks
         public async Task<ActionResult> Index()
         {
-            await GetApiKey(); // Needed to use API key
+            await GetApiKey(); // Needed to use API key, to populate the US map
+            await RunBasicParkJson();
             var parks = await db.Parks.ToListAsync();
-            DisplayForm();
+            DisplayForm(); // Park Dropdown Filter
             return View(parks);
         }
 
@@ -42,7 +43,7 @@ namespace NationalParksHiking.Controllers
             park.CurrentWeatherInfo = new CurrentWeatherInfo(); // Instantiate blank spot for data to bind to
             park.CurrentWeatherInfo.temperature = 876; // Doesn't matter what's here, will overwrite anyway
             park.Trails = db.HikingTrails.Where(i => i.ParkId == id).ToList();
-            await RunParkJson(apiKeys, park);
+            await RunParkJson(park);
             await RunWeatherJson(apiKeys, park);
             await RunHikingJson(apiKeys, park);
             await GetApiKey();
@@ -221,10 +222,69 @@ namespace NationalParksHiking.Controllers
 
 
 
-        // ------------------ Run single httpclient and response call for Parks -----------------------------
-        public async Task RunParkJson(ApiKeys apiKeys, Park park)
+
+        public async Task RunBasicParkJson()
         {
-            string parkKey = apiKeys.NpsKey;
+            string parkKey = ApiKeys.NpsKey;
+            int apiLimit = 150;
+            string url = $"https://developer.nps.gov/api/v1/parks?q=National%20Park&limit={apiLimit}&api_key={parkKey}";
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
+            string jsonresult = await response.Content.ReadAsStringAsync();
+            List<Park> parkList = new List<Park>();
+            Park park = new Park();
+            if (response.IsSuccessStatusCode)
+            {
+                
+                NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult); // Run through entire JSON file
+                //Datum parkInfo = npsJsonInfo.data.Where(p => p.parkCode == park.ParkCode); // Look into individual park when passing id in URL
+                //List<Datum> datum = npsJsonInfo[0].data[0].ToList();
+                //List<Park> parkInfo = npsJsonInfo[0].data[0].ToList();
+
+                // ----- FIGURE OUT HOW TO PULL SPECIFIC DATA FROM EACH INDEX ------------------
+
+                var test = npsJsonInfo.data.Select(m => m).ToList();
+
+                foreach (var singlePark in parkList)
+                {
+                    //singlePark.ParkName = db.Parks.
+                    //    var parkName = parkObject.data[0].fullName.ToList();
+                    //    var parkLatLng = parkObject.data[0].latLong;
+                    //    var parkState = parkObject.data[0].states;
+                    //    parkList.Add(parkName);
+                    //    parkList.Add(parkLatLng);
+                    //    parkList.Add(parkState);
+                    //    await db.SaveChangesAsync();
+                }
+
+
+                //for (var i = 0; i < npsJsonInfo.Count; i++)
+                //{
+                //    data.
+                //    db.Parks.
+                //    db.Parks.Add(data[i].fullName);
+                //}
+
+
+                // How to Return an entire list of a JSON call
+
+                // From here on out, refer to parkInfo instead of npsJsonInfo
+                //await GetParkDescription(park, parkInfo);
+                //await GetFullParkName(park, parkInfo);
+                //await GetParkState(park, parkInfo);
+                //await GetLatLong(park, parkInfo);
+                await db.SaveChangesAsync();
+            }
+        }
+
+
+
+
+
+        // ------------------ Run single httpclient and response call for Parks -----------------------------
+        public async Task RunParkJson(Park park)
+        {
+            string parkKey = ApiKeys.NpsKey;
             int apiLimit = 150;
             string url = $"https://developer.nps.gov/api/v1/parks?q=National%20Park&limit={apiLimit}&api_key={parkKey}";
             HttpClient client = new HttpClient();

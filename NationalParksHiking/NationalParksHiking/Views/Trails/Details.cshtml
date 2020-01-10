@@ -1,4 +1,4 @@
-﻿@model NationalParksHiking.Models.Trail
+﻿@model NationalParksHiking.Models.HikingTrail
 
 @{
     ViewBag.Title = "Details";
@@ -7,9 +7,17 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Trail</h4>
+    <h4>HikingTrail</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Park.ParkName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Park.ParkName)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.TrailName)
         </dt>
@@ -27,19 +35,35 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TrailLat)
+            @Html.DisplayNameFor(model => model.TrailSummary)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TrailLat)
+            @Html.DisplayFor(model => model.TrailSummary)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TrailLng)
+            @Html.DisplayNameFor(model => model.TrailLength)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TrailLng)
+            @Html.DisplayFor(model => model.TrailLength)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrailCondition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrailCondition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HikingApiCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HikingApiCode)
         </dd>
 
     </dl>

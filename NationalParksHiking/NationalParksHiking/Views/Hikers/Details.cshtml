@@ -5,8 +5,24 @@
 }
 
     <div class="container-fluid body-content">
+
         <h2>@Html.DisplayFor(model => model.FirstName) Details</h2>
         <hr />
+
+        @*@{
+            // Create an empty list for the marker values to add into
+            List<NationalParksHiking.Models.HikerParkViewModel> wishlistItems = new List<NationalParksHiking.Models.HikerParkViewModel>();
+        }
+        @foreach (var item in Model.Park.ParkName)
+        {
+            // Add Markers
+            NationalParksHiking.Models.HikerParkViewModel wishlistItem = new NationalParksHiking.Models.HikerParkViewModel();
+            //Assign required parameters
+            wishlistItem.HikerParkWishlist = wishlistItem.HikerParkWishlist;
+            //Actually add all three values together into the parkMarker object
+            wishlistItems.Add(wishlistItem);
+        }*@
+        @Html.DisplayFor(model => model.Park.ParkName)
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.FirstName)

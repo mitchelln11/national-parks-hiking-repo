@@ -23,6 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Parks", "Index", "Parks")</li>
+                    <li>@Html.ActionLink("My Account", "Details", "Hikers")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -31,7 +32,7 @@
     @RenderBody()
     <hr />
     <footer class="body-content">
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <p>&copy; @DateTime.Now.Year - Hi-Park</p>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")

@@ -17,6 +17,7 @@ namespace NationalParksHiking.Controllers
     public class HikersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private HikerParkWishlist hikerParkWishlist;
 
         // GET: Hikers
         public ActionResult Index()
@@ -30,9 +31,10 @@ namespace NationalParksHiking.Controllers
         // GET: Hikers/Details/5
         public ActionResult Details(int? id)
         {
-            //string userLoggedIn = User.Identity.GetUserId();
-            //Hiker personLoggedIn = db.Hikers.Where(u => u.HikerId == userLoggedIn).FirstOrDefault();
-            GetParkName();
+            string userLoggedIn = User.Identity.GetUserId();
+            Hiker personLoggedIn = db.Hikers.Where(u => u.ApplicationId == userLoggedIn).FirstOrDefault();
+            id = personLoggedIn.HikerId;
+            //GetParkName();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -42,7 +44,8 @@ namespace NationalParksHiking.Controllers
             {
                 return HttpNotFound();
             }
-            return View(hiker);
+            @RedirectToRoute("Details", new { id = hiker.HikerId});
+            return View(hiker); 
         }
 
         // GET: Hikers/Create

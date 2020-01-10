@@ -305,6 +305,7 @@
     <Compile Include="Models\HiddenForAttribute.cs" />
     <Compile Include="Models\Hiker.cs" />
     <Compile Include="Models\HikerJsonInfo.cs" />
+    <Compile Include="Models\HikerParkViewModel.cs" />
     <Compile Include="Models\HikerParkWishlist.cs" />
     <Compile Include="Models\HikerTrailRating.cs" />
     <Compile Include="Models\HikingTrailJsonInfo.cs" />
@@ -313,7 +314,7 @@
     <Compile Include="Models\NpsParksJsonInfo.cs" />
     <Compile Include="Models\Park.cs" />
     <Compile Include="Models\ParkStateViewModel.cs" />
-    <Compile Include="Models\Trail.cs" />
+    <Compile Include="Models\HikingTrail.cs" />
     <Compile Include="Models\WeatherJsonInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -384,11 +385,6 @@
     <Content Include="Views\Parks\Details.cshtml" />
     <Content Include="Views\Parks\Edit.cshtml" />
     <Content Include="Views\Parks\Index.cshtml" />
-    <Content Include="Views\Trails\Create.cshtml" />
-    <Content Include="Views\Trails\Delete.cshtml" />
-    <Content Include="Views\Trails\Details.cshtml" />
-    <Content Include="Views\Trails\Edit.cshtml" />
-    <Content Include="Views\Trails\Index.cshtml" />
     <Content Include="Views\HikerParkWishlists\Create.cshtml" />
     <Content Include="Views\HikerParkWishlists\Delete.cshtml" />
     <Content Include="Views\HikerParkWishlists\Details.cshtml" />
@@ -400,6 +396,11 @@
     <Content Include="Views\HikerTrailRatings\Edit.cshtml" />
     <Content Include="Views\HikerTrailRatings\Index.cshtml" />
     <Content Include="Views\Parks\ParkStateViewModel.cshtml" />
+    <Content Include="Views\Trails\Details.cshtml" />
+    <Content Include="Views\Trails\Create.cshtml" />
+    <Content Include="Views\Trails\Delete.cshtml" />
+    <Content Include="Views\Trails\Edit.cshtml" />
+    <Content Include="Views\Trails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

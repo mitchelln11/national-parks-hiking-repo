@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NationalParksHiking.Models.Trail>
+﻿@model IEnumerable<NationalParksHiking.Models.HikingTrail>
 
 @{
     ViewBag.Title = "Index";
@@ -18,16 +18,20 @@
             @Html.DisplayNameFor(model => model.TrailDifficulty)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TrailLat)
+            @Html.DisplayNameFor(model => model.TrailSummary)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TrailLng)
+            @Html.DisplayNameFor(model => model.TrailLength)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrailCondition)
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+            @Html.HiddenFor(modelItem => item.Park.ParkName)
         <td>
             @Html.DisplayFor(modelItem => item.TrailName)
         </td>
@@ -35,11 +39,15 @@
             @Html.DisplayFor(modelItem => item.TrailDifficulty)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TrailLat)
+            @Html.DisplayFor(modelItem => item.TrailSummary)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TrailLng)
+            @Html.DisplayFor(modelItem => item.TrailLength)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrailCondition)
+        </td>
+            @Html.HiddenFor(modelItem => item.HikingApiCode)
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TrailId }) |
             @Html.ActionLink("Details", "Details", new { id=item.TrailId }) |
