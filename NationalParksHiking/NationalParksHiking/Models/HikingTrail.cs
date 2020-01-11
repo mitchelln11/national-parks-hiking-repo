@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -36,5 +37,33 @@ namespace NationalParksHiking.Models
 
         [NotMapped]
         public HikerTrailRating HikerTrailRating { get; set; } // To use on models
+
+        //public IEnumerator GetEnumerator()
+        //{
+        //    for(var i=1;i<7;i++)
+        //    {
+        //        switch (i)
+        //        {
+        //            case  1:
+        //                yield return TrailName;
+        //                break;
+        //            case 2:
+        //                yield return TrailDifficulty;
+        //                break;
+        //            case 3:
+        //                yield return TrailSummary;
+        //                break;
+        //            case 4:
+        //                yield return TrailLength;
+        //                break;
+        //            case 5:
+        //                yield return TrailCondition;
+        //                break;
+        //            default:
+        //                Console.WriteLine("Could not get value");
+        //                break;
+        //        }
+        //    }
+        //}
     }
 }

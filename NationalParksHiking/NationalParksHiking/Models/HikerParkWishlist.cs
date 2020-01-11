@@ -7,7 +7,7 @@ using System.Web;
 
 namespace NationalParksHiking.Models
 {
-    public class HikerParkWishlist
+    public class HikerParkWishlist  // Junction table
     {
         [Key]
         public int HikerParkWishlistId { get; set; }

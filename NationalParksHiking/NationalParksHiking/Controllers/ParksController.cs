@@ -20,6 +20,13 @@ namespace NationalParksHiking.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        //public async Task<ActionResult> GetLoopListForTrails(int? id)
+        //{
+        //    List<string> trailProperties = new List<string>();
+        //    HikingTrail hikingTrail = db.HikingTrails.Select(h => h.).Where(t => t.ParkId == id).ToList();
+        //    trailProperties.Add(hikingTrail);
+            
+        //}
 
         // GET: Parks
         public async Task<ActionResult> Index()
@@ -48,6 +55,7 @@ namespace NationalParksHiking.Controllers
             await RunHikingJson(apiKeys, park);
             await GetApiKey();
             await GetParkMarker(id);
+            //await GetLoopListForTrails(id);
             //SelectStateForFilter();
             if (park == null)
             {
