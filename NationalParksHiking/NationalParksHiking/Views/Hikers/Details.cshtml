@@ -1,4 +1,4 @@
-﻿@model NationalParksHiking.Models.HikerParkWishlist
+﻿@model NationalParksHiking.Models.Hiker
 
 @{
     ViewBag.Title = "Details";
@@ -6,7 +6,7 @@
 
     <div class="container-fluid body-content">
 
-        <h2>@Html.DisplayFor(model => model.Hiker.FirstName) Details</h2>
+        <h2>@Html.DisplayFor(model => model.FirstName) Details</h2>
         <hr />
 
         @*@{
@@ -22,52 +22,62 @@
             //Actually add all three values together into the parkMarker object
             wishlistItems.Add(wishlistItem);
         }*@
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Hiker.FirstName)
-            </dt>
+        <div class="flex-container">
+            <div class="flex-box">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Hiker.FirstName)
-            </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.FirstName)
+                    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Hiker.LastName)
-            </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Hiker.LastName)
-            </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.LastName)
+                    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Hiker.StreetAddress)
-            </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.StreetAddress)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Hiker.StreetAddress)
-            </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.StreetAddress)
+                    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Hiker.City)
-            </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.City)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Hiker.City)
-            </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.City)
+                    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Hiker.State)
-            </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.State)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Hiker.State)
-            </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.State)
+                    </dd>
 
-            @Html.HiddenFor(model => model.Hiker.Longitude)
-            @Html.HiddenFor(model => model.Hiker.Longitude)
-        </dl>
+                    @Html.HiddenFor(model => model.Longitude)
+                    @Html.HiddenFor(model => model.Longitude)
+                </dl>
+            </div>
+            <div class="flex-box">
+                @foreach (var item in Model.hikerParkWishlists)
+                {
+                <p>@Html.DisplayFor(modelItem => item.Park.HikerParkWishlist.Park.ParkName)</p>
+                }
+            </div>
+        </div>
         <p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Hiker.HikerId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = Model.Hiker.HikerId })
+            @Html.ActionLink("Edit", "Edit", new { id = Model.HikerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.HikerId })
         </p>
     </div>

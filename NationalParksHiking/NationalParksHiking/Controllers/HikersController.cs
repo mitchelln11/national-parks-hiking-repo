@@ -27,14 +27,27 @@ namespace NationalParksHiking.Controllers
             //return View(db.Hikers.ToList());
         }
 
+        //public ActionResult CheckUserId()
+        //{
+        //    string userId = User.Identity.GetUserId();
+        //    Hiker hiker = db.Hikers.Where(h => h.ApplicationId == userId).FirstOrDefault();
+        //    var LoggedId = hiker.HikerId;
+        //    return  (hiker.HikerId);
+        //}
+
         // GET: Hikers/Details/5
         public ActionResult Details(int? id)
         {
             string userLoggedIn = User.Identity.GetUserId();
-            //HikerParkWishlist hikerParkWishlist = db.Hikers.Where(u => u.ApplicationId == userLoggedIn).FirstOrDefault();
             Hiker personLoggedIn = db.Hikers.Where(u => u.ApplicationId == userLoggedIn).FirstOrDefault();
-            id = personLoggedIn.HikerId;
+            id = personLoggedIn.HikerId; // assigns logged in user id -- works
             //GetParkName();
+
+            // Add items to wishlist
+            var hikerParkWishlist = db.HikerParkWishlists.Where(w => w.HikerId == id).ToList(); // Compares logged in user with id on Wishlist junction table -- works
+            List<HikerParkWishlist> wishlist = db.HikerParkWishlists.ToList(); // Holds list of number of parks on the wishlist
+            
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

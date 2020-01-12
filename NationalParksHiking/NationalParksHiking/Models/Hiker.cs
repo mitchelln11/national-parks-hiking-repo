@@ -41,5 +41,6 @@ namespace NationalParksHiking.Models
 
         [NotMapped]
         public Park Park { get; set; } // Read Park info on hiker views
+        public List<HikerParkWishlist> hikerParkWishlists { get; set; }
     }
 }
