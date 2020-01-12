@@ -300,6 +300,10 @@
     <Compile Include="Migrations\202001080237361_ChangedAccountTesting.Designer.cs">
       <DependentUpon>202001080237361_ChangedAccountTesting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001120519285_GettingWishlistInfoToDisplayOnHikers.cs" />
+    <Compile Include="Migrations\202001120519285_GettingWishlistInfoToDisplayOnHikers.Designer.cs">
+      <DependentUpon>202001120519285_GettingWishlistInfoToDisplayOnHikers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -508,6 +512,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001080237361_ChangedAccountTesting.resx">
       <DependentUpon>202001080237361_ChangedAccountTesting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001120519285_GettingWishlistInfoToDisplayOnHikers.resx">
+      <DependentUpon>202001120519285_GettingWishlistInfoToDisplayOnHikers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

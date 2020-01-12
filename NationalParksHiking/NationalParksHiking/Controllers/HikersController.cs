@@ -45,7 +45,10 @@ namespace NationalParksHiking.Controllers
 
             // Add items to wishlist
             var hikerParkWishlist = db.HikerParkWishlists.Where(w => w.HikerId == id).ToList(); // Compares logged in user with id on Wishlist junction table -- works
-            List<HikerParkWishlist> wishlist = db.HikerParkWishlists.ToList(); // Holds list of number of parks on the wishlist
+            //hikerParkWishlist.
+            //db.HikerParkWishlists.Where(hp => hp.ParkName == hikerParkWishlist.)
+            //List<HikerParkWishlist> wishlist = db.HikerParkWishlists.ToList(); // Holds list of number of parks on the wishlist
+            //List<Park> park = db.Parks.Where(p => p.ParkName == wishlist.)
             
 
             if (id == null)

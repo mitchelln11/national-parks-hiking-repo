@@ -69,12 +69,16 @@
                     @Html.HiddenFor(model => model.Longitude)
                 </dl>
             </div>
-            <div class="flex-box">
-                @foreach (var item in Model.hikerParkWishlists)
-                {
-                <p>@Html.DisplayFor(modelItem => item.Park.HikerParkWishlist.Park.ParkName)</p>
-                }
-            </div>
+            @if (Model.hikerParkWishlists != null)
+            {
+        <div class="flex-box">
+            @foreach (var item in Model.hikerParkWishlists)
+            {
+                <p>@Html.DisplayFor(modelItem => item.ParkId)</p>
+                <p>@Html.DisplayFor(modelItem => item.ParkName)</p>
+            }
+        </div>
+            }
         </div>
         <p>
             @Html.ActionLink("Edit", "Edit", new { id = Model.HikerId }) |

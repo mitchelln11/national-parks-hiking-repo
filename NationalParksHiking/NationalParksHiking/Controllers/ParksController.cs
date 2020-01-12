@@ -161,12 +161,19 @@ namespace NationalParksHiking.Controllers
             var user = User.Identity.GetUserId(); // Get Application user to match against all Hiker records
             HikerParkWishlist hikerParkWishlist = new HikerParkWishlist(); // Instantiate new wish list item
             Hiker hiker = db.Hikers.Where(h => h.ApplicationId == user).FirstOrDefault(); // Find correct, logged in user
+            //var temp  = 
+            //Park park = db.HikerParkWishlists.Where(p => p.ParkId == park.ParkId).FirstOrDefault();
+
+            // ------- FIGURE OUT HOW TO ADD PARK NAME TO WISHLIST
+
             hikerParkWishlist.HikerId = hiker.HikerId; // Add to database
 
             // FIGURE OUT HOW THIS IS NOT BEING INSTANTIATED
 
             int convertedParkId = Convert.ToInt32(id);  // Convert passed park Id to acceptable int format
             hikerParkWishlist.ParkId = convertedParkId; // Add to database
+
+            //hikerParkWishlist.ParkName = park.
 
             db.HikerParkWishlists.Add(hikerParkWishlist);
             db.SaveChanges();
