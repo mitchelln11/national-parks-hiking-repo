@@ -68,16 +68,16 @@
                     @Html.HiddenFor(model => model.Longitude)
                     @Html.HiddenFor(model => model.Longitude)
                 </dl>
+             </div>
+             @if (Model.hikerParkWishlists != null)
+             {
+            <div class="flex-box">
+                <h3>National Parks Wishlist</h3>
+                @foreach (var item in Model.hikerParkWishlists)
+                {
+                    <p>@Html.DisplayFor(modelItem => item.ParkName)</p>
+                }
             </div>
-            @if (Model.hikerParkWishlists != null)
-            {
-        <div class="flex-box">
-            @foreach (var item in Model.hikerParkWishlists)
-            {
-                <p>@Html.DisplayFor(modelItem => item.ParkId)</p>
-                <p>@Html.DisplayFor(modelItem => item.ParkName)</p>
-            }
-        </div>
             }
         </div>
         <p>
