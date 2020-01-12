@@ -158,15 +158,27 @@ namespace NationalParksHiking.Controllers
 
         public ActionResult AddParkToWishList(int? id) // why does it have to be id rather than parkId?
         {
+            // send full list of parks to work off of w/ db.Parks.ToList()
+            // Instantiate the wishlist as we are adding to it
+            // Check user id, then add to list as hikerParkWishlist
             var user = User.Identity.GetUserId(); // Get Application user to match against all Hiker records
             HikerParkWishlist hikerParkWishlist = new HikerParkWishlist(); // Instantiate new wish list item
             Hiker hiker = db.Hikers.Where(h => h.ApplicationId == user).FirstOrDefault(); // Find correct, logged in user
+
+            //List<Park> existingParkList = db.Parks.ToList(); // Existing list of parks
+            //string parkName = existingParkList.;
+            
+            //Park park = db.Parks.Where(p => p.ParkName == existingParkList.)
+            
             //var temp  = 
             //Park park = db.HikerParkWishlists.Where(p => p.ParkId == park.ParkId).FirstOrDefault();
 
             // ------- FIGURE OUT HOW TO ADD PARK NAME TO WISHLIST
 
-            hikerParkWishlist.HikerId = hiker.HikerId; // Add to database
+            hikerParkWishlist.HikerId = hiker.HikerId; // Add HikerId to database
+            //hikerParkWishlist.ParkName = existingParkList.
+
+            
 
             // FIGURE OUT HOW THIS IS NOT BEING INSTANTIATED
 
@@ -174,6 +186,10 @@ namespace NationalParksHiking.Controllers
             hikerParkWishlist.ParkId = convertedParkId; // Add to database
 
             //hikerParkWishlist.ParkName = park.
+
+            var parkWishName = db.Parks.Where(p => p.ParkId == hikerParkWishlist.ParkId).FirstOrDefault();
+            hikerParkWishlist.ParkName = parkWishName.ParkName;
+
 
             db.HikerParkWishlists.Add(hikerParkWishlist);
             db.SaveChanges();
