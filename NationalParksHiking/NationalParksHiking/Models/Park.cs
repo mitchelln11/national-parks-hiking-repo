@@ -32,6 +32,12 @@ namespace NationalParksHiking.Models
         public string ParkCode { get; set; }
 
         [NotMapped]
+        public string ComboParkLatLng { get; set; }
+
+        [NotMapped]
+        public string Designation { get; set; }
+
+        [NotMapped]
         public CurrentWeatherInfo CurrentWeatherInfo { get; set; } // Connect extra weather app info to Park model -- Not implemented into database as it's an object
 
         [NotMapped]

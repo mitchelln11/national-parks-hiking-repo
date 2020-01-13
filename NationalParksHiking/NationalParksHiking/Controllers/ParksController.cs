@@ -174,9 +174,9 @@ namespace NationalParksHiking.Controllers
         }
 
         // ------------------ Get Lat Long -----------------------------
-        public async Task GetLatLong(Park park, Datum parkInfo)
+        public async Task GetLatLong(Park park)
         {
-            var comboLatLong = parkInfo.latLong;
+            var comboLatLong = park.ComboParkLatLng;
             var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma, set to an array
             string isolatedLatitude = latLongArray[0].TrimEnd(','); // New lat variable for the 0 index, trim trailing comma
             string isolatedLongtitude = latLongArray[1].TrimEnd(','); // New lng variable for the 1 index trim trailing comma
@@ -229,8 +229,6 @@ namespace NationalParksHiking.Controllers
         }
 
 
-
-
         public async Task RunBasicParkJson()
         {
             string parkKey = ApiKeys.NpsKey;
@@ -239,55 +237,37 @@ namespace NationalParksHiking.Controllers
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(url);
             string jsonresult = await response.Content.ReadAsStringAsync();
-            List<Park> parkList = new List<Park>();
-            Park park = new Park();
+            Park park = new Park(); // Instantiate a new park
             if (response.IsSuccessStatusCode)
             {
-                
                 NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult); // Run through entire JSON file
-                //Datum parkInfo = npsJsonInfo.data.Where(p => p.parkCode == park.ParkCode); // Look into individual park when passing id in URL
-                //List<Datum> datum = npsJsonInfo[0].data[0].ToList();
-                //List<Park> parkInfo = npsJsonInfo[0].data[0].ToList();
-
-                // ----- FIGURE OUT HOW TO PULL SPECIFIC DATA FROM EACH INDEX ------------------
-
-                var test = npsJsonInfo.data.Select(m => m).ToList();
+                var parkList = npsJsonInfo.data.Select(m => m).ToList(); // returns entire list of Parks, up to 150, this only has 90 based of the National Parks query
 
                 foreach (var singlePark in parkList)
                 {
-                    //singlePark.ParkName = db.Parks.
-                    //    var parkName = parkObject.data[0].fullName.ToList();
-                    //    var parkLatLng = parkObject.data[0].latLong;
-                    //    var parkState = parkObject.data[0].states;
-                    //    parkList.Add(parkName);
-                    //    parkList.Add(parkLatLng);
-                    //    parkList.Add(parkState);
-                    //    await db.SaveChangesAsync();
+                    park.Designation = singlePark.designation; // Temporary National Parks holding
+                    if (park.Designation.Contains("National Park"))
+                    {
+                        park.ParkName = singlePark.fullName;
+                        park.ParkState = singlePark.states;
+                        park.ParkDescription = singlePark.description;
+                        park.ParkCode = singlePark.parkCode;
+                        park.ComboParkLatLng = singlePark.latLong; // Temporary latlong holding
+                        if(!park.ParkCode.Contains(singlePark.parkCode))
+                        {
+                            db.Parks.Add(park);
+                        }
+                        
+                        if (park.ComboParkLatLng != String.Empty && park.ComboParkLatLng != null)
+                        {
+                            await GetLatLong(park);
+                        }
+                        await db.SaveChangesAsync();
+                    }
                 }
-
-
-                //for (var i = 0; i < npsJsonInfo.Count; i++)
-                //{
-                //    data.
-                //    db.Parks.
-                //    db.Parks.Add(data[i].fullName);
-                //}
-
-
-                // How to Return an entire list of a JSON call
-
-                // From here on out, refer to parkInfo instead of npsJsonInfo
-                //await GetParkDescription(park, parkInfo);
-                //await GetFullParkName(park, parkInfo);
-                //await GetParkState(park, parkInfo);
-                //await GetLatLong(park, parkInfo);
                 await db.SaveChangesAsync();
             }
         }
-
-
-
-
 
         // ------------------ Run single httpclient and response call for Parks -----------------------------
         public async Task RunParkJson(Park park)
@@ -306,7 +286,7 @@ namespace NationalParksHiking.Controllers
                 await GetParkDescription(park, parkInfo);
                 await GetFullParkName(park, parkInfo);
                 await GetParkState(park, parkInfo);
-                await GetLatLong(park, parkInfo);
+                await GetLatLong(park);
                 await db.SaveChangesAsync();
             }
         }

@@ -46,6 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.JScript" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -180,129 +181,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HelperClass\parkHelper.cs" />
-    <Compile Include="Migrations\201912202239100_UppercaseHikingTrailObject.cs" />
-    <Compile Include="Migrations\201912202239100_UppercaseHikingTrailObject.Designer.cs">
-      <DependentUpon>201912202239100_UppercaseHikingTrailObject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912290125009_FieldsAddedToTrailModel.cs" />
-    <Compile Include="Migrations\201912290125009_FieldsAddedToTrailModel.Designer.cs">
-      <DependentUpon>201912290125009_FieldsAddedToTrailModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912290134018_UpdatedNamingOfTrailDatabase.cs" />
-    <Compile Include="Migrations\201912290134018_UpdatedNamingOfTrailDatabase.Designer.cs">
-      <DependentUpon>201912290134018_UpdatedNamingOfTrailDatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912300308062_AddParkForeignKeysToTrailsForLatLng.cs" />
-    <Compile Include="Migrations\201912300308062_AddParkForeignKeysToTrailsForLatLng.Designer.cs">
-      <DependentUpon>201912300308062_AddParkForeignKeysToTrailsForLatLng.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912301600059_AddWeatherValuesToParkModelNotSeeded.cs" />
-    <Compile Include="Migrations\201912301600059_AddWeatherValuesToParkModelNotSeeded.Designer.cs">
-      <DependentUpon>201912301600059_AddWeatherValuesToParkModelNotSeeded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912301729501_AddDescriptionVariableToPark.cs" />
-    <Compile Include="Migrations\201912301729501_AddDescriptionVariableToPark.Designer.cs">
-      <DependentUpon>201912301729501_AddDescriptionVariableToPark.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912301912197_thing.cs" />
-    <Compile Include="Migrations\201912301912197_thing.Designer.cs">
-      <DependentUpon>201912301912197_thing.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.cs" />
-    <Compile Include="Migrations\201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.Designer.cs">
-      <DependentUpon>201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912302250173_UpdateBadlandsDataToSeeIfItKeepsUpdating.cs" />
-    <Compile Include="Migrations\201912302250173_UpdateBadlandsDataToSeeIfItKeepsUpdating.Designer.cs">
-      <DependentUpon>201912302250173_UpdateBadlandsDataToSeeIfItKeepsUpdating.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912311617520_AddParkCodeFieldForUniqueJsonCall.cs" />
-    <Compile Include="Migrations\201912311617520_AddParkCodeFieldForUniqueJsonCall.Designer.cs">
-      <DependentUpon>201912311617520_AddParkCodeFieldForUniqueJsonCall.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001021402513_AddTrailConditionToTrailsModelUserStory.cs" />
-    <Compile Include="Migrations\202001021402513_AddTrailConditionToTrailsModelUserStory.Designer.cs">
-      <DependentUpon>202001021402513_AddTrailConditionToTrailsModelUserStory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001021426110_UpdateTrailConditionToString.cs" />
-    <Compile Include="Migrations\202001021426110_UpdateTrailConditionToString.Designer.cs">
-      <DependentUpon>202001021426110_UpdateTrailConditionToString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001021559537_TestForUpdatingTrailConditionToString.cs" />
-    <Compile Include="Migrations\202001021559537_TestForUpdatingTrailConditionToString.Designer.cs">
-      <DependentUpon>202001021559537_TestForUpdatingTrailConditionToString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001042133099_AddApplicationIdAsForeignIdToHikersModel.cs" />
-    <Compile Include="Migrations\202001042133099_AddApplicationIdAsForeignIdToHikersModel.Designer.cs">
-      <DependentUpon>202001042133099_AddApplicationIdAsForeignIdToHikersModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001061354569_AddNotMappedUniqueTrailCode.cs" />
-    <Compile Include="Migrations\202001061354569_AddNotMappedUniqueTrailCode.Designer.cs">
-      <DependentUpon>202001061354569_AddNotMappedUniqueTrailCode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001061401171_ChangedHikingIdToMapped.cs" />
-    <Compile Include="Migrations\202001061401171_ChangedHikingIdToMapped.Designer.cs">
-      <DependentUpon>202001061401171_ChangedHikingIdToMapped.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001061641341_AddReviewAmountAndAverageToTrailsModel.cs" />
-    <Compile Include="Migrations\202001061641341_AddReviewAmountAndAverageToTrailsModel.Designer.cs">
-      <DependentUpon>202001061641341_AddReviewAmountAndAverageToTrailsModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001061653471_ChangedIntToDecimalAverageRating.cs" />
-    <Compile Include="Migrations\202001061653471_ChangedIntToDecimalAverageRating.Designer.cs">
-      <DependentUpon>202001061653471_ChangedIntToDecimalAverageRating.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001061710154_AddIndividualReviewToTrailModel.cs" />
-    <Compile Include="Migrations\202001061710154_AddIndividualReviewToTrailModel.Designer.cs">
-      <DependentUpon>202001061710154_AddIndividualReviewToTrailModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001061717444_MovedAveragesToJunctionTable.cs" />
-    <Compile Include="Migrations\202001061717444_MovedAveragesToJunctionTable.Designer.cs">
-      <DependentUpon>202001061717444_MovedAveragesToJunctionTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001061728034_ReplacedTotalUserReviewsWithIndividualRating.cs" />
-    <Compile Include="Migrations\202001061728034_ReplacedTotalUserReviewsWithIndividualRating.Designer.cs">
-      <DependentUpon>202001061728034_ReplacedTotalUserReviewsWithIndividualRating.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001071549317_AddParkNameToWishlistForVisualParksAddingToWishlist.cs" />
-    <Compile Include="Migrations\202001071549317_AddParkNameToWishlistForVisualParksAddingToWishlist.Designer.cs">
-      <DependentUpon>202001071549317_AddParkNameToWishlistForVisualParksAddingToWishlist.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001071555400_AddParkObjectToHikersForViewDetails.cs" />
-    <Compile Include="Migrations\202001071555400_AddParkObjectToHikersForViewDetails.Designer.cs">
-      <DependentUpon>202001071555400_AddParkObjectToHikersForViewDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001072200022_AddStatesToParkModel.cs" />
-    <Compile Include="Migrations\202001072200022_AddStatesToParkModel.Designer.cs">
-      <DependentUpon>202001072200022_AddStatesToParkModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001072331111_ParkModelUpdatesTestingDropdownList.cs" />
-    <Compile Include="Migrations\202001072331111_ParkModelUpdatesTestingDropdownList.Designer.cs">
-      <DependentUpon>202001072331111_ParkModelUpdatesTestingDropdownList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001080126296_MovingClassesAroundToWorkOnDropDown.cs" />
-    <Compile Include="Migrations\202001080126296_MovingClassesAroundToWorkOnDropDown.Designer.cs">
-      <DependentUpon>202001080126296_MovingClassesAroundToWorkOnDropDown.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001080136534_AddHikersToHomeForLinkingFromHome.cs" />
-    <Compile Include="Migrations\202001080136534_AddHikersToHomeForLinkingFromHome.Designer.cs">
-      <DependentUpon>202001080136534_AddHikersToHomeForLinkingFromHome.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001080209402_RemovedVisitedBoolFromWishlist.cs" />
-    <Compile Include="Migrations\202001080209402_RemovedVisitedBoolFromWishlist.Designer.cs">
-      <DependentUpon>202001080209402_RemovedVisitedBoolFromWishlist.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001080210570_removedParkNameFromWishlistNotBeingUsed.cs" />
-    <Compile Include="Migrations\202001080210570_removedParkNameFromWishlistNotBeingUsed.Designer.cs">
-      <DependentUpon>202001080210570_removedParkNameFromWishlistNotBeingUsed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001080237361_ChangedAccountTesting.cs" />
-    <Compile Include="Migrations\202001080237361_ChangedAccountTesting.Designer.cs">
-      <DependentUpon>202001080237361_ChangedAccountTesting.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202001120519285_GettingWishlistInfoToDisplayOnHikers.cs" />
-    <Compile Include="Migrations\202001120519285_GettingWishlistInfoToDisplayOnHikers.Designer.cs">
-      <DependentUpon>202001120519285_GettingWishlistInfoToDisplayOnHikers.cs</DependentUpon>
+    <Compile Include="Migrations\202001132056101_NukeInit.cs" />
+    <Compile Include="Migrations\202001132056101_NukeInit.Designer.cs">
+      <DependentUpon>202001132056101_NukeInit.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -407,9 +288,6 @@
     <Content Include="Views\Trails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -423,98 +301,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912202239100_UppercaseHikingTrailObject.resx">
-      <DependentUpon>201912202239100_UppercaseHikingTrailObject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912290125009_FieldsAddedToTrailModel.resx">
-      <DependentUpon>201912290125009_FieldsAddedToTrailModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912290134018_UpdatedNamingOfTrailDatabase.resx">
-      <DependentUpon>201912290134018_UpdatedNamingOfTrailDatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912300308062_AddParkForeignKeysToTrailsForLatLng.resx">
-      <DependentUpon>201912300308062_AddParkForeignKeysToTrailsForLatLng.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912301600059_AddWeatherValuesToParkModelNotSeeded.resx">
-      <DependentUpon>201912301600059_AddWeatherValuesToParkModelNotSeeded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912301729501_AddDescriptionVariableToPark.resx">
-      <DependentUpon>201912301729501_AddDescriptionVariableToPark.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912301912197_thing.resx">
-      <DependentUpon>201912301912197_thing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.resx">
-      <DependentUpon>201912302033018_AddTrailForeachLoopToParksDetailsNotMappedWeatherAPI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912302250173_UpdateBadlandsDataToSeeIfItKeepsUpdating.resx">
-      <DependentUpon>201912302250173_UpdateBadlandsDataToSeeIfItKeepsUpdating.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912311617520_AddParkCodeFieldForUniqueJsonCall.resx">
-      <DependentUpon>201912311617520_AddParkCodeFieldForUniqueJsonCall.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001021402513_AddTrailConditionToTrailsModelUserStory.resx">
-      <DependentUpon>202001021402513_AddTrailConditionToTrailsModelUserStory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001021426110_UpdateTrailConditionToString.resx">
-      <DependentUpon>202001021426110_UpdateTrailConditionToString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001021559537_TestForUpdatingTrailConditionToString.resx">
-      <DependentUpon>202001021559537_TestForUpdatingTrailConditionToString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001042133099_AddApplicationIdAsForeignIdToHikersModel.resx">
-      <DependentUpon>202001042133099_AddApplicationIdAsForeignIdToHikersModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001061354569_AddNotMappedUniqueTrailCode.resx">
-      <DependentUpon>202001061354569_AddNotMappedUniqueTrailCode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001061401171_ChangedHikingIdToMapped.resx">
-      <DependentUpon>202001061401171_ChangedHikingIdToMapped.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001061641341_AddReviewAmountAndAverageToTrailsModel.resx">
-      <DependentUpon>202001061641341_AddReviewAmountAndAverageToTrailsModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001061653471_ChangedIntToDecimalAverageRating.resx">
-      <DependentUpon>202001061653471_ChangedIntToDecimalAverageRating.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001061710154_AddIndividualReviewToTrailModel.resx">
-      <DependentUpon>202001061710154_AddIndividualReviewToTrailModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001061717444_MovedAveragesToJunctionTable.resx">
-      <DependentUpon>202001061717444_MovedAveragesToJunctionTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001061728034_ReplacedTotalUserReviewsWithIndividualRating.resx">
-      <DependentUpon>202001061728034_ReplacedTotalUserReviewsWithIndividualRating.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001071549317_AddParkNameToWishlistForVisualParksAddingToWishlist.resx">
-      <DependentUpon>202001071549317_AddParkNameToWishlistForVisualParksAddingToWishlist.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001071555400_AddParkObjectToHikersForViewDetails.resx">
-      <DependentUpon>202001071555400_AddParkObjectToHikersForViewDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001072200022_AddStatesToParkModel.resx">
-      <DependentUpon>202001072200022_AddStatesToParkModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001072331111_ParkModelUpdatesTestingDropdownList.resx">
-      <DependentUpon>202001072331111_ParkModelUpdatesTestingDropdownList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001080126296_MovingClassesAroundToWorkOnDropDown.resx">
-      <DependentUpon>202001080126296_MovingClassesAroundToWorkOnDropDown.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001080136534_AddHikersToHomeForLinkingFromHome.resx">
-      <DependentUpon>202001080136534_AddHikersToHomeForLinkingFromHome.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001080209402_RemovedVisitedBoolFromWishlist.resx">
-      <DependentUpon>202001080209402_RemovedVisitedBoolFromWishlist.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001080210570_removedParkNameFromWishlistNotBeingUsed.resx">
-      <DependentUpon>202001080210570_removedParkNameFromWishlistNotBeingUsed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001080237361_ChangedAccountTesting.resx">
-      <DependentUpon>202001080237361_ChangedAccountTesting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001120519285_GettingWishlistInfoToDisplayOnHikers.resx">
-      <DependentUpon>202001120519285_GettingWishlistInfoToDisplayOnHikers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001132056101_NukeInit.resx">
+      <DependentUpon>202001132056101_NukeInit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

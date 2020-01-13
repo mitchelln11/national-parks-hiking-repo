@@ -7,13 +7,13 @@ namespace NationalParksHiking.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class UpdatedNamingOfTrailDatabase : IMigrationMetadata
+    public sealed partial class NukeInit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdatedNamingOfTrailDatabase));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NukeInit));
         
         string IMigrationMetadata.Id
         {
-            get { return "201912290134018_UpdatedNamingOfTrailDatabase"; }
+            get { return "202001132056101_NukeInit"; }
         }
         
         string IMigrationMetadata.Source
