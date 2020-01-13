@@ -144,26 +144,26 @@ namespace NationalParksHiking.Controllers
         }
 
         // ------------------ Run single httpclient and response call -----------------------------
-        public async Task GetTrailDifficulty(Park park, ApiKeys apiKeys)
-        {
-            // How do I pass the park ID number to a trail controller?
-            // Get Lat Long from Parks database
-            string trailKey = apiKeys.HikingProjectKey;
-            string parkLat = park.ParkLat;
-            string parkLng = park.ParkLng;
-            string url = $"https://www.hikingproject.com/data/get-trails?lat={parkLat}&lon={parkLng}&key={trailKey}";
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(url);
-            string jsonresult = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
-            {
-                HikingTrailJsonInfo hikingTrailJsonInfo = JsonConvert.DeserializeObject<HikingTrailJsonInfo>(jsonresult);
-                string TrailDifficulty = hikingTrailJsonInfo.trails[0].difficulty.ToString();
-                //string userLoggedIn = User.Identity.GetUserId();
-                Trail trail = new Trail();
-                trail.difficulty = TrailDifficulty;
-                await db.SaveChangesAsync();
-            }
-        }
+        //public async Task GetTrailDifficulty(Park park, ApiKeys apiKeys)
+        //{
+        //    // How do I pass the park ID number to a trail controller?
+        //    // Get Lat Long from Parks database
+        //    string trailKey = apiKeys.HikingProjectKey;
+        //    string parkLat = park.ParkLat;
+        //    string parkLng = park.ParkLng;
+        //    string url = $"https://www.hikingproject.com/data/get-trails?lat={parkLat}&lon={parkLng}&key={trailKey}";
+        //    HttpClient client = new HttpClient();
+        //    HttpResponseMessage response = await client.GetAsync(url);
+        //    string jsonresult = await response.Content.ReadAsStringAsync();
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        HikingTrailJsonInfo hikingTrailJsonInfo = JsonConvert.DeserializeObject<HikingTrailJsonInfo>(jsonresult);
+        //        string TrailDifficulty = hikingTrailJsonInfo.trails[0].difficulty.ToString();
+        //        //string userLoggedIn = User.Identity.GetUserId();
+        //        Trail trail = new Trail();
+        //        trail.difficulty = TrailDifficulty;
+        //        await db.SaveChangesAsync();
+        //    }
+        //}
     }
 }

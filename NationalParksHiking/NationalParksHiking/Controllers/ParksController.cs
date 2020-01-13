@@ -158,22 +158,16 @@ namespace NationalParksHiking.Controllers
 
         public ActionResult AddParkToWishList(int? id) // why does it have to be id rather than parkId?
         {
-            // send full list of parks to work off of w/ db.Parks.ToList()
-            // Instantiate the wishlist as we are adding to it
-            // Check user id, then add to list as hikerParkWishlist
             var user = User.Identity.GetUserId(); // Get Application user to match against all Hiker records
             HikerParkWishlist hikerParkWishlist = new HikerParkWishlist(); // Instantiate new wish list item
             Hiker hiker = db.Hikers.Where(h => h.ApplicationId == user).FirstOrDefault(); // Find correct, logged in user
-
             hikerParkWishlist.HikerId = hiker.HikerId; // Add HikerId to database
-
+            // Add ParkId to database
             int convertedParkId = Convert.ToInt32(id);  // Convert passed park Id to acceptable int format
             hikerParkWishlist.ParkId = convertedParkId; // Add to database
-
+            // Add park name to wishlist
             var parkWishName = db.Parks.Where(p => p.ParkId == hikerParkWishlist.ParkId).FirstOrDefault();
             hikerParkWishlist.ParkName = parkWishName.ParkName;
-
-
             db.HikerParkWishlists.Add(hikerParkWishlist);
             db.SaveChanges();
             return RedirectToAction("Details", "Hikers", new { id = hiker.HikerId } );

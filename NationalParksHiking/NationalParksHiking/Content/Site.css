@@ -29,6 +29,20 @@ textarea {
 }
 
 /* Custom Styles  */
+.navbar {
+    background: #4A360E;
+}
+.jumbotron {
+    background: #A6843E;
+    margin-bottom:0;
+}
+.btn-primary {
+    background: #A28D64;
+    border-color: #4C3811;
+}
+.grid-container {
+    display:grid;
+}
 th {
     background-color: grey;
 }
@@ -68,6 +82,10 @@ th {
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
+    }
+
+    #home-page .grid-container img {
+
     }
 
     .solo-park-map #map {

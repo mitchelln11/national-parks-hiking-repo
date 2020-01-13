@@ -27,28 +27,15 @@ namespace NationalParksHiking.Controllers
             //return View(db.Hikers.ToList());
         }
 
-        //public ActionResult CheckUserId()
-        //{
-        //    string userId = User.Identity.GetUserId();
-        //    Hiker hiker = db.Hikers.Where(h => h.ApplicationId == userId).FirstOrDefault();
-        //    var LoggedId = hiker.HikerId;
-        //    return  (hiker.HikerId);
-        //}
-
         // GET: Hikers/Details/5
         public ActionResult Details(int? id)
         {
             string userLoggedIn = User.Identity.GetUserId();
             Hiker personLoggedIn = db.Hikers.Where(u => u.ApplicationId == userLoggedIn).FirstOrDefault();
             id = personLoggedIn.HikerId; // assigns logged in user id -- works
-            //GetParkName();
 
             // Add items to wishlist
             var hikerParkWishlist = db.HikerParkWishlists.Where(w => w.HikerId == id).ToList(); // Compares logged in user with id on Wishlist junction table -- works - shows correct amount on wishlist
-            //hikerParkWishlist.
-            //db.HikerParkWishlists.Where(hp => hp.ParkName == hikerParkWishlist.)
-            //List<HikerParkWishlist> wishlist = db.HikerParkWishlists.ToList(); // Holds list of number of parks on the wishlist
-            //List<Park> park = db.Parks.Where(p => p.ParkName == wishlist.)
             
 
             if (id == null)
@@ -87,7 +74,6 @@ namespace NationalParksHiking.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details", "Hikers", new { id = hiker.HikerId });
             }
-
             return View(hiker);
         }
 
