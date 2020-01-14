@@ -256,10 +256,17 @@ namespace NationalParksHiking.Controllers
                         park.ParkName = singlePark.fullName;
                         park.ParkState = singlePark.states;
                         park.ParkDescription = singlePark.description;
-                        park.ParkCode = singlePark.parkCode;
                         park.ComboParkLatLng = singlePark.latLong; // Temporary latlong holding
-                        bool existingParkCheck = parkList.Any(ep => ep.parkCode == park.ParkCode); // Check to see if code exists already
-                        if(existingParkCheck == true)
+                        park.ParkCode = singlePark.parkCode;
+
+                        // WHY DOES THIS WORK?
+                        // If parkCode is set above, I can add to the database, but it will duplicate.
+                        // If I add parkcode below, the match will always be false, and the park won''t add for some reason
+
+                        //bool parkExists = false;
+
+                        var uniqueParkCode = db.Parks.Where(c => c.ParkCode == singlePark.parkCode).FirstOrDefault();
+                        if (uniqueParkCode == null)
                         {
                             db.Parks.Add(park);
                             if (park.ComboParkLatLng != String.Empty && park.ComboParkLatLng != null)
@@ -267,6 +274,16 @@ namespace NationalParksHiking.Controllers
                                 await GetLatLong(park);
                             }
                         }
+
+                        //bool parkExists = parkList.Any(ep => ep.parkCode == park.ParkCode); // Check to see if code exists already
+                        //if(parkExists == true)
+                        //{
+                        //    db.Parks.Add(park);
+                        //    if (park.ComboParkLatLng != String.Empty && park.ComboParkLatLng != null)
+                        //    {
+                        //        await GetLatLong(park);
+                        //    }
+                        //}
                         await db.SaveChangesAsync();
                     }
                 }
