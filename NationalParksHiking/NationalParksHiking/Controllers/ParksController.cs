@@ -50,7 +50,7 @@ namespace NationalParksHiking.Controllers
             park.CurrentWeatherInfo = new CurrentWeatherInfo(); // Instantiate blank spot for data to bind to
             park.CurrentWeatherInfo.temperature = 876; // Doesn't matter what's here, will overwrite anyway
             park.Trails = db.HikingTrails.Where(i => i.ParkId == id).ToList();
-            await RunParkJson(park);
+            await RunBasicParkJson();
             await RunWeatherJson(apiKeys, park);
             await RunHikingJson(apiKeys, park);
             await GetApiKey();
@@ -259,12 +259,6 @@ namespace NationalParksHiking.Controllers
                         park.ComboParkLatLng = singlePark.latLong; // Temporary latlong holding
                         park.ParkCode = singlePark.parkCode;
 
-                        // WHY DOES THIS WORK?
-                        // If parkCode is set above, I can add to the database, but it will duplicate.
-                        // If I add parkcode below, the match will always be false, and the park won''t add for some reason
-
-                        //bool parkExists = false;
-
                         var uniqueParkCode = db.Parks.Where(c => c.ParkCode == singlePark.parkCode).FirstOrDefault();
                         if (uniqueParkCode == null)
                         {
@@ -274,41 +268,9 @@ namespace NationalParksHiking.Controllers
                                 await GetLatLong(park);
                             }
                         }
-
-                        //bool parkExists = parkList.Any(ep => ep.parkCode == park.ParkCode); // Check to see if code exists already
-                        //if(parkExists == true)
-                        //{
-                        //    db.Parks.Add(park);
-                        //    if (park.ComboParkLatLng != String.Empty && park.ComboParkLatLng != null)
-                        //    {
-                        //        await GetLatLong(park);
-                        //    }
-                        //}
                         await db.SaveChangesAsync();
                     }
                 }
-                await db.SaveChangesAsync();
-            }
-        }
-
-        // ------------------ Run single httpclient and response call for Parks -----------------------------
-        public async Task RunParkJson(Park park)
-        {
-            string parkKey = ApiKeys.NpsKey;
-            int apiLimit = 150;
-            string url = $"https://developer.nps.gov/api/v1/parks?q=National%20Park&limit={apiLimit}&api_key={parkKey}";
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(url);
-            string jsonresult = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
-            {
-                NpsJsonInfo npsJsonInfo = JsonConvert.DeserializeObject<NpsJsonInfo>(jsonresult); // Run through entire JSON file
-                Datum parkInfo = npsJsonInfo.data.Where(p => p.parkCode == park.ParkCode).Single(); // Look into individual park when passing id in URL
-                // From here on out, refer to parkInfo instead of npsJsonInfo
-                await GetParkDescription(park, parkInfo);
-                await GetFullParkName(park, parkInfo);
-                await GetParkState(park, parkInfo);
-                await GetLatLong(park);
                 await db.SaveChangesAsync();
             }
         }
@@ -341,7 +303,6 @@ namespace NationalParksHiking.Controllers
         public async Task GetAverageTrailRating()
         {
             var user = User.Identity.GetUserId();
-            //List<HikerTrailRating> AllRatings = db.HikerTrailRatings.Where(r => r.TrailId == parkId).ToList(); // What do I pass through to match against the TrailId?
             List<HikerTrailRating> AllRatings = db.HikerTrailRatings.ToList(); // Will add average to all 
             var ReviewCount = AllRatings.Count;
 
@@ -377,10 +338,12 @@ namespace NationalParksHiking.Controllers
                 if (trailSummary == null )
                 {
                     hikingTrail.TrailSummary = "No information available at this time.";
+                    await db.SaveChangesAsync();
                 }
                 else
                 {
                     hikingTrail.TrailSummary = trailSummary;
+                    await db.SaveChangesAsync();
                 }
 
                 // Convert long decimal to a 2 decimal number
@@ -393,10 +356,12 @@ namespace NationalParksHiking.Controllers
                 if (trailCondition != null)
                 {
                     hikingTrail.TrailCondition = trailCondition;
+                    await db.SaveChangesAsync();
                 }
                 else
                 {
                     hikingTrail.TrailCondition = "No condition status available at this time";
+                    await db.SaveChangesAsync();
                 }
 
                 //await GetAverageTrailRating();
@@ -406,6 +371,7 @@ namespace NationalParksHiking.Controllers
                 if (trailCode == null)
                 {
                     db.HikingTrails.Add(hikingTrail);
+                    await db.SaveChangesAsync();
                 }
             }
             await db.SaveChangesAsync();
