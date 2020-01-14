@@ -177,6 +177,8 @@ namespace NationalParksHiking.Controllers
         public async Task GetLatLong(Park park)
         {
             var comboLatLong = park.ComboParkLatLng;
+
+            // NOT AN INSTANCE ERROR BECAUSE SOME LATLNGS ARE EMPTY OR NULL. FIGURE OUT WHISH ONES ARE ERRORING OUT
             var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma, set to an array
             string isolatedLatitude = latLongArray[0].TrimEnd(','); // New lat variable for the 0 index, trim trailing comma
             string isolatedLongtitude = latLongArray[1].TrimEnd(','); // New lng variable for the 1 index trim trailing comma
@@ -246,21 +248,24 @@ namespace NationalParksHiking.Controllers
                 foreach (var singlePark in parkList)
                 {
                     park.Designation = singlePark.designation; // Temporary National Parks holding
-                    if (park.Designation.Contains("National Park"))
+                    if (park.Designation.Contains("National and State Parks") || park.Designation.Contains("National Park")) // First statement to add Redwood
                     {
+                        // Missing the following
+                        //  National Park of American Samoa // No designation
+                        //  Sequoia Combined with King's Canyon
                         park.ParkName = singlePark.fullName;
                         park.ParkState = singlePark.states;
                         park.ParkDescription = singlePark.description;
                         park.ParkCode = singlePark.parkCode;
                         park.ComboParkLatLng = singlePark.latLong; // Temporary latlong holding
-                        if(!park.ParkCode.Contains(singlePark.parkCode))
+                        bool existingParkCheck = parkList.Any(ep => ep.parkCode == park.ParkCode); // Check to see if code exists already
+                        if(existingParkCheck == true)
                         {
                             db.Parks.Add(park);
-                        }
-                        
-                        if (park.ComboParkLatLng != String.Empty && park.ComboParkLatLng != null)
-                        {
-                            await GetLatLong(park);
+                            if (park.ComboParkLatLng != String.Empty && park.ComboParkLatLng != null)
+                            {
+                                await GetLatLong(park);
+                            }
                         }
                         await db.SaveChangesAsync();
                     }
