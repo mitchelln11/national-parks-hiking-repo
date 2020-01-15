@@ -12,7 +12,6 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using NationalParksHiking;
 using Microsoft.AspNet.Identity;
-using NationalParksHiking.HelperClass;
 
 namespace NationalParksHiking.Controllers
 {
@@ -228,24 +227,6 @@ namespace NationalParksHiking.Controllers
             park.ParkState = ParkState;
             await db.SaveChangesAsync();
         }
-
-
-        // Get State dropdown options
-        public ActionResult DisplayForm()
-        {
-            ParkStateViewModel ParkStateViewModel = new ParkStateViewModel
-            {
-                ParkStates = parkHelper.GetParkStates()
-            };
-            return View(ParkStateViewModel);
-        }
-
-        [HttpPost]
-        public ActionResult DisplayForm(ParkStateViewModel parkStateViewModel)
-        {
-            return Content(parkStateViewModel.ParkStates.ToString());
-        }
-
 
         public async Task RunBasicParkJson()
         {

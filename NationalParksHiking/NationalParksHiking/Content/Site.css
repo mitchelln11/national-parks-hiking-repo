@@ -26,8 +26,15 @@ input,
 select,
 textarea {
     max-width: 280px;
+    border-radius:5px;
+}
+select {
+    padding:5px;
 }
 
+.state-filter-box {
+    margin: 0 15px 5px 0;
+}
 /* Custom Styles  */
 .navbar {
     background: #4A360E;

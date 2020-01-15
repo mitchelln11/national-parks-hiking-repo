@@ -26,18 +26,15 @@
 
                     <div class="form-group">
                         <div class="flex-container">
-                            <div class="col-md-2">
+                            <div class="state-filter-box">
                                 @Html.LabelFor(model => model.SelectedState)
                             </div>
-                            <div class="col-md-3">
+                            <div class="state-filter-box">
                                 @Html.DropDownListFor(model => model.SelectedState, Model.States, "Please Select State")
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="flex-container">
-                            <input type="submit" value="Filter" class="btn btn-default" />
+                            <div class="state-filter-box">
+                                <input type="submit" value="Filter" class="btn btn-default" />
+                            </div>
                         </div>
                     </div>
                 </div>
