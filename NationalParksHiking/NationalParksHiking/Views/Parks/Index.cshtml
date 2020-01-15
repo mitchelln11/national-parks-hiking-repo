@@ -1,4 +1,5 @@
-﻿@model NationalParksHiking.Models.ParkFilterViewModel
+﻿@model NationalParksHiking.Models.ParkFilterViewModel 
+@*Refering to ParkFilterViewModel rather than Park model*@
 
 @{
     ViewBag.Title = "Index";
@@ -15,6 +16,7 @@
 </div>
 <div class="clearfix"></div>
 
+@*Filter section added*@
 @using (Html.BeginForm())
 {
     <div class="container-fluid">
@@ -45,7 +47,7 @@
 
 <table class="table">
     <tr>
-        <th>
+        <th> @*Now referencing the 0 index - wasn't referencing any index before*@
             @Html.DisplayNameFor(model => model.Parks[0].ParkName)
         </th>
         <th>
@@ -86,11 +88,7 @@
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.ParkId })
             </td>
-            @*<td>
-                    @Html.ActionLink("Add to Wishlist", "AddParkToWishlist")
-                </td>*@
         </tr>
-
     }
 
 </table>
@@ -116,19 +114,6 @@
         }
 
     }
+</script>
 
-    @*$(document).ready(function() {
-        $.ajax({
-            url: '@Url.Action("GetState", "Parks")',
-            type: 'POST',
-            dataType: 'json',
-            success: function (data) {
-                $(data).each(function (index, item) {
-                    $('#ddlState').append(`<option value="${item.StateId}">${item.StateName}</option>`);
-                });
-            }
-        });
-    });*@
-                </script>
-
-                <script src="@ViewBag.APIKey" async defer type="text/javascript"></script>
+<script src="@ViewBag.APIKey" async defer type="text/javascript"></script>

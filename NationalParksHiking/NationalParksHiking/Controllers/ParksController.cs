@@ -31,14 +31,14 @@ namespace NationalParksHiking.Controllers
         }
 
 
-        // Created in order to send the information to a new area
+        // Created in order to send the information to a new area, redirecting back to the index, but with new information
         [HttpPost]
-        public async Task<ActionResult> Index(ParkFilterViewModel parkFilter)
+        public async Task<ActionResult> Index(ParkFilterViewModel parkFilter) // Passing in parkFilter Objects from above method.
         {
             await GetApiKey(); // Needed to use API key, to populate the US map
             await RunBasicParkJson();
-            parkFilter.Parks = await db.Parks.Where(p => p.ParkState == parkFilter.SelectedState).ToListAsync();
-            parkFilter.States = new SelectList(parkFilter.Parks.Select(p => p.ParkState).Distinct().ToList());
+            parkFilter.Parks = await db.Parks.Where(p => p.ParkState == parkFilter.SelectedState).ToListAsync(); // Matching Park database park name with filter's Selection
+            parkFilter.States = new SelectList(parkFilter.Parks.Select(p => p.ParkState).Distinct().ToList()); // Get IEnum error if the this isn't here. Adds list back to page
             return View(parkFilter);
         }
 
