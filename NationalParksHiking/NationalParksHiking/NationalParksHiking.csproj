@@ -185,6 +185,10 @@
     <Compile Include="Migrations\202001132056101_NukeInit.Designer.cs">
       <DependentUpon>202001132056101_NukeInit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001142032311_AddStateListToModels.cs" />
+    <Compile Include="Migrations\202001142032311_AddStateListToModels.Designer.cs">
+      <DependentUpon>202001142032311_AddStateListToModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HiddenForAttribute.cs" />
@@ -195,11 +199,14 @@
     <Compile Include="Models\HikerTrailRating.cs" />
     <Compile Include="Models\HikingTrailJsonInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\keyAttribute.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NpsParksJsonInfo.cs" />
     <Compile Include="Models\Park.cs" />
+    <Compile Include="Models\ParkFilterViewModel.cs" />
     <Compile Include="Models\ParkStateViewModel.cs" />
     <Compile Include="Models\HikingTrail.cs" />
+    <Compile Include="Models\StatesList.cs" />
     <Compile Include="Models\WeatherJsonInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -303,6 +310,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202001132056101_NukeInit.resx">
       <DependentUpon>202001132056101_NukeInit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001142032311_AddStateListToModels.resx">
+      <DependentUpon>202001142032311_AddStateListToModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

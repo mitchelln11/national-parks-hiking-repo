@@ -1,9 +1,10 @@
-﻿@model IEnumerable<NationalParksHiking.Models.Park>
+﻿@model NationalParksHiking.Models.ParkFilterViewModel
 
 @{
     ViewBag.Title = "Index";
 }
 <div class="container-fluid">
+
     <h2>US National Parks</h2>
 </div>
 @{
@@ -14,41 +15,56 @@
 </div>
 <div class="clearfix"></div>
 
-@*<div class="container-fluid">
-    <div class="flex-container">
-        <div class="panel-body">
-            @using (Html.BeginForm())
-            {
-                <div class="formgroup">
-                    @Html.DropDownListFor(model => model.ParkStates,
-                    Model.GetStateAsSelectedItem(),
-                    "Select A State",
-                    new { @class = "form-control" })
+@using (Html.BeginForm())
+{
+    <div class="container-fluid">
+        <div class="flex-container">
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <h4>Park</h4>
+                    <hr />
+
+                    <div class="form-group">
+                        <div class="flex-container">
+                            <div class="col-md-2">
+                                @Html.LabelFor(model => model.SelectedState)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(model => model.SelectedState, Model.States, "Please Select State")
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="flex-container">
+                            <input type="submit" value="Filter" class="btn btn-default" />
+                        </div>
+                    </div>
                 </div>
-            }
+            </div>
         </div>
     </div>
-</div>*@
+}
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ParkName)
+            @Html.DisplayNameFor(model => model.Parks[0].ParkName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ParkState)
+            @Html.DisplayNameFor(model => model.Parks[0].ParkState)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ParkLat)
+            @Html.DisplayNameFor(model => model.Parks[0].ParkLat)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ParkLng)
+            @Html.DisplayNameFor(model => model.Parks[0].ParkLng)
         </th>
         <th></th>
         @*<th></th>*@
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Parks)
     {
         // Add Markers
         NationalParksHiking.Models.ParkMarkers parkMarker = new NationalParksHiking.Models.ParkMarkers();
@@ -74,10 +90,10 @@
                 @Html.ActionLink("Details", "Details", new { id = item.ParkId })
             </td>
             @*<td>
-                @Html.ActionLink("Add to Wishlist", "AddParkToWishlist")
-            </td>*@
+                    @Html.ActionLink("Add to Wishlist", "AddParkToWishlist")
+                </td>*@
         </tr>
-        
+
     }
 
 </table>
@@ -101,8 +117,21 @@
             });
             </text>
         }
-        
-    }
-</script>
 
-<script src="@ViewBag.APIKey" async defer type="text/javascript"></script>
+    }
+
+    @*$(document).ready(function() {
+        $.ajax({
+            url: '@Url.Action("GetState", "Parks")',
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+                $(data).each(function (index, item) {
+                    $('#ddlState').append(`<option value="${item.StateId}">${item.StateName}</option>`);
+                });
+            }
+        });
+    });*@
+                </script>
+
+                <script src="@ViewBag.APIKey" async defer type="text/javascript"></script>

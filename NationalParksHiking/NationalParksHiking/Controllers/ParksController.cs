@@ -20,22 +20,27 @@ namespace NationalParksHiking.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        //public async Task<ActionResult> GetLoopListForTrails(int? id)
-        //{
-        //    List<string> trailProperties = new List<string>();
-        //    HikingTrail hikingTrail = db.HikingTrails.Select(h => h.).Where(t => t.ParkId == id).ToList();
-        //    trailProperties.Add(hikingTrail);
-            
-        //}
-
         // GET: Parks
         public async Task<ActionResult> Index()
         {
+            ParkFilterViewModel parkFilter = new ParkFilterViewModel();
             await GetApiKey(); // Needed to use API key, to populate the US map
             await RunBasicParkJson();
-            var parks = await db.Parks.ToListAsync();
-            DisplayForm(); // Park Dropdown Filter
-            return View(parks);
+            parkFilter.Parks = await db.Parks.ToListAsync();
+            parkFilter.States = new SelectList(parkFilter.Parks.Select(p => p.ParkState).ToList());
+            return View(parkFilter);
+        }
+
+
+        // Created in order to send the information to a new area
+        [HttpPost]
+        public async Task<ActionResult> Index(ParkFilterViewModel parkFilter)
+        {
+            await GetApiKey(); // Needed to use API key, to populate the US map
+            await RunBasicParkJson();
+            parkFilter.Parks = await db.Parks.Where(p => p.ParkState == parkFilter.SelectedState).ToListAsync();
+            parkFilter.States = new SelectList(parkFilter.Parks.Select(p => p.ParkState).Distinct().ToList());
+            return View(parkFilter);
         }
 
 
@@ -172,6 +177,17 @@ namespace NationalParksHiking.Controllers
             db.SaveChanges();
             return RedirectToAction("Details", "Hikers", new { id = hiker.HikerId } );
         }
+
+        //---------------- State Dropdown Filtering --------------------
+
+        //public JsonResult GetState() //function to return all options in the StateList datatable
+        //{
+        //    using (StatesList stateTable = new StatesList())
+        //    {
+        //        var stateFromDatabase = new SelectList(stateTable.StatesList.ToList(), "StateId", "StateName");
+        //        ViewData["DBStatesList"] = stateFromDatabase;
+        //    }
+        //}
 
         // ------------------ Get Lat Long -----------------------------
         public async Task GetLatLong(Park park)
