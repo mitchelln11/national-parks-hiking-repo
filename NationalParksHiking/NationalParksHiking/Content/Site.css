@@ -37,10 +37,10 @@ select {
 }
 /* Custom Styles  */
 .navbar {
-    background: #4A360E;
+    background: #6a5d43;
 }
 .jumbotron {
-    background: #A6843E;
+    background: #907f5d;
     margin-bottom: 0;
     padding: 15px;
 }
@@ -50,18 +50,18 @@ select {
 }
 
     .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:active:focus, .btn-primary:active:hover {
-        background: #4A360E;
+        background: #6a5d43;
     }
 
 .grid-container {
     display: grid;
 }
 th {
-    background-color: #A6843E;
+    background-color: #907f5d;
 }
 .header-container {
     padding: 15px;
-    background-color: #A6843E;
+    background-color: #907f5d;
 }
 
 .trail-list .trail-box {
@@ -72,7 +72,7 @@ th {
     background: white;
 }
 .trail-list .trail-box:nth-child(odd) {
-    background: #A6843E;
+    background: #907f5d;
 }
 #map {
     height: 50vh;
