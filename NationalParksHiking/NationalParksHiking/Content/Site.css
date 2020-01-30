@@ -48,8 +48,13 @@ select {
     background: #A28D64;
     border-color: #4C3811;
 }
+
+    .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:active:focus, .btn-primary:active:hover {
+        background: #4A360E;
+    }
+
 .grid-container {
-    display:grid;
+    display: grid;
 }
 th {
     background-color: grey;

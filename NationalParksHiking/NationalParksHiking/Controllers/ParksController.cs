@@ -19,6 +19,17 @@ namespace NationalParksHiking.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        // Attempt to separate multiple state parks
+        //public async ActionResult AddParkToWishList()
+        //{
+        //    ParkFilterViewModel parkFilter = new ParkFilterViewModel();
+        //    List<TempStateList> tempStateList = new List<TempStateList>();
+        //    parkFilter.Parks = await db.Parks.ToListAsync();
+        //    var test = parkFilter.Parks.Select(p => p.ParkState).ToList();
+        //    return View(test);
+        //}
+
+
         // GET: Parks
         public async Task<ActionResult> Index()
         {
@@ -26,8 +37,33 @@ namespace NationalParksHiking.Controllers
             await GetApiKey(); // Needed to use API key, to populate the US map
             await RunBasicParkJson();
             parkFilter.Parks = await db.Parks.ToListAsync();
-            parkFilter.States = new SelectList(parkFilter.Parks.Select(p => p.ParkState).Distinct().ToList());
-            // parkFilter.StateList = new SelectList(parkFilter.StateList.Select(p => p.StateName).ToList());
+
+
+            var fullList = parkFilter.Parks.ToList(); // All parks to reference against
+            
+            // Find Parks in multiple states based on comma
+            List<string> tempStateList = new List<string>(); // Temporary holding list for multiple state parks
+            foreach (var singleState in fullList)
+            {
+                if (singleState.ParkState.Contains(","))
+                {
+                    tempStateList.Add(singleState.ParkState);
+                }
+            }
+
+            // Use list of multi-state parks from above ^^, and add each index
+            List<string> multiStateCollection = new List<string>();
+            for (var i = 0; i < tempStateList.Count; i++)
+            {
+                string[] stringArray = tempStateList[i].Split(','); // must use ',' (single quote) instead of "," because Split paremeters are always char
+                foreach(var stateArray in stringArray)
+                {
+                    multiStateCollection.Add(stateArray);
+                }
+            }
+
+            parkFilter.States = new SelectList(parkFilter.Parks.Select(p => p.ParkState).ToList());
+            //parkFilter.StateList = new SelectList(parkFilter.StateList.Select(p => p.StateName).ToList());
             return View(parkFilter);
         }
 
@@ -177,17 +213,6 @@ namespace NationalParksHiking.Controllers
             db.SaveChanges();
             return RedirectToAction("Details", "Hikers", new { id = hiker.HikerId } );
         }
-
-        //---------------- State Dropdown Filtering --------------------
-
-        //public JsonResult GetState() //function to return all options in the StateList datatable
-        //{
-        //    using (StatesList stateTable = new StatesList())
-        //    {
-        //        var stateFromDatabase = new SelectList(stateTable.StatesList.ToList(), "StateId", "StateName");
-        //        ViewData["DBStatesList"] = stateFromDatabase;
-        //    }
-        //}
 
         // ------------------ Get Lat Long -----------------------------
         public async Task GetLatLong(Park park)

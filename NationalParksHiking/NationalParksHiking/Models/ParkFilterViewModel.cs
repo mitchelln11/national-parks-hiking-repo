@@ -14,9 +14,9 @@ namespace NationalParksHiking.Models
         [Display(Name="Select State")]
         public string SelectedState { get; set; }
 
-        public SelectList States { get; set; }
+        public SelectList States { get; set; } // SelectList is unique to make a dropdown, not the name of the object
 
 
-        public List<StatesList> StateList { get; set; }
+        public SelectList StateList { get; set; }
     }
 }
