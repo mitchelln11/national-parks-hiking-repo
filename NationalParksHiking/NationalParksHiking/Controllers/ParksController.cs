@@ -62,7 +62,27 @@ namespace NationalParksHiking.Controllers
                 }
             }
 
-            parkFilter.States = new SelectList(parkFilter.Parks.Select(p => p.ParkState).ToList());
+            // Final List
+            List<string> finalStateList = new List<string>();
+            List<string> currentStates = db.Parks.Select(s => s.ParkState).ToList();
+            // Add multi-state parks to final list
+            foreach (var extraState in multiStateCollection)
+            {
+                finalStateList.Add(extraState);
+            }
+            // Add existing parks to final list if they don't contain a comma
+            foreach(var state in currentStates)
+            {
+                if(!state.Contains(','))
+                {
+                    finalStateList.Add(state);
+                }
+            }
+
+            parkFilter.States = new SelectList(finalStateList.Select(p => p).Distinct().ToList());
+
+
+            // parkFilter.States.Add(multiStateCollection);
             //parkFilter.StateList = new SelectList(parkFilter.StateList.Select(p => p.StateName).ToList());
             return View(parkFilter);
         }
