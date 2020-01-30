@@ -26,7 +26,8 @@ namespace NationalParksHiking.Controllers
             await GetApiKey(); // Needed to use API key, to populate the US map
             await RunBasicParkJson();
             parkFilter.Parks = await db.Parks.ToListAsync();
-            parkFilter.States = new SelectList(parkFilter.Parks.Select(p => p.ParkState).ToList());
+            parkFilter.States = new SelectList(parkFilter.Parks.Select(p => p.ParkState).Distinct().ToList());
+            // parkFilter.StateList = new SelectList(parkFilter.StateList.Select(p => p.StateName).ToList());
             return View(parkFilter);
         }
 
@@ -38,7 +39,7 @@ namespace NationalParksHiking.Controllers
             await GetApiKey(); // Needed to use API key, to populate the US map
             await RunBasicParkJson();
             parkFilter.Parks = await db.Parks.Where(p => p.ParkState == parkFilter.SelectedState).ToListAsync(); // Matching Park database park name with filter's Selection
-            parkFilter.States = new SelectList(parkFilter.Parks.Select(p => p.ParkState).Distinct().ToList()); // Get IEnum error if the this isn't here. Adds list back to page
+            parkFilter.States = new SelectList(parkFilter.Parks.Select(p => p.ParkState).ToList()); // Get IEnum error if the this isn't here. Adds list back to page
             return View(parkFilter);
         }
 

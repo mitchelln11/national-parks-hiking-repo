@@ -188,21 +188,22 @@
     <Compile Include="Migrations\202001142032311_AddStateListToModels.Designer.cs">
       <DependentUpon>202001142032311_AddStateListToModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001301900429_StatesListAddToFilterViewModel.cs" />
+    <Compile Include="Migrations\202001301900429_StatesListAddToFilterViewModel.Designer.cs">
+      <DependentUpon>202001301900429_StatesListAddToFilterViewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Hiker.cs" />
     <Compile Include="Models\HikerJsonInfo.cs" />
-    <Compile Include="Models\HikerParkViewModel.cs" />
     <Compile Include="Models\HikerParkWishlist.cs" />
     <Compile Include="Models\HikerTrailRating.cs" />
     <Compile Include="Models\HikingTrailJsonInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\keyAttribute.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NpsParksJsonInfo.cs" />
     <Compile Include="Models\Park.cs" />
     <Compile Include="Models\ParkFilterViewModel.cs" />
-    <Compile Include="Models\ParkStateViewModel.cs" />
     <Compile Include="Models\HikingTrail.cs" />
     <Compile Include="Models\StatesList.cs" />
     <Compile Include="Models\WeatherJsonInfo.cs" />
@@ -310,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001142032311_AddStateListToModels.resx">
       <DependentUpon>202001142032311_AddStateListToModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001301900429_StatesListAddToFilterViewModel.resx">
+      <DependentUpon>202001301900429_StatesListAddToFilterViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

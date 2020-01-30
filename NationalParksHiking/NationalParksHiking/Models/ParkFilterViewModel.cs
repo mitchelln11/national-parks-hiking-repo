@@ -15,5 +15,8 @@ namespace NationalParksHiking.Models
         public string SelectedState { get; set; }
 
         public SelectList States { get; set; }
+
+
+        public List<StatesList> StateList { get; set; }
     }
 }

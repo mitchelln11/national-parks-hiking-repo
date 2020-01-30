@@ -41,7 +41,8 @@ select {
 }
 .jumbotron {
     background: #A6843E;
-    margin-bottom:0;
+    margin-bottom: 0;
+    padding: 15px;
 }
 .btn-primary {
     background: #A28D64;
