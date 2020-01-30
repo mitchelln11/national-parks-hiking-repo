@@ -38,7 +38,6 @@ namespace NationalParksHiking.Controllers
             await RunBasicParkJson();
             parkFilter.Parks = await db.Parks.ToListAsync();
 
-
             var fullList = parkFilter.Parks.ToList(); // All parks to reference against
             
             // Find Parks in multiple states based on comma
@@ -79,18 +78,14 @@ namespace NationalParksHiking.Controllers
                 }
             }
 
-            parkFilter.States = new SelectList(finalStateList.Select(p => p).Distinct().ToList());
-
-
-            // parkFilter.States.Add(multiStateCollection);
-            //parkFilter.StateList = new SelectList(parkFilter.StateList.Select(p => p.StateName).ToList());
+            parkFilter.States = new SelectList(finalStateList.Select(p => p).Distinct().OrderBy(s => s).ToList());
             return View(parkFilter);
         }
 
 
         // Created in order to send the information to a new area, redirecting back to the index, but with new information
         [HttpPost]
-        public async Task<ActionResult> Index(ParkFilterViewModel parkFilter) // Passing in parkFilter Objects from above method.
+        public async Task<ActionResult> Index(ParkFilterViewModel parkFilter, List<string> finalStateList) // Passing in parkFilter Objects from above method.
         {
             await GetApiKey(); // Needed to use API key, to populate the US map
             await RunBasicParkJson();

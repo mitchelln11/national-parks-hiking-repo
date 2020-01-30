@@ -57,11 +57,11 @@ select {
     display: grid;
 }
 th {
-    background-color: grey;
+    background-color: #A6843E;
 }
 .header-container {
     padding: 15px;
-    background-color: grey;
+    background-color: #A6843E;
 }
 
 .trail-list .trail-box {
@@ -72,7 +72,7 @@ th {
     background: white;
 }
 .trail-list .trail-box:nth-child(odd) {
-    background: grey;
+    background: #A6843E;
 }
 #map {
     height: 50vh;
@@ -84,7 +84,7 @@ th {
 .park-header h2 {
     margin: 0;
     padding: 15px;
-    background-color: #dbd8d8;
+    background-color: #b9a67f;
     box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.7) inset;
 }
 
