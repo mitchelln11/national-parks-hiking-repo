@@ -9,14 +9,11 @@ namespace NationalParksHiking.Models
 {
     public class ParkFilterViewModel
     {
-        public List<Park> Parks { get; set; }
+        public List<Park> Parks { get; set; } // Access to match against parks in the park table
 
         [Display(Name="Select State")]
-        public string SelectedState { get; set; }
+        public string SelectedState { get; set; } // To hold the value of the selected dropdown state
 
         public SelectList States { get; set; } // SelectList is unique to make a dropdown, not the name of the object
-
-
-        public SelectList StateList { get; set; }
     }
 }

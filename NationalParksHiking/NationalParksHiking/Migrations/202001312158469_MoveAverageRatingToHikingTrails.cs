@@ -1,0 +1,18 @@
+namespace NationalParksHiking.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class MoveAverageRatingToHikingTrails : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.HikingTrails", "AverageUserRating", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.HikingTrails", "AverageUserRating");
+        }
+    }
+}

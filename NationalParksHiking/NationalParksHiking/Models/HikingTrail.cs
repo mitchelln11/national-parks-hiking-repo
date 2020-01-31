@@ -31,11 +31,14 @@ namespace NationalParksHiking.Models
 
         public string HikingApiCode { get; set; }
 
+        [Display(Name = "Average Rating")]
+        public decimal AverageUserRating { get; set; }
+
         [ForeignKey("Park")]
         public int ParkId { get; set; }
         public Park Park { get; set; }
 
-        [NotMapped]
-        public HikerTrailRating HikerTrailRating { get; set; } // To use on models
+        //[NotMapped]
+        //public HikerTrailRating HikerTrailRating { get; set; } // To use on models
     }
 }

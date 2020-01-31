@@ -339,8 +339,8 @@ namespace NationalParksHiking.Controllers
 
         public async Task GetAverageTrailRating()
         {
-            var user = User.Identity.GetUserId();
-            List<HikerTrailRating> AllRatings = db.HikerTrailRatings.ToList(); // Will add average to all 
+            //var user = User.Identity.GetUserId();
+            List<HikerTrailRating> AllRatings = db.HikerTrailRatings.ToList(); // Get Full list of trails
             var ReviewCount = AllRatings.Count;
 
             List<int> RatingInts = new List<int>();
