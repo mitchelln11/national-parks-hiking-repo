@@ -200,6 +200,26 @@
     <Compile Include="Migrations\202001312158469_MoveAverageRatingToHikingTrails.Designer.cs">
       <DependentUpon>202001312158469_MoveAverageRatingToHikingTrails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001312316380_UpdatesToDatabaseApparently.cs" />
+    <Compile Include="Migrations\202001312316380_UpdatesToDatabaseApparently.Designer.cs">
+      <DependentUpon>202001312316380_UpdatesToDatabaseApparently.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002031620346_StarRatingTableAdded.cs" />
+    <Compile Include="Migrations\202002031620346_StarRatingTableAdded.Designer.cs">
+      <DependentUpon>202002031620346_StarRatingTableAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002031643303_AddedStarRatingsToParksModel.cs" />
+    <Compile Include="Migrations\202002031643303_AddedStarRatingsToParksModel.Designer.cs">
+      <DependentUpon>202002031643303_AddedStarRatingsToParksModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002031742054_AddedRatingsAsListToViewModel.cs" />
+    <Compile Include="Migrations\202002031742054_AddedRatingsAsListToViewModel.Designer.cs">
+      <DependentUpon>202002031742054_AddedRatingsAsListToViewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002031911229_AddedParkToParkTrailRatingViewModel.cs" />
+    <Compile Include="Migrations\202002031911229_AddedParkToParkTrailRatingViewModel.Designer.cs">
+      <DependentUpon>202002031911229_AddedParkToParkTrailRatingViewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Hiker.cs" />
@@ -213,6 +233,8 @@
     <Compile Include="Models\Park.cs" />
     <Compile Include="Models\ParkFilterViewModel.cs" />
     <Compile Include="Models\HikingTrail.cs" />
+    <Compile Include="Models\ParkTrailRatingViewModel.cs" />
+    <Compile Include="Models\StarRating.cs" />
     <Compile Include="Models\WeatherJsonInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -327,6 +349,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001312158469_MoveAverageRatingToHikingTrails.resx">
       <DependentUpon>202001312158469_MoveAverageRatingToHikingTrails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001312316380_UpdatesToDatabaseApparently.resx">
+      <DependentUpon>202001312316380_UpdatesToDatabaseApparently.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002031620346_StarRatingTableAdded.resx">
+      <DependentUpon>202002031620346_StarRatingTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002031643303_AddedStarRatingsToParksModel.resx">
+      <DependentUpon>202002031643303_AddedStarRatingsToParksModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002031742054_AddedRatingsAsListToViewModel.resx">
+      <DependentUpon>202002031742054_AddedRatingsAsListToViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002031911229_AddedParkToParkTrailRatingViewModel.resx">
+      <DependentUpon>202002031911229_AddedParkToParkTrailRatingViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

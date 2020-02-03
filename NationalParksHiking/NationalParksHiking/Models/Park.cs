@@ -56,6 +56,9 @@ namespace NationalParksHiking.Models
         public HikerParkWishlist HikerParkWishlist { get; set; } // To Use on Park info from Junction table 
 
         [NotMapped]
+        public SelectList StarRatings { get; set; }
+
+        [NotMapped]
         public Hiker Hiker { get; set; } // Used in the Parks Wishlist redirectAction
     }
 

@@ -1,26 +1,26 @@
-﻿@model NationalParksHiking.Models.Park
+﻿@model NationalParksHiking.Models.ParkTrailRatingViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
 <div class="header-container">
-    <h1>@Html.DisplayFor(model => model.ParkName)</h1>
+    <h1>@Html.DisplayFor(model => model.Park.ParkName)</h1>
     <div class="weather-info">
         <h2>Current Weather</h2>
-        <span>@Model.CurrentWeatherInfo.temperature &deg;F | </span>
-        <span>@Model.CurrentWeatherInfo.condition | </span>
-        <span>Wind: @Model.CurrentWeatherInfo.wind mph</span>
+        <span>@Model.Park.CurrentWeatherInfo.temperature &deg;F | </span>
+        <span>@Model.Park.CurrentWeatherInfo.condition | </span>
+        <span>Wind: @Model.Park.CurrentWeatherInfo.wind mph</span>
     </div>
 </div>
 
     <div class="flex-container">
         <div class="flex-box">
             <div class="content-box">
-                @Html.ActionLink("Add Park to Wish List", "AddParkToWishList", new { @id = Model.ParkId }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Add Park to Wish List", "AddParkToWishList", new { @id = Model.Park.ParkId }, new { @class = "btn btn-default" })
 
-                <h3>Located in: @Html.DisplayFor(model => model.ParkState)</h3>
-                <p>@Html.DisplayFor(model => model.ParkDescription)</p>
+                <h3>Located in: @Html.DisplayFor(model => model.Park.ParkState)</h3>
+                <p>@Html.DisplayFor(model => model.Park.ParkDescription)</p>
             </div>
         </div>
         <div class="flex-box solo-park-map">
@@ -30,11 +30,11 @@
     </div>
 
     <div class="park-header">
-        <h2>Trails available at <em>@Html.DisplayFor(model => model.ParkName)</em></h2>
+        <h2>Trails available at <em>@Html.DisplayFor(model => model.Park.ParkName)</em></h2>
     </div>
 
     <div class="trail-list">
-        @foreach (var item in Model.Trails)
+        @foreach (var item in Model.Park.Trails)
         {
         <div class="trail-box">
             <div class="col-md-6">
@@ -53,15 +53,34 @@
             </div>
             <div class="col-md-2">
                 <p><strong>Review This Trail:</strong></p>
-                
+                @using (Html.BeginForm())
+                {
+                    <div class="flex-container">
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="flex-container">
+                                        <div class="state-filter-box">
+                                            @Html.DropDownListFor(model => model.SelectedRating, Model.StarRating, "Please Rate Trail")
+                                        </div>
+                                        <div class="state-filter-box">
+                                            <input type="submit" value="Rate" class="btn btn-default" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
         }
     </div>    
 
     <div class="container-fluid body-content">
-        @Html.HiddenFor(model => model.ParkLat)
-        @Html.HiddenFor(model => model.ParkLng)
+        @Html.HiddenFor(model => model.Park.ParkLat)
+        @Html.HiddenFor(model => model.Park.ParkLng)
+        @Html.HiddenFor(model => model.Park.ParkId)
 
         <p>
             @Html.ActionLink("Back to Parks", "Index", "Parks")
