@@ -14,5 +14,7 @@ namespace NationalParksHiking.Models
 
         //====  Connecting for View Purposes ===
         public Park Park { get; set; }
+
+        public HikingTrail HikingTrail { get; set; }
     }
 }

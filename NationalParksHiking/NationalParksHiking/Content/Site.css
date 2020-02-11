@@ -100,8 +100,8 @@ th {
         justify-content: space-between;
     }
 
-    #home-page .grid-container img {
-
+    tr:hover {
+        background-color: #fdf7ea;
     }
 
     .solo-park-map #map {

@@ -19,6 +19,22 @@ namespace NationalParksHiking.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public int CheckUserID()
+        {
+            var user = User.Identity.GetUserId();
+            if (user != null)
+            {
+                Hiker hiker = db.Hikers.Where(h => h.ApplicationId == user).FirstOrDefault(); // Find correct, logged in user
+                int hikerNum = hiker.HikerId;
+                return hikerNum;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+
         // GET: Parks
         public async Task<ActionResult> Index()
         {
@@ -126,10 +142,31 @@ namespace NationalParksHiking.Controllers
             {
                 return HttpNotFound();
             }
+
+            // ====== Adding New Rating to trails =====================
+            HikerTrailRating hikerTrailRating = new HikerTrailRating(); // new HikerTrailRating rating
+
+            // --- Find person logged in -------------
+            //CheckLoggedInUser();
+            int hikerNum = CheckUserID(); // Setting variable from returned value
+            hikerTrailRating.HikerId = hikerNum; // Add hiker's ID to Junction Table rating
+
+            // -- HOW DO I PASS TRAIL ID THROUGH ON SELECTION? ----------------
+            //List<HikingTrail> hikingTrail = await db.HikerTrailRatings.FindAsync(ratingFilter.HikingTrail).Where(t => t.);
+            HikingTrail HikingTrail = await db.HikingTrails.FindAsync();
+            HikingTrail hikingTrail = db.HikingTrails.Where(t => t.TrailId == id).FirstOrDefault(); // TAKING FIRST TRAIL ALWAYS // List of trails that match only to the current park
+            hikerTrailRating.TrailId = hikingTrail.TrailId;
+
             // Figure out a way to add Rating to Junction Table
+            // Find Hiker's selected rating
+
             ratingFilter.StarRatings = await db.StarRatings.Where(p => p.IndividualStarRating == ratingFilter.SelectedRating).ToListAsync(); // Matching Park database park name with filter's Selection
             ratingFilter.StarRating = new SelectList(ratingFilter.StarRatings.Select(p => p.IndividualStarRating).ToList());
-            var test = ratingFilter.SelectedRating;
+            var hikerSelectedRating = ratingFilter.SelectedRating;
+            hikerTrailRating.IndividualRating = hikerSelectedRating; // Add rating to Junction Table Rating
+
+            db.HikerTrailRatings.Add(hikerTrailRating); // Save results to database
+            db.SaveChanges();
             return View(park);
         }
 
@@ -227,10 +264,9 @@ namespace NationalParksHiking.Controllers
 
         public ActionResult AddParkToWishList(int? id) // why does it have to be id rather than parkId?
         {
-            var user = User.Identity.GetUserId(); // Get Application user to match against all Hiker records
+            int hikerNum = CheckUserID();
             HikerParkWishlist hikerParkWishlist = new HikerParkWishlist(); // Instantiate new wish list item
-            Hiker hiker = db.Hikers.Where(h => h.ApplicationId == user).FirstOrDefault(); // Find correct, logged in user
-            hikerParkWishlist.HikerId = hiker.HikerId; // Add HikerId to database
+            hikerParkWishlist.HikerId = hikerNum; // Add HikerId to database
             // Add ParkId to database
             int convertedParkId = Convert.ToInt32(id);  // Convert passed park Id to acceptable int format
             hikerParkWishlist.ParkId = convertedParkId; // Add to database
@@ -239,15 +275,13 @@ namespace NationalParksHiking.Controllers
             hikerParkWishlist.ParkName = parkWishName.ParkName;
             db.HikerParkWishlists.Add(hikerParkWishlist);
             db.SaveChanges();
-            return RedirectToAction("Details", "Hikers", new { id = hiker.HikerId } );
+            return RedirectToAction("Details", "Hikers", new { id = hikerNum } );
         }
 
         // ------------------ Get Lat Long -----------------------------
         public async Task GetLatLong(Park park)
         {
             var comboLatLong = park.ComboParkLatLng;
-
-            // NOT AN INSTANCE ERROR BECAUSE SOME LATLNGS ARE EMPTY OR NULL. FIGURE OUT WHISH ONES ARE ERRORING OUT
             var latLongArray = comboLatLong.Split().ToArray(); // Splits based on comma, set to an array
             string isolatedLatitude = latLongArray[0].TrimEnd(','); // New lat variable for the 0 index, trim trailing comma
             string isolatedLongtitude = latLongArray[1].TrimEnd(','); // New lng variable for the 1 index trim trailing comma
@@ -285,7 +319,7 @@ namespace NationalParksHiking.Controllers
         public async Task RunBasicParkJson()
         {
             string parkKey = ApiKeys.NpsKey;
-            int apiLimit = 150;
+            int apiLimit = 91;
             string url = $"https://developer.nps.gov/api/v1/parks?q=National%20Park&limit={apiLimit}&api_key={parkKey}";
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(url);
@@ -565,11 +599,8 @@ namespace NationalParksHiking.Controllers
             if (response.IsSuccessStatusCode)
             {
                 HikingTrailJsonInfo hikingTrailJsonInfo = JsonConvert.DeserializeObject<HikingTrailJsonInfo>(jsonresult);
-                //HikingTrail hikingTrail = new HikingTrail(); // Empty value needs to be here to pass parameters to methods.
                 List<Trail> trailInfo = hikingTrailJsonInfo.trails.ToList();
-                //await AddRating();
                 await GetTrailDetails(park, trailInfo);
-                //await GetAverageTrailRating();
                 await db.SaveChangesAsync();
             }
         }

@@ -37,6 +37,7 @@
         @foreach (var item in Model.Park.Trails)
         {
         <div class="trail-box">
+            @Html.HiddenFor(model => model.HikingTrail.TrailId)
             <div class="col-md-6">
                 <h3>@Html.DisplayFor(model => item.TrailName)</h3>
                 <h3>Trail Summary:</h3>
@@ -55,13 +56,14 @@
                 <p><strong>Review This Trail:</strong></p>
                 @using (Html.BeginForm())
                 {
+                    @Html.HiddenFor(model => model.HikingTrail.TrailId);
                     <div class="flex-container">
                         <div class="panel-body">
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <div class="flex-container">
                                         <div class="state-filter-box">
-                                            @Html.DropDownListFor(model => model.SelectedRating, Model.StarRating, "Please Rate Trail")
+                                            @Html.DropDownListFor(model => model.SelectedRating, Model.StarRating, "Please Rate Trail") @* Added , Model.HikingTrail *@
                                         </div>
                                         <div class="state-filter-box">
                                             <input type="submit" value="Rate" class="btn btn-default" />
@@ -80,7 +82,7 @@
     <div class="container-fluid body-content">
         @Html.HiddenFor(model => model.Park.ParkLat)
         @Html.HiddenFor(model => model.Park.ParkLng)
-        @Html.HiddenFor(model => model.Park.ParkId)
+        
 
         <p>
             @Html.ActionLink("Back to Parks", "Index", "Parks")

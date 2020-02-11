@@ -56,12 +56,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Parks[0].ParkState)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Parks[0].ParkLat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Parks[0].ParkLng)
-        </th>
         <th></th>
         @*<th></th>*@
     </tr>
@@ -75,23 +69,21 @@
         parkMarker.ParkLongitude = item.ParkLng;
         //Actually add all three values together into the parkMarker object
         parkMarkers.Add(parkMarker);
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParkName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParkState)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParkLat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParkLng)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.ParkId })
-            </td>
-        </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ParkName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ParkState)
+    </td>
+
+    @Html.HiddenFor(modelItem => item.ParkLat)
+    @Html.HiddenFor(modelItem => item.ParkLng)
+
+    <td>
+        @Html.ActionLink("Details", "Details", new { id = item.ParkId })
+    </td>
+</tr>
     }
 
 </table>
