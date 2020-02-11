@@ -19,22 +19,6 @@ namespace NationalParksHiking.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public int CheckUserID()
-        {
-            var user = User.Identity.GetUserId();
-            if (user != null)
-            {
-                Hiker hiker = db.Hikers.Where(h => h.ApplicationId == user).FirstOrDefault(); // Find correct, logged in user
-                int hikerNum = hiker.HikerId;
-                return hikerNum;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-
         // GET: Parks
         public async Task<ActionResult> Index()
         {
@@ -261,6 +245,18 @@ namespace NationalParksHiking.Controllers
 
 
         //  -------///////------START PARK RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
+        // Find logged in user and return hikerID number, then pass to other methods
+        public int CheckUserID()
+        {
+            int hikerNum = 0;
+            var user = User.Identity.GetUserId();
+            if (user != null)
+            {
+                Hiker hiker = db.Hikers.Where(h => h.ApplicationId == user).FirstOrDefault(); // Find correct, logged in user
+                hikerNum = hiker.HikerId;
+            }
+            return hikerNum;
+        }
 
         public ActionResult AddParkToWishList(int? id) // why does it have to be id rather than parkId?
         {
@@ -293,28 +289,28 @@ namespace NationalParksHiking.Controllers
         }
 
         // ------------------ Get Park Description --------------------
-        public async Task GetParkDescription(Park park, Datum parkInfo)
-        {
-            string parkDescription = parkInfo.description;
-            park.ParkDescription = parkDescription;
-            await db.SaveChangesAsync();
-        }
+        //public async Task GetParkDescription(Park park, Datum parkInfo)
+        //{
+        //    string parkDescription = parkInfo.description;
+        //    park.ParkDescription = parkDescription;
+        //    await db.SaveChangesAsync();
+        //}
 
-        // ------------------ Get Park Name -----------------------------
-        public async Task GetFullParkName(Park park, Datum parkInfo)
-        {
-            string fullParkName = parkInfo.fullName;
-            park.ParkName = fullParkName;
-            await db.SaveChangesAsync();
-        }
+        //// ------------------ Get Park Name -----------------------------
+        //public async Task GetFullParkName(Park park, Datum parkInfo)
+        //{
+        //    string fullParkName = parkInfo.fullName;
+        //    park.ParkName = fullParkName;
+        //    await db.SaveChangesAsync();
+        //}
 
-        // ------------------ Get State ----------------------------------
-        public async Task GetParkState(Park park, Datum parkInfo)
-        {
-            string ParkState = parkInfo.states;
-            park.ParkState = ParkState;
-            await db.SaveChangesAsync();
-        }
+        //// ------------------ Get State ----------------------------------
+        //public async Task GetParkState(Park park, Datum parkInfo)
+        //{
+        //    string ParkState = parkInfo.states;
+        //    park.ParkState = ParkState;
+        //    await db.SaveChangesAsync();
+        //}
 
         public async Task RunBasicParkJson()
         {

@@ -30,9 +30,8 @@ namespace NationalParksHiking.Controllers
         // GET: Hikers/Details/5
         public ActionResult Details(int? id)
         {
-            string userLoggedIn = User.Identity.GetUserId();
-            Hiker personLoggedIn = db.Hikers.Where(u => u.ApplicationId == userLoggedIn).FirstOrDefault();
-            id = personLoggedIn.HikerId; // assigns logged in user id -- works
+            int hikerNum = CheckUserID();
+            id = hikerNum; // assigns logged in user id -- works
 
             // Add items to wishlist
             var hikerParkWishlist = db.HikerParkWishlists.Where(w => w.HikerId == id).ToList(); // Compares logged in user with id on Wishlist junction table -- works - shows correct amount on wishlist
@@ -47,7 +46,7 @@ namespace NationalParksHiking.Controllers
             {
                 return HttpNotFound();
             }
-            @RedirectToRoute("Details", new { id = hiker.HikerId});
+            @RedirectToRoute("Details", new { id = hikerNum });
             return View(hiker); 
         }
 
@@ -143,6 +142,17 @@ namespace NationalParksHiking.Controllers
             base.Dispose(disposing);
         }
 
+        public int CheckUserID()
+        {
+            int hikerNum = 0;
+            var user = User.Identity.GetUserId();
+            if (user != null)
+            {
+                Hiker hiker = db.Hikers.Where(h => h.ApplicationId == user).FirstOrDefault(); // Find correct, logged in user
+                hikerNum = hiker.HikerId;
+            }
+            return hikerNum;
+        }
 
         public async Task GetHikerLatLong(ApiKeys apiKeys, Hiker hiker)
         {
