@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    
 }
 
 <div class="header-container">
@@ -14,31 +15,31 @@
     </div>
 </div>
 
-    <div class="flex-container">
-        <div class="flex-box">
-            <div class="content-box">
-                @Html.ActionLink("Add Park to Wish List", "AddParkToWishList", new { @id = Model.Park.ParkId }, new { @class = "btn btn-default" })
+<div class="flex-container">
+    <div class="flex-box">
+        <div class="content-box">
+            @Html.ActionLink("Add Park to Wish List", "AddParkToWishList", new { @id = Model.Park.ParkId }, new { @class = "btn btn-default" })
 
-                <h3>Located in: @Html.DisplayFor(model => model.Park.ParkState)</h3>
-                <p>@Html.DisplayFor(model => model.Park.ParkDescription)</p>
-            </div>
+            <h3>Located in: @Html.DisplayFor(model => model.Park.ParkState)</h3>
+            <p>@Html.DisplayFor(model => model.Park.ParkDescription)</p>
         </div>
-        <div class="flex-box solo-park-map">
-            <div id="map"></div>
-        </div>
-        <hr />
     </div>
-
-    <div class="park-header">
-        <h2>Trails available at <em>@Html.DisplayFor(model => model.Park.ParkName)</em></h2>
+    <div class="flex-box solo-park-map">
+        <div id="map"></div>
     </div>
+    <hr />
+</div>
 
-    <div class="trail-list">
-        @foreach (var item in Model.Park.Trails)
-        {
+<div class="park-header">
+    <h2>Trails available at <em>@Html.DisplayFor(model => model.Park.ParkName)</em></h2>
+</div>
+<div class="trail-list">
+    @foreach (var item in Model.Park.Trails)
+    {
         <div class="trail-box">
-            @Html.HiddenFor(model => model.HikingTrail.TrailId)
+            
             <div class="col-md-6">
+                @Html.DisplayFor(model => item.TrailId)
                 <h3>@Html.DisplayFor(model => item.TrailName)</h3>
                 <h3>Trail Summary:</h3>
                 <p>@Html.DisplayFor(model => item.TrailSummary)</p>
@@ -56,7 +57,8 @@
                 <p><strong>Review This Trail:</strong></p>
                 @using (Html.BeginForm())
                 {
-                    @Html.HiddenFor(model => model.HikingTrail.TrailId);
+                    var userId = TempData["UserId"]?.ToString();
+                    TempData.Keep();
                     <div class="flex-container">
                         <div class="panel-body">
                             <div class="form-horizontal">
@@ -66,6 +68,8 @@
                                             @Html.DropDownListFor(model => model.SelectedRating, Model.StarRating, "Please Rate Trail") @* Added , Model.HikingTrail *@
                                         </div>
                                         <div class="state-filter-box">
+                                            @Html.DisplayFor(model => item.TrailId)
+                                            <h3>User Id : @userId</h3>
                                             <input type="submit" value="Rate" class="btn btn-default" />
                                         </div>
                                     </div>
@@ -76,19 +80,19 @@
                 }
             </div>
         </div>
-        }
-    </div>    
+    }
+</div>
 
-    <div class="container-fluid body-content">
-        @Html.HiddenFor(model => model.Park.ParkLat)
-        @Html.HiddenFor(model => model.Park.ParkLng)
-        
+<div class="container-fluid body-content">
+    @Html.HiddenFor(model => model.Park.ParkLat)
+    @Html.HiddenFor(model => model.Park.ParkLng)
 
-        <p>
-            @Html.ActionLink("Back to Parks", "Index", "Parks")
-        </p>
-    </div>
-    <script>
+
+    <p>
+        @Html.ActionLink("Back to Parks", "Index", "Parks")
+    </p>
+</div>
+<script>
     var map;
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -100,5 +104,5 @@
             map: map
         });
     }
-    </script>
-    <script src=@ViewBag.APIKey async defer type="text/javascript"></script>
+</script>
+<script src=@ViewBag.APIKey async defer type="text/javascript"></script>

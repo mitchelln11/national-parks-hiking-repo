@@ -1,0 +1,71 @@
+﻿@model IEnumerable<NationalParksHiking.Models.Park>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkLat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkLng)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkCode)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkLat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkLng)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkCode)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ParkId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ParkId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ParkId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

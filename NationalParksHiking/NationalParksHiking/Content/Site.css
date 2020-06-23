@@ -4,11 +4,6 @@
     padding: 0;
 }
 
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding: 15px;
@@ -41,11 +36,29 @@ select {
 /* Custom Styles  */
 .navbar {
     background: #6a5d43;
+    padding:0;
+}
+.navbar-nav li a {
+    color:#fff;
+}
+.navbar-dark {
+    background-color: #544b36;
+    padding: 10px;
+}
+a.btn.btn-default {
+    background: #544b36;
+}
+.navbar-dark li.nav-item, li.nav-item {
+    padding: 0 10px;
+}
+#logoutForm .navbar-dark li.nav-item {
+    padding: 0 10px;
 }
 .jumbotron {
     background: #907f5d;
     margin-bottom: 0;
     padding: 15px;
+    border-radius: 0;
 }
 .btn-primary {
     background: #A28D64;
@@ -93,6 +106,9 @@ th {
 
 
 @media screen and (min-width:768px) {
+    nav > .container-fluid {
+        padding-right:0;
+    }
     .header-container {
         display: flex;
         flex-direction: column;

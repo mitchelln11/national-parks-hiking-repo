@@ -1,0 +1,74 @@
+﻿@model NationalParksHiking.Models.Park
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Park</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ParkName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ParkName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ParkState)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ParkState)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ParkLat)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ParkLat)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ParkLng)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ParkLng)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ParkDescription)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ParkDescription)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ParkCode)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ParkCode)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ParkId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

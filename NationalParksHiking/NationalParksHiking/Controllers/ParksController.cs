@@ -91,6 +91,8 @@ namespace NationalParksHiking.Controllers
             await GetApiKey();
             await GetParkMarker(id);
             await TrailRatings();
+            First();
+            //Second();
 
             ParkTrailRatingViewModel ratingFilter = new ParkTrailRatingViewModel();
             ratingFilter.StarRatings = await db.StarRatings.ToListAsync();
@@ -112,7 +114,6 @@ namespace NationalParksHiking.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Park park = await db.Parks.FindAsync(id);
-            // ParkTrailRatingViewModel ratingFilter = await db.StarRatings.ToList();
             park.CurrentWeatherInfo = new CurrentWeatherInfo(); // Instantiate blank spot for data to bind to
             park.CurrentWeatherInfo.temperature = 876; // Doesn't matter what's here, will overwrite anyway
             park.Trails = db.HikingTrails.Where(i => i.ParkId == id).ToList();
@@ -122,6 +123,8 @@ namespace NationalParksHiking.Controllers
             await GetApiKey();
             await GetParkMarker(id);
             await TrailRatings();
+            First();
+            //Second();
             if (park == null)
             {
                 return HttpNotFound();
@@ -381,6 +384,23 @@ namespace NationalParksHiking.Controllers
         //  -------///////------START TRAIL RELATED METHODS-----------\\\\\\\\\\\\\\\\\\\---------------
         // ------------------ Get Trail Ratings --------------------
 
+        public ActionResult First()
+        {
+            List<int> trailIdRatings = new List<int>(); // New, empty list of trail IDs
+            List<HikingTrail> hikingTrails = db.HikingTrails.ToList(); // All Trail ratings
+            foreach (var trailIdentifier in hikingTrails)
+            {
+                TempData["UserId"] = trailIdentifier.TrailId;
+            }
+            return View();
+        }
+        //public ActionResult Second()
+        //{
+        //    var userId = TempData["UserId"] ?? null;
+        //    return View();
+        //}
+
+
         public async Task TrailRatings()
         {
             // ----------- Find TrailIDs in Trails table -------------------------------------------
@@ -422,106 +442,6 @@ namespace NationalParksHiking.Controllers
 
 
 
-            await db.SaveChangesAsync();
-        }
-
-        public decimal GetTotalTrailRatings()
-        {
-            
-            //List<HikingTrail> hikingTrails 
-            // ======= WHY CAN'T I USE A STATIC METHOD WHEN CALLING DB. ??? == I THINK I NEED TO RETURN A VALUE TO USE IN ANOTHER METHOD
-            List<HikerTrailRating> trailRatings = db.HikerTrailRatings.ToList(); // Async not needed to call to the database
-            List<decimal> rating = new List<decimal>(); // new, empty list
-            foreach (var ratedTrail in trailRatings)
-            {
-                rating.Add(ratedTrail.IndividualRating);
-            }
-            int totalRatings = rating.Count;
-            decimal avgRatings = rating.Sum();
-            decimal totalAvg = avgRatings / totalRatings;
-
-            //var test = db.HikingTrails()
-            //db.HikingTrails.Add(totalAvg);
-            /// ======= STOPPED HERE, HOW DO I PASS INFO TO ANOTHER METHOD??? =============
-            //return totalAvg;
-            return totalAvg;
-            //db.SaveChangesAsync();
-
-            // Can't use return with async
-            // Can't use yield return with async
-            // Can't look into db, unless the Task is Async
-        }
-
-
-        public async Task GetAverageTrailRating()
-        {
-            // 1. Get Trail ID
-            // 2. Match Trail IDs from HIkingTrails database
-            //decimal totalAvg;
-            //var user = User.Identity.GetUserId();
-            // List<HikerTrailRating> HikingTrailJunction = db.HikerTrailRatings.ToList(); // Get Full list of junction table trails
-            //var HikingTrailsRatings = db.HikingTrails.ToList(); // Get full list of trails
-            // == Figure out how to pass variable in to this method
-            List<HikingTrail> hikingTrails = db.HikingTrails.ToList(); // Get all trails
-            List<HikerTrailRating> trailRatings = db.HikerTrailRatings.ToList(); // Get all Rated trails
-            //var test = totalAvg;
-            var trailIdentifier = hikingTrails.Select(t => t.TrailId).ToList(); // Select Id from all trails to match against
-
-            //var trailRate;
-            //foreach (var ratedTrail in trailRatings)
-            //{
-            //    var trailRate = ratedTrail.IndividualRating;
-            //}
-
-            // ======= GETTING RATINGS FROMS THE TRAIL RATINGS JUNCTION TABLE, THEN CREATE AN AVERAGE =====================
-            List<decimal> rating = new List<decimal>(); // new, empty list
-            foreach (var ratedTrail in trailRatings)
-            {
-                rating.Add(ratedTrail.IndividualRating);
-            }
-            int totalRatings = rating.Count;
-            decimal avgRatings = rating.Sum();
-            decimal totalAvg = avgRatings / totalRatings;
-
-            //foreach (var rating in hikingTrails) // Loop through each trail
-            //{
-            //    //var trailIdentifier = rating.TrailId; // Isolate trail ID
-            //    var avgRating = rating.AverageUserRating;
-            //    // var indRating = trailRatings.
-            //    // var trailRating = db.HikerTrailRatings.Where(r => r.TrailId == trailIdentifier); // Match Trail Id with current Trail
-            //    // var trailRatingQuant = trailRating.Count();
-            //    // var trailRatingQual = trail
-
-            //}
-            //var trailRating = db.HikerTrailRatings.Select(r => r.TrailId).ToList(); // Isolate trails by ID from Junction Table
-            //
-            //var trailRatingQual = trailRating.Sum(); // Get sum of ratings
-
-            //decimal averageRating = trailRatingQual / trailRatingQuant;
-
-            //List<decimal> avgRatings = db.HikingTrails.Where(t => t.TrailId)
-            //    hikingTrails.Add()
-            //avgRatings = db.HikingTrails.Add();
-            //foreach (var rating in trailRating)
-            //{
-            //    var totalRatings = rating.Sum();
-            //}
-
-            ////var totalTrailRating = HikingTrailJunction.Where(r => r.TrailId == TrailId).ToList();
-            //var ReviewCount = AllRatings.Count; // Get number of ratings
-
-            //List<int> RatingInts = new List<int>(); // Instantiating a new, blank list
-            //foreach(HikerTrailRating rating in AllRatings)
-            //{
-            //    int individualRating = rating.IndividualRating;
-            //    RatingInts.Add(individualRating);
-            //}
-            //var RatingsSum = RatingInts.Sum();
-            //var TotalAverageRating = RatingsSum/ReviewCount;
-            //for (var j=0;j<AllRatings.Count;j++)
-            //{
-            //    AllRatings[j].AverageUserRating = TotalAverageRating;
-            //}
             await db.SaveChangesAsync();
         }
 
